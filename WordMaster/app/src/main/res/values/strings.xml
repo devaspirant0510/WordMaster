@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">WordMaster</string>
+    <string name="home">홈</string>
+    <string name="dictionary">단어장</string>
+    <string name="profile">내정보</string>
+    <string name="kakao_login">카카오로그인</string>
+    <string name="google_login">구글로그인</string>
+    <string name="facebook_login">페이스북로그인</string>
+    <string name="id">아이디</string>
+    <string name="pwd">비밀번호</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/navi_item_home"
+        android:title="@string/home"
+        android:icon="@drawable/navi_item_home"/>
+    <item android:id="@+id/navi_item_my_dict"
+        android:title="@string/dictionary"
+        android:icon="@drawable/navi_item_my_dict"/>
+    <item android:id="@+id/navi_item_profile"
+        android:title="@string/profile"/>
+
+
+</menu>
