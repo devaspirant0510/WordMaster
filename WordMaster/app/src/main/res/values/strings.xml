@@ -8,4 +8,8 @@
     <string name="facebook_login">페이스북로그인</string>
     <string name="id">아이디</string>
     <string name="pwd">비밀번호</string>
+    <string name="dict_max_count">max count</string>
+    <string name="title">title</string>
+    <string name="description">description</string>
+    <string name="host">host</string>
 </resources>

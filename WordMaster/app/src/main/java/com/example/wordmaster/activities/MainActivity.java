@@ -28,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
         mb = ActivityMainBinding.inflate(getLayoutInflater());
         View root = mb.getRoot();
         setContentView(root);
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frame,new DictionaryFragment()).commit();
 
         init();
     }
@@ -59,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         Fragment fr = null;
         switch (n){
             case 0:
-                Toast.makeText(getApplicationContext(),"df",Toast.LENGTH_SHORT).show();
                 ft.replace(R.id.frame,new HomeFragment()).commit();
                 break;
             case 1:
