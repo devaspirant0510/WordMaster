@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.wordmaster.R;
+import com.example.wordmaster.callback.BottomSheetCallBack;
 import com.example.wordmaster.databinding.ActivityMainBinding;
 import com.example.wordmaster.define.Define;
 import com.example.wordmaster.fragment.DictionaryFragment;
@@ -21,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding mb;
+    private BottomSheetCallBack bottomSheetCallBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,5 +70,11 @@ public class MainActivity extends AppCompatActivity {
             default:
                 break;
         }
+    }
+    public void BottomSheetCallBack(BottomSheetCallBack callBack){
+        this.bottomSheetCallBack = callBack;
+    }
+    public void sendCreateDictDialog(String title,int count,String description,String hashTag,int groupType){
+        bottomSheetCallBack.createDialogGetData(title,count,description,hashTag,groupType);
     }
 }

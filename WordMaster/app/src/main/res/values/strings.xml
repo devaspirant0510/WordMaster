@@ -12,4 +12,7 @@
     <string name="title">title</string>
     <string name="description">description</string>
     <string name="host">host</string>
+    <string name="create_dict_title">제목</string>
+    <string name="create_dict_title_hint">제목을 입력하세요</string>
+    <string name="kakao_app_key">0uoT6oRzttv4myxiJyEb0BJfRJg=</string>
 </resources>
