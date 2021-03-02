@@ -5,4 +5,8 @@ public class Define {
     public static final int DICTIONARY_FRAGMENT = 1;
     public static final int MY_INFO_FRAGMENT = 2;
 
+    public static final int PUBLIC = 1;
+    public static final int PRIVATE = 2;
+    public static final int ONLY_ME = 3;
+
 }
