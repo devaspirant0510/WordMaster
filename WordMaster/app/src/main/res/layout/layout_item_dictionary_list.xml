@@ -21,13 +21,12 @@
         android:id="@+id/dict_max_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:text="@string/dict_max_count"
         app:layout_constraintBottom_toBottomOf="@+id/dict_host"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.795"
         app:layout_constraintStart_toEndOf="@+id/dict_host"
         app:layout_constraintTop_toTopOf="@+id/dict_host"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/dict_desc"
@@ -39,6 +38,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/dict_open_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/openoption"
+        app:layout_constraintBottom_toBottomOf="@+id/dict_max_count"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.739"
+        app:layout_constraintStart_toEndOf="@+id/dict_max_count"
+        app:layout_constraintTop_toTopOf="@+id/dict_max_count"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/dict_host"
