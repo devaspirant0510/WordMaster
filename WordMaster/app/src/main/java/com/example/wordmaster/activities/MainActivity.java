@@ -7,23 +7,28 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.wordmaster.R;
 import com.example.wordmaster.callback.BottomSheetCallBack;
+import com.example.wordmaster.callback.DictionaryFragmentCallBack;
 import com.example.wordmaster.databinding.ActivityMainBinding;
 import com.example.wordmaster.define.Define;
 import com.example.wordmaster.fragment.DictionaryFragment;
+import com.example.wordmaster.fragment.DictionaryInfoFragment;
 import com.example.wordmaster.fragment.HomeFragment;
 import com.example.wordmaster.fragment.MyInfoFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DictionaryFragment.SendDictData {
     private ActivityMainBinding mb;
     private BottomSheetCallBack bottomSheetCallBack;
-
+    private DictionaryFragmentCallBack dictionaryListCallBack;
+    private static final String TAG = "MainActivity";
+    private String dictTitle,dictOption,dictDescription,dictHost;
+    private int dictCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,27 +59,59 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    Fragment fr = null;
     public void changeFragment(int n){
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Fragment fr = null;
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
         switch (n){
             case 0:
-                ft.replace(R.id.frame,new HomeFragment()).commit();
+                fr = new HomeFragment();
                 break;
             case 1:
-                ft.replace(R.id.frame,new DictionaryFragment()).commit();
+                fr = new DictionaryFragment();
                 break;
             case 2:
-                ft.replace(R.id.frame,new MyInfoFragment()).commit();
+                fr = new MyInfoFragment();
                 break;
+            case 3:
+                fr = new DictionaryInfoFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("Title",dictTitle);
+                bundle.putString("Option",dictOption);
+                bundle.putString("Description",dictDescription);
+                bundle.putString("HashTag",dictHost);
+                bundle.putInt("Count",dictCount);
+                fr.setArguments(bundle);
+
             default:
                 break;
         }
+        ft.replace(R.id.frame,fr);
+        ft.commit();
+
     }
+
     public void BottomSheetCallBack(BottomSheetCallBack callBack){
         this.bottomSheetCallBack = callBack;
     }
-    public void sendCreateDictDialog(String title,int count,String description,String hashTag,int groupType){
-        bottomSheetCallBack.createDialogGetData(title,count,description,hashTag,groupType);
+    public void sendCreateDictDialog(String title,int count,String description,String hashTag,String DictOption){
+        bottomSheetCallBack.createDialogGetData(title,count,description,hashTag,DictOption);
+    }
+    public void setDictionaryListCallBack(DictionaryFragmentCallBack callBack){
+        this.dictionaryListCallBack = callBack;
+    }
+    public void sendInfoData(String title,String option,int count){
+        dictionaryListCallBack.sendInfoData(title,option,count);
+    }
+
+
+    @Override
+    public void sendDictData(String title, String option, String description, String hashTag, int count) {
+
+        dictTitle = title;
+        dictOption = option;
+        dictDescription = description;
+        dictHost = hashTag;
+        dictCount = count;
     }
 }
