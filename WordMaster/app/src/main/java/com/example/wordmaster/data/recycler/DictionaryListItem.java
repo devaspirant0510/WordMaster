@@ -1,4 +1,4 @@
-package com.example.wordmaster.data;
+package com.example.wordmaster.data.recycler;
 
 public class DictionaryListItem {
     String dictionaryTitle;
