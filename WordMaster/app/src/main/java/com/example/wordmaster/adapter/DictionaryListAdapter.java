@@ -11,18 +11,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wordmaster.R;
-import com.example.wordmaster.data.DictionaryListItem;
+import com.example.wordmaster.callback.DictionaryListCallBack;
+import com.example.wordmaster.data.recycler.DictionaryListItem;
 
 import java.util.ArrayList;
 
 public class DictionaryListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public ArrayList<DictionaryListItem> dictList = new ArrayList<>();
     private Context context;
+    private DictionaryListCallBack mListener;
 
     public DictionaryListAdapter(Context context) {
         this.context = context;
     }
 
+    public void setDictionaryListCallBack(DictionaryListCallBack callBack){
+        this.mListener = callBack;
+    }
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,7 +38,7 @@ public class DictionaryListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         }
         else{
-            View view = inflater.inflate(R.layout.dictionary_list_item,parent,false);
+            View view = inflater.inflate(R.layout.layout_item_dictionary_default,parent,false);
             return new DefaultItem(view);
 
         }
@@ -47,7 +52,9 @@ public class DictionaryListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ((DictionaryItemHolder) holder).setItem(dictList.get(position));
         }
     }
-
+    public DictionaryListItem getItem(int pos){
+        return dictList.get(pos);
+    }
     @Override
     public int getItemViewType(int position) {
         return dictList.get(position).getViewType();
@@ -65,6 +72,7 @@ public class DictionaryListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         TextView dictionaryMaxCount;
         TextView dictionaryDescription;
         TextView dictionaryHost;
+        TextView dictionaryOption;
 
         public DictionaryItemHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,12 +81,24 @@ public class DictionaryListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             dictionaryMaxCount = itemView.findViewById(R.id.dict_max_count);
             dictionaryDescription = itemView.findViewById(R.id.dict_desc);
             dictionaryHost = itemView.findViewById(R.id.dict_host);
+            dictionaryOption = itemView.findViewById(R.id.dict_open_option);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if (pos!=RecyclerView.NO_POSITION){
+                        mListener.onClick(v,pos);
+                    }
+                }
+            });
         }
         public void setItem(DictionaryListItem item){
             dictionaryTitle.setText(item.getDictionaryTitle());
             dictionaryMaxCount.setText(item.getDictionaryMaxCount());
             dictionaryDescription.setText(item.getDictionaryDescription());
             dictionaryHost.setText(item.getDictionaryHost());
+            dictionaryOption.setText(item.getDictOption());
+
         }
     }
     public class DefaultItem extends RecyclerView.ViewHolder {
