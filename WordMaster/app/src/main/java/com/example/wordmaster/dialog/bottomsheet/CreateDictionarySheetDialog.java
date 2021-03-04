@@ -45,16 +45,37 @@ public class CreateDictionarySheetDialog extends BottomSheetDialogFragment {
         mb.createDictSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int createDictCount;
                 String createDictTitle = mb.createDictTitle.getText().toString();
-                int createDictCount = Integer.parseInt(mb.createDictCount.getText().toString());
+                try {
+                    createDictCount = Integer.parseInt(mb.createDictCount.getText().toString());
+                }catch (Exception e){
+                    createDictCount = 0;
+
+                }
                 String createDictDescription = mb.createDictDescription.getText().toString();
                 String createDictHashTag = mb.createDictTag.getText().toString();
                 int groupType = radioGroup.getCheckedRadioButtonId();
-                Log.e(TAG,radioGroup.getCheckedRadioButtonId()+"");
-                activity.sendCreateDictDialog(createDictTitle,createDictCount,createDictDescription,createDictHashTag,groupType);
+                String DictOption = changeDictOption(groupType);
+                Log.e(TAG,groupType+"");
+
+                activity.sendCreateDictDialog(createDictTitle,createDictCount,createDictDescription,createDictHashTag,DictOption);
                 dismiss();
             }
         });
+    }
+
+    public String changeDictOption(int n){
+        switch (n){
+            case 1:
+                return "공개";
+            case 2:
+                return "비공개";
+            case 3:
+                return "나만보기";
+            default:
+                return "오류";
+        }
     }
 
 }
