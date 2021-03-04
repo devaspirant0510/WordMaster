@@ -5,6 +5,7 @@ public class DictionaryListItem {
     String dictionaryMaxCount;
     String dictionaryDescription;
     String dictionaryHost;
+    String dictOption;
     int viewType;
     public DictionaryListItem(){
 
@@ -14,11 +15,12 @@ public class DictionaryListItem {
         return dictionaryTitle;
     }
 
-    public DictionaryListItem(String dictionaryTitle, String dictionaryMaxCount, String dictionaryDescription, String dictionaryHost,int viewType) {
+    public DictionaryListItem(String dictionaryTitle, String dictionaryMaxCount, String dictionaryDescription, String dictionaryHost,String dictOption,int viewType) {
         this.dictionaryTitle = dictionaryTitle;
         this.dictionaryMaxCount = dictionaryMaxCount;
         this.dictionaryDescription = dictionaryDescription;
         this.dictionaryHost = dictionaryHost;
+        this.dictOption = dictOption;
         this.viewType = viewType;
     }
 
@@ -56,5 +58,13 @@ public class DictionaryListItem {
 
     public void setViewType(int viewType) {
         this.viewType = viewType;
+    }
+
+    public String getDictOption() {
+        return dictOption;
+    }
+
+    public void setDictOption(String dictOption) {
+        this.dictOption = dictOption;
     }
 }
