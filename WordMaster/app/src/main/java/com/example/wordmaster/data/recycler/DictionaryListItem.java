@@ -7,9 +7,7 @@ public class DictionaryListItem {
     String dictionaryHost;
     String dictOption;
     int viewType;
-    public DictionaryListItem(){
 
-    }
 
     public String getDictionaryTitle() {
         return dictionaryTitle;
