@@ -17,21 +17,30 @@ import com.example.wordmaster.adapter.DictionaryListAdapter;
 import com.example.wordmaster.callback.BottomSheetCallBack;
 import com.example.wordmaster.callback.DictionaryFragmentCallBack;
 import com.example.wordmaster.callback.DictionaryListCallBack;
+import com.example.wordmaster.data.firebase.UserDictionary;
 import com.example.wordmaster.data.recycler.DictionaryListItem;
 import com.example.wordmaster.databinding.FragmentDictionaryBinding;
 import com.example.wordmaster.define.Define;
 import com.example.wordmaster.dialog.bottomsheet.CreateDictionarySheetDialog;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Objects;
 
 
-public class DictionaryFragment extends Fragment implements BottomSheetCallBack,DictionaryFragmentCallBack {
+public class DictionaryFragment extends Fragment implements BottomSheetCallBack {
     private FragmentDictionaryBinding mb;
     private static final String TAG = "DictionaryFragment";
     private CreateDictionarySheetDialog dialog;
     private MainActivity activity;
     private DictionaryListAdapter adapter;
     private SendDictData sendDictData = null;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mMyRef;
 
     public interface SendDictData {
         void sendDictData(String title,String option,String description,String hashTag,int count);
@@ -40,6 +49,9 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack,
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = (MainActivity)getActivity();
+        mDatabase = FirebaseDatabase.getInstance();
+        mMyRef = mDatabase.getReference();
+
 
 
     }
@@ -57,18 +69,73 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack,
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         activity.BottomSheetCallBack(this);
-        activity.setDictionaryListCallBack(this);
         mb = FragmentDictionaryBinding.inflate(getLayoutInflater());
         init();
-
         View root = mb.getRoot();
         return root;
 
     }
 
-    private void firebaseDatabase() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(Define.USER);
+    @Override
+    public void onResume() {
+        super.onResume();
+        readDB();
+    }
+
+    private void readDB() {
+        mMyRef.child(Define.USER).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                UserDictionary userDictionary = snapshot.getValue(UserDictionary.class);
+                adapter.addItem(new DictionaryListItem(
+                        userDictionary.getTitle(),
+                        String.valueOf(userDictionary.getMaxCount()),
+                        userDictionary.getDescription(),
+                        userDictionary.getHashTag(),
+                        userDictionary.getOption(),
+                        1
+                ));
+                adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                UserDictionary userDictionary = snapshot.getValue(UserDictionary.class);
+                adapter.addItem(new DictionaryListItem(
+                        userDictionary.getTitle(),
+                        String.valueOf(userDictionary.getMaxCount()),
+                        userDictionary.getDescription(),
+                        userDictionary.getHashTag(),
+                        userDictionary.getOption(),
+                        1
+                ));
+                adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
+
+
+    private void createFirebaseReadDatabase(String id,UserDictionary dictionary) {
+        mMyRef.child(Define.USER).child(id).setValue(dictionary);
 
     }
 
@@ -82,7 +149,6 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack,
             public void onClick(View v) {
                  dialog = new CreateDictionarySheetDialog(activity);
                 if (getFragmentManager()!=null){
-                    activity.sendInfoData("딥러닝논문 AlexNet 단어정리","public",150);
                     dialog.show(getFragmentManager(),"dd");
                 }
             }
@@ -104,14 +170,7 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack,
     @Override
     public void createDialogGetData(String title, int count, String description, String hashTag,String DictOption) {
         Log.e(TAG,title);
-        adapter.addItem(new DictionaryListItem(title,String.valueOf(count),description,hashTag,DictOption,1));
-        adapter.notifyDataSetChanged();
-
-    }
-
-
-    @Override
-    public void sendInfoData(String title, String option, int count) {
+        createFirebaseReadDatabase(title,new UserDictionary(DictOption,title,count,description,hashTag));
 
     }
 }
