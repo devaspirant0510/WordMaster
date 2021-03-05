@@ -19,6 +19,7 @@ import com.example.wordmaster.data.firebase.UserDictionary;
 import com.example.wordmaster.data.recycler.DictionaryWordItem;
 import com.example.wordmaster.databinding.FragmentDictionaryInfoBinding;
 import com.example.wordmaster.define.Define;
+import com.example.wordmaster.dialog.custom.CreateWordDialog;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -35,7 +36,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
         super.onCreate(savedInstanceState);
         mb = FragmentDictionaryInfoBinding.inflate(getLayoutInflater());
         activity = (MainActivity)getActivity();
-        // 프레그먼트 전환될때 argument에 정보 들어있는지 확인
+        // 프레그먼트 전환될때 argument 에 정보 들어있는지 확인
         Bundle bundle = getArguments();
         if (bundle!=null){
             dictInfoTitle = bundle.getString("Title");
@@ -56,26 +57,27 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         activity.setDictionaryListCallBack(this);
         View root = mb.getRoot();
-        firebase();
         init();
-
         return root;
     }
 
-    private void firebase() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(Define.USER);
-        myRef.setValue(new UserDictionary(dictInfoOption,dictInfoTitle,dictCount,dictDescription,dictHashTag));
-
-    }
 
     private void init() {
         mb.dictInfoTitle.setText(dictInfoTitle);
         mb.dictInfoOption.setText(dictInfoOption);
         DictionaryInfoAdapter adapter = new DictionaryInfoAdapter(getContext());
-        adapter.addItem(new DictionaryWordItem("s","S"));
         mb.wordList.setAdapter(adapter);
-        Log.e(TAG, "init: "+adapter.wordList );
+        mb.btnDictInfoCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getContext()!=null){
+                    CreateWordDialog dialog = new CreateWordDialog(getContext(),adapter);
+                    dialog.show();
+
+                }
+
+            }
+        });
 
     }
 
