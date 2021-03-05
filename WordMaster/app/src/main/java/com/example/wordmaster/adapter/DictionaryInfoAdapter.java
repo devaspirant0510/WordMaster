@@ -25,7 +25,6 @@ public class DictionaryInfoAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.e("sfd","fd");
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View root = inflater.inflate(R.layout.layout_item_dictionary_word,parent,false);
         return new WordItem(root);
@@ -33,9 +32,7 @@ public class DictionaryInfoAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Log.e("d","sdf");
         if (holder instanceof WordItem){
-            Log.e("ss","df");
             ((WordItem) holder).setItem(wordList.get(position));
         }
 
