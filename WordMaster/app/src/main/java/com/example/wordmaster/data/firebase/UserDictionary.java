@@ -1,12 +1,17 @@
 package com.example.wordmaster.data.firebase;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
+@IgnoreExtraProperties
 public class UserDictionary {
     String option;
     String title;
     int maxCount;
     String description;
     String hashTag;
+    public UserDictionary(){
 
+    }
     public UserDictionary(String option, String title, int maxCount, String description, String hashTag) {
         this.option = option;
         this.title = title;
