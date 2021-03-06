@@ -20,20 +20,28 @@ import com.example.wordmaster.data.recycler.DictionaryWordItem;
 import com.example.wordmaster.databinding.FragmentDictionaryInfoBinding;
 import com.example.wordmaster.define.Define;
 import com.example.wordmaster.dialog.custom.CreateWordDialog;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DictionaryInfoFragment extends Fragment implements DictionaryFragmentCallBack {
     private MainActivity activity;
     private FragmentDictionaryInfoBinding mb;
     private static String TAG = "DictionaryInfoFragment";
     private String dictInfoTitle,dictInfoOption,dictDescription,dictHashTag;
+    private DictionaryInfoAdapter adapter;
+    private ArrayList<DictionaryWordItem> wordList = new ArrayList<>();
     private int dictCount;
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e(TAG, "onCreate: " );
         mb = FragmentDictionaryInfoBinding.inflate(getLayoutInflater());
         activity = (MainActivity)getActivity();
         // 프레그먼트 전환될때 argument 에 정보 들어있는지 확인
@@ -48,6 +56,68 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        Log.e(TAG, "onResume: " );
+        readWordList();
+
+    }
+    private void readWordList(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference(Define.USER);
+        reference.child(dictInfoTitle).child("list").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+               // HashMap<String,String> item = snapshot.getValue(HashMap.class);
+                //DictionaryWordItem item = snapshot.getValue(DictionaryWordItem.class);
+                Log.e(TAG, "onChildAdded: "+snapshot.getChildrenCount() );
+                String item = snapshot.getValue().toString();
+                item = item.replaceAll("[}{]","");
+                String[] splitWord = item.split(",");
+                String strEng = splitWord[0].split("=")[1];
+                String strKor = splitWord[1].split("=")[1];
+                Log.e(TAG, "onChildAdded: "+strEng );
+                Log.e(TAG, "onChildAdded: "+strKor );
+                adapter.addItem(new DictionaryWordItem(strKor,strEng));
+                adapter.notifyDataSetChanged();
+//
+//                Log.e(TAG, "onChildAdded: "+item );
+//                Log.e(TAG, "onChildAdded: "+snapshot.getValue() );
+//                Log.e(TAG, "onChildAdded: "+ snapshot.getValue().getClass()+"");
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                //DictionaryWordItem item = snapshot.getValue(DictionaryWordItem.class);
+                //adapter.addItem(item);
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e(TAG, "onPause: " );
+    }
+
+    @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
     }
@@ -57,6 +127,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         activity.setDictionaryListCallBack(this);
         View root = mb.getRoot();
+        Log.e(TAG, "onCreateView: " );
         init();
         return root;
     }
@@ -65,17 +136,15 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     private void init() {
         mb.dictInfoTitle.setText(dictInfoTitle);
         mb.dictInfoOption.setText(dictInfoOption);
-        DictionaryInfoAdapter adapter = new DictionaryInfoAdapter(getContext());
+        adapter = new DictionaryInfoAdapter(getContext());
         mb.wordList.setAdapter(adapter);
         mb.btnDictInfoCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (getContext()!=null){
-                    CreateWordDialog dialog = new CreateWordDialog(getContext(),adapter);
+                    CreateWordDialog dialog = new CreateWordDialog(getContext(),wordList,adapter,dictInfoTitle);
                     dialog.show();
-
                 }
-
             }
         });
 
@@ -83,11 +152,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
 
     @Override
     public void sendInfoData(String title, String option, int count) {
-        Log.e(TAG, "title" );
-        Toast.makeText(getContext(),"title",Toast.LENGTH_SHORT).show();
         mb.dictInfoTitle.setText(title);
         mb.dictInfoOption.setText(option);
-
-
     }
 }
