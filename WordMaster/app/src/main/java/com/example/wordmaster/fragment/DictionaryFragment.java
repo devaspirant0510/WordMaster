@@ -91,7 +91,7 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
                         userDictionary.getTitle(),
                         String.valueOf(userDictionary.getMaxCount()),
                         userDictionary.getDescription(),
-                        userDictionary.getHashTag(),
+                        Define.USER,
                         userDictionary.getOption(),
                         1
                 ));
@@ -132,9 +132,13 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
     }
 
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e(TAG, "onPause: " );
+    }
 
-
-    private void createFirebaseReadDatabase(String id,UserDictionary dictionary) {
+    private void createFirebaseReadDatabase(String id, UserDictionary dictionary) {
         mMyRef.child(Define.USER).child(id).setValue(dictionary);
 
     }
