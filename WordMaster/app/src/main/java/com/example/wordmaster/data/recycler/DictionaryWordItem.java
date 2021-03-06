@@ -1,5 +1,6 @@
 package com.example.wordmaster.data.recycler;
 
+// 단어 리스트
 public class DictionaryWordItem {
     String kor;
     String eng;

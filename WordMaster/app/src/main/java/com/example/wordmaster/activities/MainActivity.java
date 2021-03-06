@@ -12,20 +12,30 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.wordmaster.R;
+import com.example.wordmaster.adapter.DictionaryInfoAdapter;
 import com.example.wordmaster.callback.BottomSheetCallBack;
 import com.example.wordmaster.callback.DictionaryFragmentCallBack;
+import com.example.wordmaster.callback.InfoFragmentDialogCallback;
+import com.example.wordmaster.data.recycler.DictionaryWordItem;
 import com.example.wordmaster.databinding.ActivityMainBinding;
 import com.example.wordmaster.define.Define;
+import com.example.wordmaster.dialog.bottomsheet.CreateDictionarySheetDialog;
+import com.example.wordmaster.dialog.custom.CreateWordDialog;
 import com.example.wordmaster.fragment.DictionaryFragment;
 import com.example.wordmaster.fragment.DictionaryInfoFragment;
 import com.example.wordmaster.fragment.HomeFragment;
 import com.example.wordmaster.fragment.MyInfoFragment;
+import com.example.wordmaster.fragment.SearchFragment;
+import com.example.wordmaster.fragment.TestFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements DictionaryFragment.SendDictData {
     private ActivityMainBinding mb;
     private BottomSheetCallBack bottomSheetCallBack;
     private DictionaryFragmentCallBack dictionaryListCallBack;
+    private InfoFragmentDialogCallback infoFragmentDialogCallback;
     private static final String TAG = "MainActivity";
     private String dictTitle,dictOption,dictDescription,dictHost;
     private int dictCount;
@@ -35,8 +45,13 @@ public class MainActivity extends AppCompatActivity implements DictionaryFragmen
         mb = ActivityMainBinding.inflate(getLayoutInflater());
         View root = mb.getRoot();
         setContentView(root);
-
         init();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e(TAG, "onPause: " );
     }
 
     private void init() {
@@ -48,12 +63,18 @@ public class MainActivity extends AppCompatActivity implements DictionaryFragmen
                         changeFragment(Define.HOME_FRAGMENT);
                         break;
                     case R.id.navi_item_my_dict:
-                        //Toast.makeText(getApplicationContext(),"d",Toast.LENGTH_SHORT).show();
                         changeFragment(Define.DICTIONARY_FRAGMENT);
+                        break;
+                    case R.id.navi_item_test:
+                        changeFragment(Define.TEST_FRAGMENT);
+                        break;
+                    case R.id.navi_item_search:
+                        changeFragment(Define.SEARCH_FRAGMENT);
                         break;
                     case R.id.navi_item_profile:
                         changeFragment(Define.MY_INFO_FRAGMENT);
                         break;
+
                 }
                 return true;
             }
@@ -64,16 +85,22 @@ public class MainActivity extends AppCompatActivity implements DictionaryFragmen
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         switch (n){
-            case 0:
+            case Define.HOME_FRAGMENT:
                 fr = new HomeFragment();
                 break;
-            case 1:
+            case Define.DICTIONARY_FRAGMENT:
                 fr = new DictionaryFragment();
                 break;
-            case 2:
+            case Define.TEST_FRAGMENT:
+                fr = new TestFragment();
+                break;
+            case Define.SEARCH_FRAGMENT:
+                fr = new SearchFragment();
+                break;
+            case Define.MY_INFO_FRAGMENT:
                 fr = new MyInfoFragment();
                 break;
-            case 3:
+            case Define.DICTIONARY_INFO_FRAGMENT:
                 fr = new DictionaryInfoFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("Title",dictTitle);
@@ -102,6 +129,12 @@ public class MainActivity extends AppCompatActivity implements DictionaryFragmen
     }
     public void sendInfoData(String title,String option,int count){
         dictionaryListCallBack.sendInfoData(title,option,count);
+    }
+    public void setInfoFragmentDialogCallback(InfoFragmentDialogCallback callback){
+        this.infoFragmentDialogCallback = callback;
+    }
+    public void sendInfoData(ArrayList<DictionaryWordItem> list, DictionaryInfoAdapter adapter, String title){
+        infoFragmentDialogCallback.send(list,adapter,title);
     }
 
 
