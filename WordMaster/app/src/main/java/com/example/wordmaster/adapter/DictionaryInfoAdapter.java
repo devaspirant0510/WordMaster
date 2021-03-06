@@ -21,6 +21,7 @@ public class DictionaryInfoAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     public DictionaryInfoAdapter(Context context){
         this.context = context;
+
     }
     @NonNull
     @Override
