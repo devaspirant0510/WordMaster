@@ -1,5 +1,5 @@
 package com.example.wordmaster.data.recycler;
-
+//단어장 항목 리스트
 public class DictionaryListItem {
     String dictionaryTitle;
     String dictionaryMaxCount;
