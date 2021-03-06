@@ -1,6 +1,9 @@
 package com.example.wordmaster.data.firebase;
 
+import com.example.wordmaster.data.recycler.DictionaryWordItem;
 import com.google.firebase.database.IgnoreExtraProperties;
+
+import java.util.ArrayList;
 
 @IgnoreExtraProperties
 public class UserDictionary {
@@ -9,6 +12,7 @@ public class UserDictionary {
     int maxCount;
     String description;
     String hashTag;
+    ArrayList<DictionaryWordItem> list;
     public UserDictionary(){
 
     }
