@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.View;
 
 import com.example.wordmaster.R;
 import com.example.wordmaster.adapter.DictionaryInfoAdapter;
+import com.example.wordmaster.adapter.TestViewPagerAdapter;
 import com.example.wordmaster.callback.BottomSheetCallBack;
 import com.example.wordmaster.callback.DictionaryFragmentCallBack;
 import com.example.wordmaster.callback.InfoFragmentDialogCallback;
@@ -27,6 +29,8 @@ import com.example.wordmaster.fragment.HomeFragment;
 import com.example.wordmaster.fragment.MyInfoFragment;
 import com.example.wordmaster.fragment.SearchFragment;
 import com.example.wordmaster.fragment.TestFragment;
+import com.example.wordmaster.fragment.viewpager.MyTestFragment;
+import com.example.wordmaster.fragment.viewpager.OnlineTestFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -80,28 +84,52 @@ public class MainActivity extends AppCompatActivity implements DictionaryFragmen
             }
         });
     }
+    public int showFragment(){
+        mb.frame.setVisibility(View.VISIBLE);
+        mb.testViewPager.setVisibility(View.GONE);
+        mb.viewPagerTabLayout.setVisibility(View.GONE);
+        return Define.SHOW_FRAGMENT;
+
+    }
+    public int showViewPager(){
+        mb.frame.setVisibility(View.GONE);
+        mb.testViewPager.setVisibility(View.VISIBLE);
+        mb.viewPagerTabLayout.setVisibility(View.VISIBLE);
+        return Define.SHOW_VIEW_PAGER;
+
+    }
     Fragment fr = null;
     public void changeFragment(int n){
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
+        int viewState=0;
         switch (n){
             case Define.HOME_FRAGMENT:
                 fr = new HomeFragment();
+                viewState = showFragment();
                 break;
             case Define.DICTIONARY_FRAGMENT:
                 fr = new DictionaryFragment();
+                viewState = showFragment();
                 break;
             case Define.TEST_FRAGMENT:
-                fr = new TestFragment();
+                viewState = showViewPager();
+                TestViewPagerAdapter adapter = new TestViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+                adapter.addItem(new MyTestFragment());
+                adapter.addItem(new OnlineTestFragment());
+                mb.testViewPager.setAdapter(adapter);
                 break;
             case Define.SEARCH_FRAGMENT:
                 fr = new SearchFragment();
+                viewState = showFragment();
                 break;
             case Define.MY_INFO_FRAGMENT:
                 fr = new MyInfoFragment();
+                viewState = showFragment();
                 break;
             case Define.DICTIONARY_INFO_FRAGMENT:
                 fr = new DictionaryInfoFragment();
+                viewState = showFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("Title",dictTitle);
                 bundle.putString("Option",dictOption);
@@ -113,9 +141,10 @@ public class MainActivity extends AppCompatActivity implements DictionaryFragmen
             default:
                 break;
         }
-        ft.replace(R.id.frame,fr);
-        ft.commit();
-
+        if (viewState == Define.SHOW_FRAGMENT){
+            ft.replace(R.id.frame,fr);
+            ft.commit();
+        }
     }
 
     public void BottomSheetCallBack(BottomSheetCallBack callBack){

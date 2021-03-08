@@ -72,6 +72,7 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
         mb = FragmentDictionaryBinding.inflate(getLayoutInflater());
         init();
         View root = mb.getRoot();
+        readDB();
         return root;
 
     }
@@ -79,7 +80,6 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
     @Override
     public void onResume() {
         super.onResume();
-        readDB();
     }
 
     private void readDB() {

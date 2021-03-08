@@ -53,13 +53,13 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
             dictDescription = bundle.getString("Description");
             dictHashTag = bundle.getString("HashTag");
         }
+        readWordList();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         Log.e(TAG, "onResume: " );
-        readWordList();
 
     }
     private void readWordList(){
