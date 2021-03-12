@@ -91,6 +91,16 @@ public class DictionaryListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     }
                 }
             });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int pos = getAdapterPosition();
+                    if (pos!=RecyclerView.NO_POSITION){
+                        mListener.onLongClick(v,pos);
+                    }
+                    return true;
+                }
+            });
         }
         public void setItem(DictionaryListItem item){
             dictionaryTitle.setText(item.getDictionaryTitle());
