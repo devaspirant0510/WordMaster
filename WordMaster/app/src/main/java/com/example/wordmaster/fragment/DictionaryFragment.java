@@ -17,6 +17,7 @@ import com.example.wordmaster.adapter.DictionaryListAdapter;
 import com.example.wordmaster.callback.BottomSheetCallBack;
 import com.example.wordmaster.callback.DictionaryFragmentCallBack;
 import com.example.wordmaster.callback.DictionaryListCallBack;
+import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.data.firebase.UserDictionary;
 import com.example.wordmaster.data.recycler.DictionaryListItem;
 import com.example.wordmaster.databinding.FragmentDictionaryBinding;
@@ -38,13 +39,10 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
     private CreateDictionarySheetDialog dialog;
     private MainActivity activity;
     private DictionaryListAdapter adapter;
-    private SendDictData sendDictData = null;
+    private SendDataToActivity sendDictData = null;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mMyRef;
 
-    public interface SendDictData {
-        void sendDictData(String title,String option,String description,String hashTag,int count);
-    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +57,8 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof SendDictData){
-            sendDictData = (SendDictData)context;
+        if (context instanceof SendDataToActivity){
+            sendDictData = (SendDataToActivity) context;
 
         }
     }
@@ -167,13 +165,17 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
                 sendDictData.sendDictData(item.getDictionaryTitle(),item.getDictOption(),item.getDictionaryDescription(),item.getDictionaryHost(),Integer.parseInt(item.getDictionaryMaxCount()));
                 activity.changeFragment(Define.DICTIONARY_INFO_FRAGMENT);
             }
+
+            @Override
+            public void onLongClick(View v, int pos) {
+                Log.e(TAG, "onLongClick: "+pos );
+            }
         });
     }
 
 
     @Override
     public void createDialogGetData(String title, int count, String description, String hashTag,String DictOption) {
-        Log.e(TAG,title);
         createFirebaseReadDatabase(title,new UserDictionary(DictOption,title,count,description,hashTag));
 
     }
