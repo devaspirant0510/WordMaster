@@ -18,11 +18,10 @@ import com.example.wordmaster.adapter.TestViewPagerAdapter;
 import com.example.wordmaster.callback.BottomSheetCallBack;
 import com.example.wordmaster.callback.DictionaryFragmentCallBack;
 import com.example.wordmaster.callback.InfoFragmentDialogCallback;
+import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.data.recycler.DictionaryWordItem;
 import com.example.wordmaster.databinding.ActivityMainBinding;
 import com.example.wordmaster.define.Define;
-import com.example.wordmaster.dialog.bottomsheet.CreateDictionarySheetDialog;
-import com.example.wordmaster.dialog.custom.CreateWordDialog;
 import com.example.wordmaster.fragment.DictionaryFragment;
 import com.example.wordmaster.fragment.DictionaryInfoFragment;
 import com.example.wordmaster.fragment.HomeFragment;
@@ -35,14 +34,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements DictionaryFragment.SendDictData {
+public class MainActivity extends AppCompatActivity implements SendDataToActivity {
     private ActivityMainBinding mb;
     private BottomSheetCallBack bottomSheetCallBack;
     private DictionaryFragmentCallBack dictionaryListCallBack;
     private InfoFragmentDialogCallback infoFragmentDialogCallback;
     private static final String TAG = "MainActivity";
-    private String dictTitle,dictOption,dictDescription,dictHost;
-    private int dictCount;
+    private String dictTitle,dictOption,dictDescription,dictHost,testingLimitTime,testingTitle,testingHost;
+    private int dictCount,testingMaxCount,testingRgType,testingRgOption;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,12 +109,15 @@ public class MainActivity extends AppCompatActivity implements DictionaryFragmen
                 break;
             case Define.DICTIONARY_FRAGMENT:
                 fr = new DictionaryFragment();
+
                 viewState = showFragment();
                 break;
             case Define.TEST_FRAGMENT:
                 viewState = showViewPager();
                 TestViewPagerAdapter adapter = new TestViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-                adapter.addItem(new MyTestFragment());
+                MyTestFragment myTestFragment = new MyTestFragment();
+                myTestFragment.setListener(this);
+                adapter.addItem(myTestFragment);
                 adapter.addItem(new OnlineTestFragment());
                 mb.testViewPager.setAdapter(adapter);
                 break;
@@ -130,13 +132,29 @@ public class MainActivity extends AppCompatActivity implements DictionaryFragmen
             case Define.DICTIONARY_INFO_FRAGMENT:
                 fr = new DictionaryInfoFragment();
                 viewState = showFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("Title",dictTitle);
-                bundle.putString("Option",dictOption);
-                bundle.putString("Description",dictDescription);
-                bundle.putString("HashTag",dictHost);
-                bundle.putInt("Count",dictCount);
-                fr.setArguments(bundle);
+                Log.e(TAG, "changeFragment: "+342 );
+                Bundle infoArg = new Bundle();
+                infoArg.putString("Title",dictTitle);
+                infoArg.putString("Option",dictOption);
+                infoArg.putString("Description",dictDescription);
+                infoArg.putString("HashTag",dictHost);
+                infoArg.putInt("Count",dictCount);
+                fr.setArguments(infoArg);
+                break;
+            case Define.TESTING_FRAGMENT:
+                Log.e(TAG,"testing");
+                fr = new TestFragment();
+
+                Bundle testingArg = new Bundle();
+                testingArg.putInt("testMaxCount",testingMaxCount);
+                testingArg.putString("testLimitTime",testingLimitTime);
+                testingArg.putInt("rgTestType",testingRgType);
+                testingArg.putInt("rgTestTimeOption",testingRgOption);
+                testingArg.putString("tvTestTitle",testingTitle);
+                testingArg.putString("tvTestHost",testingHost);
+                fr.setArguments(testingArg);
+                viewState = showFragment();
+                break;
 
             default:
                 break;
@@ -170,10 +188,21 @@ public class MainActivity extends AppCompatActivity implements DictionaryFragmen
     @Override
     public void sendDictData(String title, String option, String description, String hashTag, int count) {
 
-        dictTitle = title;
-        dictOption = option;
-        dictDescription = description;
-        dictHost = hashTag;
-        dictCount = count;
+        this.dictTitle = title;
+        this.dictOption = option;
+        this.dictDescription = description;
+        this.dictHost = hashTag;
+        this.dictCount = count;
+    }
+
+    @Override
+    public void sendTestingData(int maxCount, String limitTime, int rgTestType, int rgTestTimeOption,String host,String title) {
+        this.testingLimitTime = limitTime;
+        this.testingMaxCount = maxCount;
+        this.testingRgOption = rgTestTimeOption;
+        this.testingRgType = rgTestType;
+        this.testingTitle = title;
+        this.testingHost = host;
+
     }
 }
