@@ -1,6 +1,5 @@
 package com.example.wordmaster.dialog.bottomsheet;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +29,7 @@ public class CreateDictionarySheetDialog extends BottomSheetDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mb = DialogBottomSheetCreateDictBinding.inflate(getLayoutInflater());
+
     }
 
     @Nullable
