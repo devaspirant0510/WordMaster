@@ -4,8 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -17,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryListAdapter;
 import com.example.wordmaster.callback.DictionaryListCallBack;
+import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.data.firebase.UserDictionary;
 import com.example.wordmaster.data.recycler.DictionaryListItem;
 import com.example.wordmaster.databinding.DialogBottomSheetSetWordTestBinding;
@@ -34,31 +33,63 @@ public class MyTestFragment extends Fragment {
     private FragmentMyTestBinding mb;
     private DictionaryListAdapter adapter;
     private MainActivity activity;
+    private SendDataToActivity listener = null;
+    private WordTestSettingDialog dialog;
     private static final String TAG = "MyTestFragment";
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        activity = (MainActivity)getActivity();
-        Log.e(TAG, TAG);
+        activity = (MainActivity) getActivity();
+    }
+
+    public void setListener(SendDataToActivity listener) {
+        this.listener = listener;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mb = FragmentMyTestBinding.inflate(getLayoutInflater());
+
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         init();
         readDB();
+        return mb.getRoot();
+
+
     }
 
 
     private void init() {
+        dialog = new WordTestSettingDialog();
         adapter = new DictionaryListAdapter(getContext());
         mb.myTestList.setAdapter(adapter);
         adapter.setDictionaryListCallBack(new DictionaryListCallBack() {
             @Override
             public void onClick(View v, int pos) {
-                WordTestSettingDialog dialog = new WordTestSettingDialog();
-                dialog.show(getFragmentManager(),"fr");
+                String host = adapter.getItem(pos).getDictionaryHost();
+                String title = adapter.getItem(pos).getDictionaryTitle();
+                dialog.setListener(new WordTestSettingDialog.TestBottomSheetCallBack() {
+                    @Override
+                    public void setOnClickListener(int maxCount, String limitTime, int rgTestType, int rgTestTimeOption) {
+
+                        listener.sendTestingData(maxCount,limitTime,rgTestType,rgTestTimeOption,host,title);
+                        activity.changeFragment(Define.TESTING_FRAGMENT);
+                    }
+                });
+                if (getFragmentManager() != null) {
+                    dialog.show(getFragmentManager(), "fr");
+                }
+            }
+
+            @Override
+            public void onLongClick(View v, int pos) {
+
             }
         });
 
@@ -73,7 +104,6 @@ public class MyTestFragment extends Fragment {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 UserDictionary userDictionary = snapshot.getValue(UserDictionary.class);
-                Log.e(TAG, "onChildAdded: "+userDictionary.getTitle() );
                 adapter.addItem(new DictionaryListItem(
                         userDictionary.getTitle(),
                         String.valueOf(userDictionary.getMaxCount()),
@@ -82,7 +112,7 @@ public class MyTestFragment extends Fragment {
                         userDictionary.getOption(),
                         1
                 ));
-                Log.e(TAG, "onChildAdded: "+adapter.dictList );
+                Log.e(TAG, "onChildAdded: " + adapter.dictList);
                 adapter.notifyDataSetChanged();
 
             }
@@ -118,11 +148,5 @@ public class MyTestFragment extends Fragment {
             }
         });
     }
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return mb.getRoot();
 
-
-    }
 }
