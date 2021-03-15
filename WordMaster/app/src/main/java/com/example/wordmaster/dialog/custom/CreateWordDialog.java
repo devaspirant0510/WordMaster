@@ -60,7 +60,7 @@ public class CreateWordDialog extends Dialog  {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference(Define.USER);
 
-                int idx = adapter.getItemCount()+1;
+                int idx = adapter.getItemCount()+1-1;
                 myRef.child(title).child("list").child(String.valueOf(idx)).setValue(new DictionaryWordItem(kor,eng));
                 dismiss();
             }
