@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wordmaster.R;
+import com.example.wordmaster.callback.DictionaryListCallBack;
 import com.example.wordmaster.data.recycler.DictionaryWordItem;
 
 import java.util.ArrayList;
@@ -18,6 +19,11 @@ import java.util.ArrayList;
 public class DictionaryInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public ArrayList<DictionaryWordItem> wordList = new ArrayList<>();
     private Context context;
+    private DictionaryListCallBack dictionaryListCallBack;
+
+    public void setDictionaryListCallBack(DictionaryListCallBack callBack){
+        this.dictionaryListCallBack = callBack;
+    }
 
     public DictionaryInfoAdapter(Context context){
         this.context = context;
@@ -48,6 +54,9 @@ public class DictionaryInfoAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         wordList.add(item);
     }
 
+    public void removeItem(DictionaryWordItem item){
+        wordList.remove(item);
+    }
     public class WordItem extends RecyclerView.ViewHolder {
         TextView englishText;
         TextView koreanText;
@@ -55,6 +64,17 @@ public class DictionaryInfoAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             super(itemView);
             englishText = itemView.findViewById(R.id.word_eng);
             koreanText = itemView.findViewById(R.id.word_kor);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION){
+                        dictionaryListCallBack.onClick(v,pos);
+                        dictionaryListCallBack.onLongClick(v,pos);
+                    }
+                }
+            });
         }
         public void setItem(DictionaryWordItem item){
             Log.e("s", "setItem: "+item.getEng() );
