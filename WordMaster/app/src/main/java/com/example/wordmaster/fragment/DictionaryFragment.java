@@ -190,6 +190,7 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
                 dialog.show();
             }
         });
+
     }
 
     @Override
