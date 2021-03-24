@@ -41,6 +41,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     private DictionaryInfoAdapter adapter;
     private ArrayList<DictionaryWordItem> wordList = new ArrayList<>();
     private int dictCount;
+    private String setMode = "add";
 
 
     @Override
@@ -77,15 +78,20 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                // HashMap<String,String> item = snapshot.getValue(HashMap.class);
                 //DictionaryWordItem item = snapshot.getValue(DictionaryWordItem.class);
-                Log.e(TAG, "onChildAdded: "+snapshot.getChildrenCount() );
-                String item = snapshot.getValue().toString();
-                item = item.replaceAll("[}{]","");
-                String[] splitWord = item.split(",");
-                String strEng = splitWord[0].split("=")[1];
-                String strKor = splitWord[1].split("=")[1];
-                adapter.addItem(new DictionaryWordItem(strKor,strEng));
-                adapter.notifyDataSetChanged();
-                Log.e(TAG, "onChildChanged: "+adapter.wordList );
+                if (setMode.equals("add")){
+                    Log.e(TAG, "onChildAdded: "+snapshot.getChildrenCount() );
+                    String item = snapshot.getValue().toString();
+                    item = item.replaceAll("[}{]","");
+                    String[] splitWord = item.split(",");
+                    String strEng = splitWord[0].split("=")[1];
+                    String strKor = splitWord[1].split("=")[1];
+                    adapter.addItem(new DictionaryWordItem(strKor,strEng));
+                    adapter.notifyDataSetChanged();
+                    Log.e(TAG, "onChildChanged: "+adapter.wordList );
+                    mb.progressBar.setProgress(adapter.getItemCount());
+
+                }
+
 
             }
 
@@ -129,10 +135,13 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
         View root = mb.getRoot();
         init();
         readWordList();
+        mb.progressBar.setProgress(adapter.getItemCount());
+        Log.e(TAG, "init: "+adapter.wordList.size() );
         return root;
     }
 
     private void init() {
+        mb.progressBar.setMax(dictCount);
         mb.dictInfoTitle.setText(dictInfoTitle);
         mb.dictInfoOption.setText(dictInfoOption);
         DictionaryUpdateDialog dialog = new DictionaryUpdateDialog(getContext(),Define.DIALOG_DICT_WORD);
@@ -151,7 +160,9 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
 
                     @Override
                     public void setOnClickDeleteButton() {
+                        setMode="delete";
                         deleteFireBaseData(pos);
+
 
                     }
                 });
@@ -164,6 +175,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
             @Override
             public void onClick(View v) {
                 if (getContext()!=null){
+                    setMode="add";
                     CreateWordDialog dialog = new CreateWordDialog(getContext(),wordList,adapter,dictInfoTitle);
                     dialog.show();
                 }
