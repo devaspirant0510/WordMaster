@@ -36,7 +36,7 @@ import java.util.HashMap;
 public class DictionaryInfoFragment extends Fragment implements DictionaryFragmentCallBack {
     private MainActivity activity;
     private FragmentDictionaryInfoBinding mb;
-    private static String TAG = "DictionaryInfoFragment";
+    protected static String TAG = "DictionaryInfoFragment";
     private String dictInfoTitle,dictInfoOption,dictDescription,dictHashTag;
     private DictionaryInfoAdapter adapter;
     private ArrayList<DictionaryWordItem> wordList = new ArrayList<>();
@@ -62,22 +62,13 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
             dictHashTag = bundle.getString("HashTag");
         }
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.e(TAG, "onResume: "+adapter.wordList );
-        Log.e(TAG, "onResume: " );
-
-    }
+    // 유저 id -> 단어장 -> list 를 참조하여 단어 불러옴
     private void readWordList(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference(Define.USER);
         reference.child(dictInfoTitle).child("list").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-               // HashMap<String,String> item = snapshot.getValue(HashMap.class);
-                //DictionaryWordItem item = snapshot.getValue(DictionaryWordItem.class);
                 if (setMode.equals("add")){
                     Log.e(TAG, "onChildAdded: "+snapshot.getChildrenCount() );
                     String item = snapshot.getValue().toString();
@@ -87,27 +78,20 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                     String strKor = splitWord[1].split("=")[1];
                     adapter.addItem(new DictionaryWordItem(strKor,strEng));
                     adapter.notifyDataSetChanged();
-                    Log.e(TAG, "onChildChanged: "+adapter.wordList );
                     mb.progressBar.setProgress(adapter.getItemCount());
-
                 }
-
-
             }
-
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                //DictionaryWordItem item = snapshot.getValue(DictionaryWordItem.class);
-                //adapter.addItem(item);
-//                Log.e(TAG, "onChildAdded: "+snapshot.getChildrenCount() );
-//                String item = snapshot.getValue().toString();
-//                item = item.replaceAll("[}{]","");
-//                String[] splitWord = item.split(",");
-//                String strEng = splitWord[0].split("=")[1];
-//                String strKor = splitWord[1].split("=")[1];
-//                adapter.addItem(new DictionaryWordItem(strKor,strEng));
-//                adapter.notifyDataSetChanged();
-//                Log.e(TAG, "onChildChanged: "+adapter.wordList );
+                Log.e(TAG, "onChildAdded: "+snapshot.getChildrenCount() );
+                String item = snapshot.getValue().toString();
+                item = item.replaceAll("[}{]","");
+                String[] splitWord = item.split(",");
+                String strEng = splitWord[0].split("=")[1];
+                String strKor = splitWord[1].split("=")[1];
+                adapter.addItem(new DictionaryWordItem(strKor,strEng));
+                adapter.notifyDataSetChanged();
+                mb.progressBar.setProgress(adapter.getItemCount());
             }
 
             @Override
@@ -132,45 +116,38 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         activity.setDictionaryListCallBack(this);
-        View root = mb.getRoot();
         init();
         readWordList();
-        mb.progressBar.setProgress(adapter.getItemCount());
-        Log.e(TAG, "init: "+adapter.wordList.size() );
-        return root;
+        return mb.getRoot();
     }
 
     private void init() {
         mb.progressBar.setMax(dictCount);
         mb.dictInfoTitle.setText(dictInfoTitle);
         mb.dictInfoOption.setText(dictInfoOption);
-        DictionaryUpdateDialog dialog = new DictionaryUpdateDialog(getContext(),Define.DIALOG_DICT_WORD);
+        // 어댑터의 아이템 단어 를 클릭했을때
         adapter.setDictionaryListCallBack(new DictionaryListCallBack() {
             @Override
             public void onClick(View v, int pos) {
             }
-
+            // 롱클릭  -> 수정 또는 삭제 여부 묻는 다이얼로그
             @Override
             public void onLongClick(View v, int pos) {
-                dialog.show();
+                DictionaryUpdateDialog dialog = new DictionaryUpdateDialog(getContext(),Define.DIALOG_DICT_WORD);
                 dialog.setDialogUpdateCallback(new DialogUpdateCallback() {
                     @Override
                     public void setOnClickUpdateButton() {
                     }
-
                     @Override
                     public void setOnClickDeleteButton() {
                         setMode="delete";
                         deleteFireBaseData(pos);
-
-
                     }
                 });
-
-
+                dialog.show();
             }
         });
-
+        // 단어 추가 버튼을 눌렀을때
         mb.btnDictInfoCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,12 +160,19 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
         });
 
     }
+
+    /**
+     * 포지션 값을 받아 해당 DB 삭제
+     * @param pos : 포지션 값
+     */
     public void deleteFireBaseData(int pos){
+        // 어댑터에 있는 리스트 가져와 해당 값 삭제
         ArrayList<DictionaryWordItem> list = adapter.wordList;
         adapter.removeItem(list.get(pos));
         adapter.notifyDataSetChanged();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(Define.USER);
+        // 파이어베이스에서 list 통째로 삭제후 삭제된 리스트 setValue 시킴
         myRef.child(dictInfoTitle).child("list").setValue(null);
         myRef.child(dictInfoTitle).child("list").setValue(adapter.wordList);
 
