@@ -42,22 +42,18 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
     private static final String TAG = "MainActivity";
     private String dictTitle,dictOption,dictDescription,dictHost,testingLimitTime,testingTitle,testingHost;
     private int dictCount,testingMaxCount,testingRgType,testingRgOption;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mb = ActivityMainBinding.inflate(getLayoutInflater());
-        View root = mb.getRoot();
-        setContentView(root);
+        setContentView(mb.getRoot());
+        changeFragment(Define.HOME_FRAGMENT);
         init();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.e(TAG, "onPause: " );
-    }
-
     private void init() {
+        // 바텀네비게이션뷰 아이템 클릭스 프레그먼트 트랜잭션
         mb.bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -98,6 +94,11 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
 
     }
     Fragment fr = null;
+
+    /**
+     * Define.java 에서 정의된 상수값 받아서 프레그먼트 체인지
+     * @param n 상수값
+     */
     public void changeFragment(int n){
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -185,14 +186,14 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
     }
 
 
-    @Override
-    public void sendDictData(String title, String option, String description, String hashTag, int count) {
 
+    @Override
+    public void sendDictData(String title, String option, String hashTag, int count) {
         this.dictTitle = title;
         this.dictOption = option;
-        this.dictDescription = description;
         this.dictHost = hashTag;
         this.dictCount = count;
+
     }
 
     @Override
