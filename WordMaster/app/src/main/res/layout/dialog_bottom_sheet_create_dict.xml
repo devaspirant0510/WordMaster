@@ -133,7 +133,7 @@
             android:text="나만보기"/>
     </RadioGroup>
     <Button
-        android:id="@+id/create_dict_submit"
+        android:id="@+id/btn_dict_create"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
