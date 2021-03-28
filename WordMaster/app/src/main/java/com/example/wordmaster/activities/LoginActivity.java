@@ -31,7 +31,6 @@ import java.security.NoSuchAlgorithmException;
 public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding mb;
     private FirebaseAuth mAuth;
-    private GoogleApiClient googleApiClient;
     private static final int RESULT_SIGN_GOOGLE = 100;
     private static final String TAG = "LoginActivity";
 
@@ -42,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         View root = mb.getRoot();
         setContentView(root);
         getHashKey();
-        Log.e(TAG, "onCreate: " );
         init();
 
     }
@@ -50,7 +48,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.e(TAG, "onStart: " );
     }
 
     public void init(){
