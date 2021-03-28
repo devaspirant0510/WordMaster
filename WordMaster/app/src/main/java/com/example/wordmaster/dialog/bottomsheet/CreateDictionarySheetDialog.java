@@ -18,10 +18,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 public class CreateDictionarySheetDialog extends BottomSheetDialogFragment {
     private DialogBottomSheetCreateDictBinding mb;
     private static final String TAG = "CreateDictionarySheetDialog";
-    private RadioGroup radioGroup;
     private BottomSheetCallBack bottomSheetCallBack;
     private MainActivity activity;
-    public CreateDictionarySheetDialog(MainActivity activity){
+
+    public CreateDictionarySheetDialog(MainActivity activity) {
         this.activity = activity;
     }
 
@@ -41,32 +41,24 @@ public class CreateDictionarySheetDialog extends BottomSheetDialogFragment {
     }
 
     private void init() {
-        radioGroup = mb.createDictOpenOption;
-        mb.createDictSubmit.setOnClickListener(new View.OnClickListener() {
+        mb.btnDictCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int createDictCount;
+                int createDictCount = 0;
+                createDictCount = Integer.parseInt(mb.createDictCount.getText().toString());
                 String createDictTitle = mb.createDictTitle.getText().toString();
-                try {
-                    createDictCount = Integer.parseInt(mb.createDictCount.getText().toString());
-                }catch (Exception e){
-                    createDictCount = 0;
-
-                }
                 String createDictDescription = mb.createDictDescription.getText().toString();
                 String createDictHashTag = mb.createDictTag.getText().toString();
-                int groupType = radioGroup.getCheckedRadioButtonId();
+                int groupType = mb.createDictOpenOption.getCheckedRadioButtonId();
                 String DictOption = changeDictOption(groupType);
-                Log.e(TAG,groupType+"");
-
-                activity.sendCreateDictDialog(createDictTitle,createDictCount,createDictDescription,createDictHashTag,DictOption);
+                activity.sendCreateDictDialog(createDictTitle, createDictCount, createDictDescription, createDictHashTag, DictOption);
                 dismiss();
             }
         });
     }
 
-    public String changeDictOption(int n){
-        switch (n){
+    public String changeDictOption(int n) {
+        switch (n) {
             case 1:
                 return "공개";
             case 2:
