@@ -120,14 +120,17 @@
         android:layout_gravity="center">
 
         <RadioButton
+            android:id="@+id/test_public"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="공개" />
         <RadioButton
+            android:id="@+id/test_private"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="비공개"/>
         <RadioButton
+            android:id="@+id/test_only_me"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="나만보기"/>
