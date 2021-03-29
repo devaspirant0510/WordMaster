@@ -43,6 +43,10 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     private int dictCount;
     private String setMode = "add";
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +65,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
             dictDescription = bundle.getString("Description");
             dictHashTag = bundle.getString("HashTag");
         }
+        readWordList();
     }
     // 유저 id -> 단어장 -> list 를 참조하여 단어 불러옴
     private void readWordList(){
@@ -117,11 +122,11 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         activity.setDictionaryListCallBack(this);
         init();
-        readWordList();
         return mb.getRoot();
     }
 
     private void init() {
+        mb.progressState.setText(adapter.getItemCount()+"/"+dictCount);
         mb.progressBar.setMax(dictCount);
         mb.dictInfoTitle.setText(dictInfoTitle);
         mb.dictInfoOption.setText(dictInfoOption);
@@ -142,22 +147,29 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                     public void setOnClickDeleteButton() {
                         setMode="delete";
                         deleteFireBaseData(pos);
+                        mb.progressState.setText(adapter.getItemCount()+"/"+dictCount);
                     }
                 });
                 dialog.show();
             }
         });
         // 단어 추가 버튼을 눌렀을때
-        mb.btnDictInfoCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getContext()!=null){
-                    setMode="add";
-                    CreateWordDialog dialog = new CreateWordDialog(getContext(),wordList,adapter,dictInfoTitle);
-                    dialog.show();
+        if (wordList.size()==dictCount){
+            Toast.makeText(getContext(),"더 이상 추가할수 없습니다.",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            mb.btnDictInfoCreate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (getContext()!=null){
+                        setMode="add";
+                        CreateWordDialog dialog = new CreateWordDialog(getContext(),wordList,adapter,dictInfoTitle);
+                        dialog.show();
+                    }
                 }
-            }
-        });
+            });
+
+        }
 
     }
 
