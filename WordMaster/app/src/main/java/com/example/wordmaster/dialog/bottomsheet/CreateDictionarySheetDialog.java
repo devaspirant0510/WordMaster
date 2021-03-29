@@ -10,9 +10,11 @@ import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.wordmaster.R;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.callback.BottomSheetCallBack;
 import com.example.wordmaster.databinding.DialogBottomSheetCreateDictBinding;
+import com.example.wordmaster.define.Define;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class CreateDictionarySheetDialog extends BottomSheetDialogFragment {
@@ -40,7 +42,23 @@ public class CreateDictionarySheetDialog extends BottomSheetDialogFragment {
         return root;
     }
 
+    private int radioGroupType = 0;
     private void init() {
+        // 라디오 그룹 콜백
+        mb.createDictOpenOption.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.test_public) {
+                    radioGroupType = Define.PUBLIC;
+                }else if (checkedId == R.id.test_private){
+                    radioGroupType = Define.PRIVATE;
+
+                }else{
+                    radioGroupType = Define.ONLY_ME;
+
+                }
+            }
+        });
         mb.btnDictCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,8 +67,10 @@ public class CreateDictionarySheetDialog extends BottomSheetDialogFragment {
                 String createDictTitle = mb.createDictTitle.getText().toString();
                 String createDictDescription = mb.createDictDescription.getText().toString();
                 String createDictHashTag = mb.createDictTag.getText().toString();
-                int groupType = mb.createDictOpenOption.getCheckedRadioButtonId();
-                String DictOption = changeDictOption(groupType);
+
+
+
+                String DictOption = changeDictOption(radioGroupType);
                 activity.sendCreateDictDialog(createDictTitle, createDictCount, createDictDescription, createDictHashTag, DictOption);
                 dismiss();
             }
