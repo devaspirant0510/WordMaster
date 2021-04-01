@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_word_test_progress_text" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/ib_next_word"
         android:layout_width="30dp"
         android:layout_height="250dp"
         android:layout_marginEnd="16dp"
@@ -71,7 +71,7 @@
         android:text="Q: partial"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/et_word_answer"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+        app:layout_constraintEnd_toStartOf="@+id/ib_next_word"
         app:layout_constraintStart_toEndOf="@+id/ib_previous_word"
         app:layout_constraintTop_toBottomOf="@+id/pg_word_test_progress" />
 

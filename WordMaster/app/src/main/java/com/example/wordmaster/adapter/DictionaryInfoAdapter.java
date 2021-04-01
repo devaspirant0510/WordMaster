@@ -40,7 +40,7 @@ public class DictionaryInfoAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof WordItem){
-            ((WordItem) holder).setItem(wordList.get(position));
+            ((WordItem) holder).setItem(wordList.get(position),position);
         }
 
     }
@@ -60,10 +60,13 @@ public class DictionaryInfoAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public class WordItem extends RecyclerView.ViewHolder {
         TextView englishText;
         TextView koreanText;
+        TextView indexNum;
+
         public WordItem(@NonNull View itemView) {
             super(itemView);
             englishText = itemView.findViewById(R.id.word_eng);
             koreanText = itemView.findViewById(R.id.word_kor);
+            indexNum = itemView.findViewById(R.id.word_index_num);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,11 +79,11 @@ public class DictionaryInfoAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 }
             });
         }
-        public void setItem(DictionaryWordItem item){
-            Log.e("s", "setItem: "+item.getEng() );
+        public void setItem(DictionaryWordItem item,int pos){
+            Log.e("s", "setItem: "+item.getEng());
             koreanText.setText(item.getKor());
             englishText.setText(item.getEng());
-
+            indexNum.setText(String.valueOf(pos+1));
         }
     }
 }

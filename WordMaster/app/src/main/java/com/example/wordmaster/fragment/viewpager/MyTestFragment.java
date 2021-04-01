@@ -66,7 +66,6 @@ public class MyTestFragment extends Fragment {
 
 
     private void init() {
-        dialog = new WordTestSettingDialog();
         adapter = new DictionaryListAdapter(getContext());
         mb.myTestList.setAdapter(adapter);
         adapter.setDictionaryListCallBack(new DictionaryListCallBack() {
@@ -74,10 +73,12 @@ public class MyTestFragment extends Fragment {
             public void onClick(View v, int pos) {
                 String host = adapter.getItem(pos).getDictionaryHost();
                 String title = adapter.getItem(pos).getDictionaryTitle();
+                int DictMaxCount = Integer.parseInt(adapter.getItem(pos).getDictionaryMaxCount());
+                dialog = new WordTestSettingDialog(DictMaxCount);
                 dialog.setListener(new WordTestSettingDialog.TestBottomSheetCallBack() {
                     @Override
                     public void setOnClickListener(int maxCount, String limitTime, int rgTestType, int rgTestTimeOption) {
-
+                        Toast.makeText(getContext(),maxCount+"",Toast.LENGTH_SHORT).show();
                         listener.sendTestingData(maxCount,limitTime,rgTestType,rgTestTimeOption,host,title);
                         activity.changeFragment(Define.TESTING_FRAGMENT);
                     }

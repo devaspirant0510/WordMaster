@@ -2,12 +2,9 @@ package com.example.wordmaster.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.contentcapture.DataRemovalRequest;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +14,6 @@ import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryListAdapter;
 import com.example.wordmaster.callback.BottomSheetCallBack;
 import com.example.wordmaster.callback.DialogUpdateCallback;
-import com.example.wordmaster.callback.DictionaryFragmentCallBack;
 import com.example.wordmaster.callback.DictionaryListCallBack;
 import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.data.firebase.UserDictionary;
@@ -31,19 +27,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.Objects;
 
 
 public class DictionaryFragment extends Fragment implements BottomSheetCallBack {
     private FragmentDictionaryBinding mb;
-    private static final String TAG = "DictionaryFragment";
+    protected static final String TAG = "DictionaryFragment";
     private CreateDictionarySheetDialog dialog;
     private MainActivity activity;
     private DictionaryListAdapter adapter;
-    private SendDataToActivity sendDictData = null;
+    private SendDataToActivity sendDataToActivity = null;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mMyRef;
     private String title;
@@ -51,10 +43,9 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activity = (MainActivity)getActivity();
+        activity = (MainActivity) getActivity();
         mDatabase = FirebaseDatabase.getInstance();
         mMyRef = mDatabase.getReference();
-
 
 
     }
@@ -62,8 +53,8 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof SendDataToActivity){
-            sendDictData = (SendDataToActivity) context;
+        if (context instanceof SendDataToActivity) {
+            sendDataToActivity = (SendDataToActivity) context;
 
         }
     }
@@ -85,12 +76,14 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
         super.onResume();
     }
 
+    // 파이어베이스 DB 단어장 리스트 읽어오기
     private void readDB() {
         mMyRef.child(Define.USER).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 UserDictionary userDictionary = snapshot.getValue(UserDictionary.class);
                 title = userDictionary.getTitle();
+                // 읽어와서 어댑터에 추가
                 adapter.addItem(new DictionaryListItem(
                         userDictionary.getTitle(),
                         String.valueOf(userDictionary.getMaxCount()),
@@ -136,65 +129,69 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
         });
     }
 
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.e(TAG, "onPause: " );
-    }
-
-    private void createFirebaseReadDatabase(String id, UserDictionary dictionary) {
-        mMyRef.child(Define.USER).child(id).setValue(dictionary);
+    /**
+     * 파베 DB 에 단어장을 추가함
+     *
+     * @param title      : 단어장 제목
+     * @param dictionary : 단어장 정보 (설명,해시태그,최대개수,공개여부,제목)
+     */
+    private void createFirebaseReadDatabase(String title, UserDictionary dictionary) {
+        mMyRef.child(Define.USER).child(title).setValue(dictionary);
 
     }
 
     private void init() {
         adapter = new DictionaryListAdapter(getContext());
-        Log.e(TAG, "init: "+adapter.dictList);
         mb.dictionaryList.setAdapter(adapter);
-        //추가버튼 눌렀을때
+        //추가 플로팅 버튼을 눌렀을때
         mb.createDictionary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 dialog = new CreateDictionarySheetDialog(activity);
-                if (getFragmentManager()!=null){
-                    dialog.show(getFragmentManager(),"dd");
+                // 바텀 시트 다이얼로그 뛰워서 단어장 정보 입력
+                dialog = new CreateDictionarySheetDialog(activity);
+                if (getFragmentManager() != null) {
+                    dialog.show(getFragmentManager(), "add Dictionary");
                 }
             }
         });
         // 리사이클러뷰의 아이템을 클릭했을때
         adapter.setDictionaryListCallBack(new DictionaryListCallBack() {
+            // 클릭 => 해당 단어장의 세부정보 보여주는 화면으로 전환
             @Override
             public void onClick(View v, int pos) {
-                // 해당 단어장의 세부정보 보여주는 화면으로 전환
                 DictionaryListItem item = adapter.getItem(pos);
-                Toast.makeText(getContext(),item.getDictionaryTitle(),Toast.LENGTH_SHORT).show();
-                sendDictData.sendDictData(item.getDictionaryTitle(),item.getDictOption(),item.getDictionaryDescription(),item.getDictionaryHost(),Integer.parseInt(item.getDictionaryMaxCount()));
+                // 메인액티비티에 정보보냄 프레그먼트 트랜잭션
+                sendDataToActivity.sendDictData(item.getDictionaryTitle(), item.getDictOption(), item.getDictionaryHost(), Integer.parseInt(item.getDictionaryMaxCount()));
                 activity.changeFragment(Define.DICTIONARY_INFO_FRAGMENT);
             }
-
+            // 롱클릭 => 수정,삭제 다이얼로그
             @Override
             public void onLongClick(View v, int pos) {
-                DictionaryUpdateDialog dialog  = new DictionaryUpdateDialog(getContext(),Define.DIALOG_DICT_WORD);
+                DictionaryUpdateDialog dialog = new DictionaryUpdateDialog(getContext(), Define.DIALOG_DICT_WORD);
+
                 dialog.setDialogUpdateCallback(new DialogUpdateCallback() {
                     @Override
+                    // 다이얼로그에서 수정버튼을 눌렀을때
                     public void setOnClickUpdateButton() {
+                        // TODO : 바텀시트띄워서 정보수정
 
                     }
 
                     @Override
                     public void setOnClickDeleteButton() {
-                        Toast.makeText(getContext(),pos+"",Toast.LENGTH_SHORT).show();
+                        // TODO : 해당 단어장 삭제후 어댑터 다시 업데이트
                     }
                 });
                 dialog.show();
             }
         });
+
     }
 
+    // 바텀시트에서 입력한 정보 콜백으로 받아옴
     @Override
-    public void createDialogGetData(String title, int count, String description, String hashTag,String DictOption) {
-        createFirebaseReadDatabase(title,new UserDictionary(DictOption,title,count,description,hashTag));
-
+    public void createDialogGetData(String title, int count, String description, String hashTag, String DictOption) {
+        // 파베 DB 에 입력
+        createFirebaseReadDatabase(title, new UserDictionary(DictOption, title, count, description, hashTag));
     }
 }
