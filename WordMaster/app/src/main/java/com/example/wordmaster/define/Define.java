@@ -27,5 +27,8 @@ public class Define {
     //파이어베이스 경로
     public static final String USER = "lsh0510";
 
+    // 다이얼로그 모드
+    public static final String CREATE = "create";
+    public static final String UPDATE = "update";
 
 }

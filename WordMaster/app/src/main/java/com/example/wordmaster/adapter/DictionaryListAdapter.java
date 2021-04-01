@@ -47,7 +47,6 @@ public class DictionaryListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof DictionaryItemHolder){
-            Log.e("a", "onBindViewHolder: " );
             //((DictionaryItemHolder) holder).dictionaryDescription.setText("A");
             ((DictionaryItemHolder) holder).setItem(dictList.get(position));
         }
@@ -76,7 +75,6 @@ public class DictionaryListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         public DictionaryItemHolder(@NonNull View itemView) {
             super(itemView);
-            Log.e("d", "DictionaryItemHolder: " );
             dictionaryTitle = itemView.findViewById(R.id.dict_title);
             dictionaryMaxCount = itemView.findViewById(R.id.dict_max_count);
             dictionaryDescription = itemView.findViewById(R.id.dict_desc);

@@ -71,7 +71,7 @@ public class CreateDictionarySheetDialog extends BottomSheetDialogFragment {
 
 
                 String DictOption = changeDictOption(radioGroupType);
-                activity.sendCreateDictDialog(createDictTitle, createDictCount, createDictDescription, createDictHashTag, DictOption);
+                activity.sendCreateDictDialog(createDictTitle, createDictCount,0, createDictDescription, createDictHashTag, DictOption);
                 dismiss();
             }
         });

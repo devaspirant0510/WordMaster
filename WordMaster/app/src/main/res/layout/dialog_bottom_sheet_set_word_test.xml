@@ -26,11 +26,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
+    <TextView
+        android:id="@+id/tv_prograss_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        app:layout_constraintBottom_toTopOf="@+id/tv_test_limit_time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_test_max_count"
+        app:layout_constraintTop_toBottomOf="@+id/tv_test_max_count" />
+
     <SeekBar
         android:id="@+id/tv_test_max_count"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/tv_test_limit_time"
+        app:layout_constraintBottom_toTopOf="@+id/tv_prograss_count"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.306"
         app:layout_constraintStart_toEndOf="@+id/textView10"
@@ -41,7 +51,9 @@
         android:layout_width="0dp"
         android:layout_height="16dp"
         android:layout_marginTop="39dp"
+        android:layout_marginBottom="14dp"
         android:text="시간"
+        app:layout_constraintBottom_toTopOf="@+id/rg_test_type"
         app:layout_constraintEnd_toStartOf="@+id/tv_test_limit_time"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
@@ -50,13 +62,14 @@
         android:id="@+id/tv_test_limit_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
         android:layout_marginBottom="1dp"
         android:hint="time"
         app:layout_constraintBottom_toTopOf="@+id/rg_test_type"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/tv_test_max_count" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_prograss_count" />
 
     <RadioGroup
         android:id="@+id/rg_test_type"

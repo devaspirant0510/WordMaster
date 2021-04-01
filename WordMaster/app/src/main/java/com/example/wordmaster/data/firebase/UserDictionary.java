@@ -10,18 +10,27 @@ public class UserDictionary {
     String option;
     String title;
     int maxCount;
+    int currentCount;
     String description;
     String hashTag;
-    ArrayList<DictionaryWordItem> list;
     public UserDictionary(){
 
     }
-    public UserDictionary(String option, String title, int maxCount, String description, String hashTag) {
+    public UserDictionary(String option, String title, int maxCount,int currentCount, String description, String hashTag) {
         this.option = option;
         this.title = title;
         this.maxCount = maxCount;
+        this.currentCount = currentCount;
         this.description = description;
         this.hashTag = hashTag;
+    }
+
+    public int getCurrentCount() {
+        return currentCount;
+    }
+
+    public void setCurrentCount(int currentCount) {
+        this.currentCount = currentCount;
     }
 
     public String getOption() {

@@ -47,6 +47,7 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment {
     }
 
     private void init() {
+
         mb.testStartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,17 +64,20 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 Log.e("d","d"+progress);
+                mb.tvPrograssCount.setText(String.valueOf(seekBar.getProgress()));
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
                 Log.e("d","d"+seekBar.getProgress());
+                mb.tvPrograssCount.setText(String.valueOf(seekBar.getProgress()));
 
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 Log.e("d","d"+seekBar.getProgress());
+                mb.tvPrograssCount.setText(String.valueOf(seekBar.getProgress()));
 
             }
         });
