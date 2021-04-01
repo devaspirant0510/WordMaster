@@ -190,8 +190,8 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
 
     // 바텀시트에서 입력한 정보 콜백으로 받아옴
     @Override
-    public void createDialogGetData(String title, int count, String description, String hashTag, String DictOption) {
-        // 파베 DB 에 입력
-        createFirebaseReadDatabase(title, new UserDictionary(DictOption, title, count, description, hashTag));
+    public void createDialogGetData(String title, int count, int currentCount,String description, String hashTag, String DictOption) {
+        createFirebaseReadDatabase(title, new UserDictionary(DictOption, title, count,currentCount, description, hashTag));
+
     }
 }
