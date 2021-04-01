@@ -42,6 +42,9 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     private ArrayList<DictionaryWordItem> wordList = new ArrayList<>();
     private int dictCount;
     private String setMode = "add";
+    // 파베
+    private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef = mDatabase.getReference(Define.USER);
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -51,7 +54,6 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e(TAG, "onCreate: " );
         mb = FragmentDictionaryInfoBinding.inflate(getLayoutInflater());
         activity = (MainActivity)getActivity();
         // 프레그먼트 전환될때 argument 에 정보 들어있는지 확인
@@ -68,7 +70,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
         readWordList();
     }
     // 유저 id -> 단어장 -> list 를 참조하여 단어 불러옴
-    private void readWordList(){
+    public void readWordList(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference(Define.USER);
         reference.child(dictInfoTitle).child("list").addChildEventListener(new ChildEventListener() {
@@ -125,8 +127,13 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
         return mb.getRoot();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mb.progressState.setText(adapter.wordList.size()+"/"+dictCount);
+    }
+
     private void init() {
-        mb.progressState.setText(adapter.getItemCount()+"/"+dictCount);
         mb.progressBar.setMax(dictCount);
         mb.dictInfoTitle.setText(dictInfoTitle);
         mb.dictInfoOption.setText(dictInfoOption);
@@ -142,19 +149,26 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                 dialog.setDialogUpdateCallback(new DialogUpdateCallback() {
                     @Override
                     public void setOnClickUpdateButton() {
+                        CreateWordDialog dialog = new CreateWordDialog(getContext(),wordList,adapter,dictInfoTitle,Define.UPDATE);
+                        dialog.show();
+                        dialog.setUpdateWord(adapter.wordList.get(pos).getEng(),adapter.wordList.get(pos).getKor(),pos);
+                        //readWordList();
+                        adapter.notifyItemChanged(pos);
+
                     }
                     @Override
                     public void setOnClickDeleteButton() {
                         setMode="delete";
                         deleteFireBaseData(pos);
                         mb.progressState.setText(adapter.getItemCount()+"/"+dictCount);
+
                     }
                 });
                 dialog.show();
             }
         });
         // 단어 추가 버튼을 눌렀을때
-        if (wordList.size()==dictCount){
+        if (adapter.getItemCount()==dictCount){
             Toast.makeText(getContext(),"더 이상 추가할수 없습니다.",Toast.LENGTH_SHORT).show();
         }
         else{
@@ -163,7 +177,10 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                 public void onClick(View v) {
                     if (getContext()!=null){
                         setMode="add";
-                        CreateWordDialog dialog = new CreateWordDialog(getContext(),wordList,adapter,dictInfoTitle);
+                        CreateWordDialog dialog = new CreateWordDialog(getContext(),wordList,adapter,dictInfoTitle,Define.CREATE);
+                        Log.e(TAG, "onClick: "+adapter.wordList );
+                        setCurrentItem(adapter.getItemCount());
+                        mb.progressState.setText(adapter.getItemCount()+"/"+dictCount);
                         dialog.show();
                     }
                 }
@@ -171,6 +188,9 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
 
         }
 
+    }
+    private void setCurrentItem(int size){
+        myRef.child(dictInfoTitle).child("currentCount").setValue(size);
     }
 
     /**
