@@ -169,8 +169,8 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
     public void BottomSheetCallBack(BottomSheetCallBack callBack){
         this.bottomSheetCallBack = callBack;
     }
-    public void sendCreateDictDialog(String title,int count,String description,String hashTag,String DictOption){
-        bottomSheetCallBack.createDialogGetData(title,count,description,hashTag,DictOption);
+    public void sendCreateDictDialog(String title,int count,int currentCount,String description,String hashTag,String DictOption){
+        bottomSheetCallBack.createDialogGetData(title,count,currentCount,description,hashTag,DictOption);
     }
     public void setDictionaryListCallBack(DictionaryFragmentCallBack callBack){
         this.dictionaryListCallBack = callBack;
