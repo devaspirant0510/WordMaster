@@ -28,6 +28,7 @@ import com.example.wordmaster.fragment.HomeFragment;
 import com.example.wordmaster.fragment.MyInfoFragment;
 import com.example.wordmaster.fragment.SearchFragment;
 import com.example.wordmaster.fragment.TestFragment;
+import com.example.wordmaster.fragment.TestResultFragment;
 import com.example.wordmaster.fragment.viewpager.MyTestFragment;
 import com.example.wordmaster.fragment.viewpager.OnlineTestFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -156,7 +157,10 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
                 fr.setArguments(testingArg);
                 viewState = showFragment();
                 break;
-
+            case Define.TEST_RESULT_FRAGMENT:
+                fr=new TestResultFragment();
+                viewState = showFragment();
+                break;
             default:
                 break;
         }
