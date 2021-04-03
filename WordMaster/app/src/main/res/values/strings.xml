@@ -23,4 +23,6 @@
     <string name="kor">kor</string>
     <string name="create">추가</string>
     <string name="create_dict">단어추가</string>
+    <string name="submit">제출</string>
+    <string name="test_result">시험결과</string>
 </resources>
