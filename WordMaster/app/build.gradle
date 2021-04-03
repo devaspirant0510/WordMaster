@@ -55,4 +55,5 @@ dependencies {
     // 카카오톡
     implementation "com.kakao.sdk:v2-user:2.3.0" // 카카오 로그인
     implementation group: project.KAKAO_SDK_GROUP, name: 'usermgmt', version: project.KAKAO_SDK_VERSION
+    implementation 'com.kakao.sdk:usermgmt:1.27.0'
 }
