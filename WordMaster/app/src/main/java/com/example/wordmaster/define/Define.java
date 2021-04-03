@@ -14,6 +14,7 @@ public class Define {
     //그외 프레그먼트
     public static final int DICTIONARY_INFO_FRAGMENT = 5;
     public static final int TESTING_FRAGMENT = 6;
+    public static final int TEST_RESULT_FRAGMENT = 7;
 
     // 단어장 공개여부
     public static final int PUBLIC = 1;

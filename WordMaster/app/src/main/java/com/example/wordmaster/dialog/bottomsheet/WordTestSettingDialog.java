@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -53,6 +54,12 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment {
             public void onClick(View v) {
                 int testMaxCount = mb.tvTestMaxCount.getProgress();
                 String testLimitTime = mb.tvTestLimitTime.getText().toString();
+                mb.rgTestType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                    }
+                });
                 int rgTestType = mb.rgTestType.getCheckedRadioButtonId();
                 int rgTestTimeOption = mb.rgTestTimeOption.getCheckedRadioButtonId();
                 Toast.makeText(getContext(),testMaxCount+"",Toast.LENGTH_SHORT ).show();
