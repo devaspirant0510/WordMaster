@@ -9,6 +9,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.wordmaster.activities.LoginActivity;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryInfoAdapter;
 import com.example.wordmaster.callback.InfoFragmentDialogCallback;
@@ -70,7 +71,7 @@ public class CreateWordDialog extends Dialog  {
     }
     public void updateDialog(int pos){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(Define.USER);
+        DatabaseReference myRef = database.getReference(LoginActivity.USER);
         myRef.child(title).child("list").child(String.valueOf(pos)).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -110,7 +111,7 @@ public class CreateWordDialog extends Dialog  {
                     String eng = mb.etEng.getText().toString();
                     //adapter.addItem(new DictionaryWordItem(kor,eng));
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference(Define.USER);
+                    DatabaseReference myRef = database.getReference(LoginActivity.USER);
 
                     int idx = adapter.getItemCount()+1-1;
                     myRef.child(title).child("list").child(String.valueOf(idx)).setValue(new DictionaryWordItem(kor,eng));
@@ -120,7 +121,7 @@ public class CreateWordDialog extends Dialog  {
                 }
                 else {
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference(Define.USER);
+                    DatabaseReference myRef = database.getReference(LoginActivity.USER);
 
                     int idx = adapter.getItemCount()+1-1;
                     myRef.child(title).child("list").child(String.valueOf(pos)).setValue(new DictionaryWordItem(mb.etKor.getText().toString(),mb.etEng.getText().toString()));
