@@ -38,15 +38,19 @@
     <list default="true" id="0b7062bc-63f3-4bc1-8be4-f7c10fa19572" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/activities/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/activities/LoginActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/custom/CreateWordDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/custom/CreateWordDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/DictionaryFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/DictionaryFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/DictionaryInfoFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/DictionaryInfoFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/viewpager/MyTestFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/viewpager/MyTestFragment.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[9333e0d1]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -87,9 +91,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="resourceFile" />
-        <option value="layoutResourceFile" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -119,6 +123,9 @@
     <key name="android.template.-1751191417">
       <recent name="com.example.wordmaster.activities" />
       <recent name="com.example.wordmaster" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\seungho\application\android_app\WordMaster\WordMaster\app\src\main\res\drawable" />
     </key>
   </component>
   <component name="RunManager" selected="Android App.app">
@@ -273,42 +280,42 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="477" y="266" key="#PSD/0.0.1920.1040@0.0.1920.1040" timestamp="1614652531901" />
-    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1615786332173">
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1617688365101">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1615786332173" />
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1617688365101" />
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1614786733326">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1614786733326" />
-    <state x="530" y="402" key="AndroidCreateResourceFileDialog" timestamp="1615785923724">
+    <state x="530" y="402" key="AndroidCreateResourceFileDialog" timestamp="1617689386572">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="530" y="402" key="AndroidCreateResourceFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1615785923724" />
-    <state x="805" y="292" key="AndroidCreateXmlResourceDialog" timestamp="1614931521663">
+    <state x="530" y="402" key="AndroidCreateResourceFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617689386572" />
+    <state x="805" y="292" key="AndroidCreateXmlResourceDialog" timestamp="1617437716878">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="805" y="292" key="AndroidCreateXmlResourceDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1614931521663" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1616297028837">
+    <state x="805" y="292" key="AndroidCreateXmlResourceDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617437716878" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1617413370662">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1616297028837" />
-    <state width="1877" height="380" key="GridCell.Tab.0.bottom" timestamp="1616575473126">
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1617413370662" />
+    <state width="1877" height="265" key="GridCell.Tab.0.bottom" timestamp="1617710667595">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="380" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1616575473126" />
-    <state width="1877" height="380" key="GridCell.Tab.0.center" timestamp="1616575473125">
+    <state width="1877" height="265" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1617710667595" />
+    <state width="1877" height="265" key="GridCell.Tab.0.center" timestamp="1617710667595">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="380" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1616575473125" />
-    <state width="1877" height="380" key="GridCell.Tab.0.left" timestamp="1616575473125">
+    <state width="1877" height="265" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1617710667595" />
+    <state width="1877" height="265" key="GridCell.Tab.0.left" timestamp="1617710667595">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="380" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1616575473125" />
-    <state width="1877" height="380" key="GridCell.Tab.0.right" timestamp="1616575473125">
+    <state width="1877" height="265" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1617710667595" />
+    <state width="1877" height="265" key="GridCell.Tab.0.right" timestamp="1617710667595">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="380" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1616575473125" />
+    <state width="1877" height="265" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1617710667595" />
     <state width="1877" height="467" key="GridCell.Tab.1.bottom" timestamp="1614399340876">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -325,13 +332,13 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="467" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1614399340876" />
-    <state x="669" y="236" width="582" height="568" key="find.popup" timestamp="1615800820533">
+    <state x="669" y="236" width="582" height="568" key="find.popup" timestamp="1617677898010">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="669" y="236" width="582" height="568" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1615800820533" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1614920777623">
+    <state x="669" y="236" width="582" height="568" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1617677898010" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1617705044545">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1614920777623" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1617705044545" />
   </component>
 </project>

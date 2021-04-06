@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.wordmaster.activities.LoginActivity;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryListAdapter;
 import com.example.wordmaster.callback.BottomSheetCallBack;
@@ -78,7 +79,7 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
 
     // 파이어베이스 DB 단어장 리스트 읽어오기
     private void readDB() {
-        mMyRef.child(Define.USER).addChildEventListener(new ChildEventListener() {
+        mMyRef.child(LoginActivity.USER).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 UserDictionary userDictionary = snapshot.getValue(UserDictionary.class);
@@ -88,7 +89,7 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
                         userDictionary.getTitle(),
                         String.valueOf(userDictionary.getMaxCount()),
                         userDictionary.getDescription(),
-                        Define.USER,
+                        LoginActivity.USER,
                         userDictionary.getOption(),
                         1
                 ));
@@ -136,7 +137,7 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
      * @param dictionary : 단어장 정보 (설명,해시태그,최대개수,공개여부,제목)
      */
     private void createFirebaseReadDatabase(String title, UserDictionary dictionary) {
-        mMyRef.child(Define.USER).child(title).setValue(dictionary);
+        mMyRef.child(LoginActivity.USER).child(title).setValue(dictionary);
 
     }
 

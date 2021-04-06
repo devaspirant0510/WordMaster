@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.wordmaster.activities.LoginActivity;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryListAdapter;
 import com.example.wordmaster.callback.DictionaryListCallBack;
@@ -101,7 +102,7 @@ public class MyTestFragment extends Fragment {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
 
-        myRef.child(Define.USER).addChildEventListener(new ChildEventListener() {
+        myRef.child(LoginActivity.USER).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 UserDictionary userDictionary = snapshot.getValue(UserDictionary.class);
@@ -109,7 +110,7 @@ public class MyTestFragment extends Fragment {
                         userDictionary.getTitle(),
                         String.valueOf(userDictionary.getMaxCount()),
                         userDictionary.getDescription(),
-                        Define.USER,
+                        LoginActivity.USER,
                         userDictionary.getOption(),
                         1
                 ));
