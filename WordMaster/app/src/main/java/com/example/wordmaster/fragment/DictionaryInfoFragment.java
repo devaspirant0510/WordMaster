@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.wordmaster.activities.LoginActivity;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryInfoAdapter;
 import com.example.wordmaster.callback.DialogUpdateCallback;
@@ -44,7 +45,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     private String setMode = "add";
     // 파베
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef = mDatabase.getReference(Define.USER);
+    private DatabaseReference myRef = mDatabase.getReference(LoginActivity.USER);
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -72,7 +73,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     // 유저 id -> 단어장 -> list 를 참조하여 단어 불러옴
     public void readWordList(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference(Define.USER);
+        DatabaseReference reference = database.getReference(LoginActivity.USER);
         reference.child(dictInfoTitle).child("list").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -203,7 +204,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
         adapter.removeItem(list.get(pos));
         adapter.notifyDataSetChanged();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(Define.USER);
+        DatabaseReference myRef = database.getReference(LoginActivity.USER);
         // 파이어베이스에서 list 통째로 삭제후 삭제된 리스트 setValue 시킴
         myRef.child(dictInfoTitle).child("list").setValue(null);
         myRef.child(dictInfoTitle).child("list").setValue(adapter.wordList);
