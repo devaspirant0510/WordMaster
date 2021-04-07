@@ -1,39 +1,26 @@
 package com.example.wordmaster.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageInstaller;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.wordmaster.R;
-import com.example.wordmaster.callback.SessionCallback;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.wordmaster.data.firebase.UserAccount;
 import com.example.wordmaster.databinding.ActivityLoginBinding;
-import com.example.wordmaster.dialog.bottomsheet.LoginBottomSheetDialog;
 import com.example.wordmaster.dialog.bottomsheet.LoginSuccessSheetDialog;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.kakao.auth.AuthType;
-import com.kakao.auth.Session;
 import com.kakao.sdk.auth.model.OAuthToken;
 import com.kakao.sdk.user.UserApiClient;
-import com.kakao.sdk.user.model.Gender;
 import com.kakao.sdk.user.model.User;
 
 import java.security.MessageDigest;
@@ -48,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final int RESULT_SIGN_GOOGLE = 100;
     private static final String TAG = "LoginActivity";
     private SharedPreferences sharedPreferences;
+    public static String ID = "";
     public static String USER = "";
     private FirebaseDatabase mDatabase;
     private DatabaseReference mRef;
@@ -57,10 +45,17 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mb = ActivityLoginBinding.inflate(getLayoutInflater());
         View root = mb.getRoot();
-        setContentView(root);
-        //getHashKey();
-        setFirebase();
-        init();
+        SharedPreferences sharedPreferences = getSharedPreferences("LoginInformation",MODE_PRIVATE);
+        if (sharedPreferences.getString("userId", "").equals("")){
+            setContentView(root);
+            //getHashKey();
+            setFirebase();
+            init();
+
+        }
+        else{
+            changeLogin2Main();
+        }
 
     }
 
@@ -79,6 +74,14 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
     }
+
+    private void changeLogin2Main(){
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
+        finish();
+
+    }
     private void showLoginSuccessDialog(){
 
         UserApiClient.getInstance().me(new Function2<User, Throwable, Unit>() {
@@ -86,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
             public Unit invoke(User user, Throwable throwable) {
                 if (user != null) {
                     USER = String.valueOf(user.getId());
+
                     LoginSuccessSheetDialog loginSuccessSheetDialog = new LoginSuccessSheetDialog();
                     Bundle bundle = new Bundle();
                     bundle.putString("image_uri",user.getKakaoAccount().getProfile().getProfileImageUrl());
@@ -103,10 +107,13 @@ public class LoginActivity extends AppCompatActivity {
                                     user.getKakaoAccount().getBirthday(),
                                     user.getKakaoAccount().getProfile().getProfileImageUrl()
                             ));
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                            startActivity(intent);
-                            finish();
+                            SharedPreferences sharedPreferences = getSharedPreferences("LoginInformation",MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("userId",String.valueOf(user.getId()));
+                            editor.putString("userNickName",name);
+                            editor.putString("userEmail",user.getKakaoAccount().getEmail());
+                            editor.apply();
+                            changeLogin2Main();
                         }
                     });
 
