@@ -1,6 +1,7 @@
 package com.example.wordmaster.fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +40,7 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
     private SendDataToActivity sendDataToActivity = null;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mMyRef;
-    private String title;
+    private String title,spUserId,spUserEmail,spUserName;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +48,10 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
         activity = (MainActivity) getActivity();
         mDatabase = FirebaseDatabase.getInstance();
         mMyRef = mDatabase.getReference();
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("LoginInformation", Context.MODE_PRIVATE);
+        spUserId = sharedPreferences.getString("userId","");
+        spUserEmail = sharedPreferences.getString("userEmail","");
+        spUserName = sharedPreferences.getString("userNickName","");
 
 
     }
@@ -79,7 +84,7 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
 
     // 파이어베이스 DB 단어장 리스트 읽어오기
     private void readDB() {
-        mMyRef.child(LoginActivity.USER).addChildEventListener(new ChildEventListener() {
+        mMyRef.child("WordStore").child(spUserId).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 UserDictionary userDictionary = snapshot.getValue(UserDictionary.class);
@@ -137,7 +142,7 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
      * @param dictionary : 단어장 정보 (설명,해시태그,최대개수,공개여부,제목)
      */
     private void createFirebaseReadDatabase(String title, UserDictionary dictionary) {
-        mMyRef.child(LoginActivity.USER).child(title).setValue(dictionary);
+        mMyRef.child("WordStore").child(spUserId).child(title).setValue(dictionary);
 
     }
 

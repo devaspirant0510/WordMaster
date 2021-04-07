@@ -1,6 +1,7 @@
 package com.example.wordmaster.fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,8 +19,6 @@ import com.example.wordmaster.adapter.DictionaryInfoAdapter;
 import com.example.wordmaster.callback.DialogUpdateCallback;
 import com.example.wordmaster.callback.DictionaryFragmentCallBack;
 import com.example.wordmaster.callback.DictionaryListCallBack;
-import com.example.wordmaster.data.firebase.UserDictionary;
-import com.example.wordmaster.data.recycler.DictionaryListItem;
 import com.example.wordmaster.data.recycler.DictionaryWordItem;
 import com.example.wordmaster.databinding.FragmentDictionaryInfoBinding;
 import com.example.wordmaster.define.Define;
@@ -32,7 +31,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class DictionaryInfoFragment extends Fragment implements DictionaryFragmentCallBack {
     private MainActivity activity;
@@ -42,10 +40,10 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     private DictionaryInfoAdapter adapter;
     private ArrayList<DictionaryWordItem> wordList = new ArrayList<>();
     private int dictCount;
-    private String setMode = "add";
+    private String setMode = "add",spUserId,spUserEmail,spUserName;
     // 파베
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef = mDatabase.getReference(LoginActivity.USER);
+    private DatabaseReference myRef = mDatabase.getReference("WordStore");
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -57,6 +55,10 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
         super.onCreate(savedInstanceState);
         mb = FragmentDictionaryInfoBinding.inflate(getLayoutInflater());
         activity = (MainActivity)getActivity();
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("LoginInformation", Context.MODE_PRIVATE);
+        spUserId = sharedPreferences.getString("userId","");
+        spUserEmail = sharedPreferences.getString("userEmail","");
+        spUserName = sharedPreferences.getString("userNickName","");
         // 프레그먼트 전환될때 argument 에 정보 들어있는지 확인
         adapter = new DictionaryInfoAdapter(getContext());
         mb.wordList.setAdapter(adapter);
@@ -74,7 +76,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     public void readWordList(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference(LoginActivity.USER);
-        reference.child(dictInfoTitle).child("list").addChildEventListener(new ChildEventListener() {
+        reference.child("WordStore").child(spUserId).child(dictInfoTitle).child("list").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if (setMode.equals("add")){
@@ -150,7 +152,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                 dialog.setDialogUpdateCallback(new DialogUpdateCallback() {
                     @Override
                     public void setOnClickUpdateButton() {
-                        CreateWordDialog dialog = new CreateWordDialog(getContext(),wordList,adapter,dictInfoTitle,Define.UPDATE);
+                        CreateWordDialog dialog = new CreateWordDialog(getContext(),spUserId,wordList,adapter,dictInfoTitle,Define.UPDATE);
                         dialog.show();
                         dialog.setUpdateWord(adapter.wordList.get(pos).getEng(),adapter.wordList.get(pos).getKor(),pos);
                         //readWordList();
@@ -178,7 +180,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                 public void onClick(View v) {
                     if (getContext()!=null){
                         setMode="add";
-                        CreateWordDialog dialog = new CreateWordDialog(getContext(),wordList,adapter,dictInfoTitle,Define.CREATE);
+                        CreateWordDialog dialog = new CreateWordDialog(getContext(),spUserId,wordList,adapter,dictInfoTitle,Define.CREATE);
                         Log.e(TAG, "onClick: "+adapter.wordList );
                         setCurrentItem(adapter.getItemCount());
                         mb.progressState.setText(adapter.getItemCount()+"/"+dictCount);
@@ -204,10 +206,10 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
         adapter.removeItem(list.get(pos));
         adapter.notifyDataSetChanged();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(LoginActivity.USER);
+        DatabaseReference myRef = database.getReference("WordStore");
         // 파이어베이스에서 list 통째로 삭제후 삭제된 리스트 setValue 시킴
-        myRef.child(dictInfoTitle).child("list").setValue(null);
-        myRef.child(dictInfoTitle).child("list").setValue(adapter.wordList);
+        myRef.child(spUserId).child(dictInfoTitle).child("list").setValue(null);
+        myRef.child(spUserId).child(dictInfoTitle).child("list").setValue(adapter.wordList);
 
 
 

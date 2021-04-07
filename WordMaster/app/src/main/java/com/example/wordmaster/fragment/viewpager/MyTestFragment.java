@@ -1,6 +1,7 @@
 package com.example.wordmaster.fragment.viewpager;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,9 +20,7 @@ import com.example.wordmaster.callback.DictionaryListCallBack;
 import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.data.firebase.UserDictionary;
 import com.example.wordmaster.data.recycler.DictionaryListItem;
-import com.example.wordmaster.databinding.DialogBottomSheetSetWordTestBinding;
 import com.example.wordmaster.databinding.FragmentMyTestBinding;
-import com.example.wordmaster.databinding.FragmentTestBinding;
 import com.example.wordmaster.define.Define;
 import com.example.wordmaster.dialog.bottomsheet.WordTestSettingDialog;
 import com.google.firebase.database.ChildEventListener;
@@ -37,11 +36,16 @@ public class MyTestFragment extends Fragment {
     private SendDataToActivity listener = null;
     private WordTestSettingDialog dialog;
     private static final String TAG = "MyTestFragment";
+    private String spUserId,spUserEmail,spUserName;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         activity = (MainActivity) getActivity();
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("LoginInformation", Context.MODE_PRIVATE);
+        spUserId = sharedPreferences.getString("userId","");
+        spUserEmail = sharedPreferences.getString("userEmail","");
+        spUserName = sharedPreferences.getString("userNickName","");
     }
 
     public void setListener(SendDataToActivity listener) {
@@ -102,7 +106,7 @@ public class MyTestFragment extends Fragment {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
 
-        myRef.child(LoginActivity.USER).addChildEventListener(new ChildEventListener() {
+        myRef.child("WordStore").child(spUserId).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 UserDictionary userDictionary = snapshot.getValue(UserDictionary.class);

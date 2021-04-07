@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import com.example.wordmaster.activities.LoginActivity;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryInfoAdapter;
-import com.example.wordmaster.callback.InfoFragmentDialogCallback;
 import com.example.wordmaster.data.recycler.DictionaryWordItem;
 import com.example.wordmaster.databinding.DialogCreateWordDialogBinding;
 import com.example.wordmaster.define.Define;
@@ -33,16 +32,17 @@ public class CreateWordDialog extends Dialog  {
     private MainActivity activity;
     private ArrayList<String> getPosWord = new ArrayList<>();
     private String mode;
-    private String title;
+    private String title,spUserId;
     private int pos;
     private static final String TAG = "CreateWordDialog";
     private ArrayList<DictionaryWordItem> wordList;
-    public CreateWordDialog(@NonNull Context context,ArrayList<DictionaryWordItem> list,DictionaryInfoAdapter adapter,String tilte,String mode) {
+    public CreateWordDialog(@NonNull Context context,String spUserId,ArrayList<DictionaryWordItem> list,DictionaryInfoAdapter adapter,String tilte,String mode) {
         super(context);
         this.context = context;
         this.adapter = adapter;
         this.wordList =list;
         this.title = tilte;
+        this.spUserId = spUserId;
         this.mode = mode;
         activity = (MainActivity)getOwnerActivity();
     }
@@ -71,8 +71,8 @@ public class CreateWordDialog extends Dialog  {
     }
     public void updateDialog(int pos){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(LoginActivity.USER);
-        myRef.child(title).child("list").child(String.valueOf(pos)).addChildEventListener(new ChildEventListener() {
+        DatabaseReference myRef = database.getReference("WordStore");
+        myRef.child(spUserId).child(title).child("list").child(String.valueOf(pos)).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Log.e(TAG, "onChildAdded: "+snapshot.getValue() );
@@ -114,7 +114,7 @@ public class CreateWordDialog extends Dialog  {
                     DatabaseReference myRef = database.getReference(LoginActivity.USER);
 
                     int idx = adapter.getItemCount()+1-1;
-                    myRef.child(title).child("list").child(String.valueOf(idx)).setValue(new DictionaryWordItem(kor,eng));
+                    myRef.child("WordStore").child(spUserId).child(title).child("list").child(String.valueOf(idx)).setValue(new DictionaryWordItem(kor,eng));
                     Log.e(TAG, "onClick: "+adapter.getItemCount() );
                     dismiss();
 
