@@ -21,7 +21,7 @@ import com.example.wordmaster.callback.DictionaryFragmentCallBack;
 import com.example.wordmaster.callback.DictionaryListCallBack;
 import com.example.wordmaster.data.recycler.DictionaryWordItem;
 import com.example.wordmaster.databinding.FragmentDictionaryInfoBinding;
-import com.example.wordmaster.define.Define;
+import com.example.wordmaster.model.Define;
 import com.example.wordmaster.dialog.custom.CreateWordDialog;
 import com.example.wordmaster.dialog.custom.DictionaryUpdateDialog;
 import com.google.firebase.database.ChildEventListener;
@@ -193,7 +193,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
 
     }
     private void setCurrentItem(int size){
-        myRef.child(dictInfoTitle).child("currentCount").setValue(size);
+        myRef.child(spUserId).child(dictInfoTitle).child("currentCount").setValue(size);
     }
 
     /**

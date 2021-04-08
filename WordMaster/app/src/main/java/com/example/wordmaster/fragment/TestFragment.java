@@ -1,8 +1,8 @@
 package com.example.wordmaster.fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextPaint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,24 +14,22 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.wordmaster.activities.MainActivity;
+import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.data.recycler.DictionaryWordItem;
 import com.example.wordmaster.databinding.FragmentTestBinding;
-import com.example.wordmaster.define.Define;
+import com.example.wordmaster.model.Define;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-
-import kotlin.jvm.internal.Ref;
 
 public class TestFragment extends Fragment {
     private FragmentTestBinding mb;
     private int dictMaxCount, rgDictType, rgOption;
-    private String dictTitle, dictHostName, limitTime;
+    private String dictTitle, dictHostName, limitTime,spUserId,spUserEmail,spUserName;
     private static String TAG = "TestFragment";
     private int currentIdx = 0;
     private ArrayList<DictionaryWordItem> testList = new ArrayList<>();
@@ -41,6 +39,7 @@ public class TestFragment extends Fragment {
     private ArrayList<String> answerList = new ArrayList<>();
     private MainActivity activity;
     private int myScore = 0;
+    private SendDataToActivity sendDataToActivity = null;
 
 
     @Override
@@ -52,7 +51,18 @@ public class TestFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        if (context instanceof SendDataToActivity){
+            sendDataToActivity = (SendDataToActivity) context;
+        }
         activity = (MainActivity)getActivity();
+        if(activity!=null){
+            SharedPreferences sharedPreferences = activity.getSharedPreferences("LoginInformation", Context.MODE_PRIVATE);
+            spUserId = sharedPreferences.getString("userId","");
+            spUserEmail = sharedPreferences.getString("userEmail","");
+            spUserName = sharedPreferences.getString("userNickName","");
+            Log.e(TAG, "onCreate: "+spUserId );
+
+        }
         Bundle getArgs = getArguments();
         if (getArgs != null) {
             dictTitle = getArgs.getString("tvTestTitle");
@@ -88,6 +98,7 @@ public class TestFragment extends Fragment {
         mb.btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                myArr[currentIdx] = mb.etWordAnswer.getText().toString();
                 answerArr = answerList.toArray(new String[0]);
                 for (int i=0; i<answerArr.length; i++){
                     if (answerArr[i].equals(myArr[i])){
@@ -95,6 +106,7 @@ public class TestFragment extends Fragment {
                     }
                 }
                 Toast.makeText(getContext(),"너님의 점수는"+myScore+"/"+dictMaxCount,Toast.LENGTH_SHORT).show();
+                sendDataToActivity.sendTestResult(dictMaxCount,myScore,myArr,answerArr);
                 activity.changeFragment(Define.TEST_RESULT_FRAGMENT);
             }
         });
@@ -138,9 +150,10 @@ public class TestFragment extends Fragment {
                 mb.tvWordTestProgressText.setText((currentIdx+1)+"/" + dictMaxCount);
                 mb.pgWordTestProgress.setProgress(currentIdx+1);
                 Log.e(TAG, "onClick: "+currentIdx );
-                Toast.makeText(getContext(),currentIdx+"",Toast.LENGTH_SHORT).show();
                 showWord(currentIdx);
-                mb.etWordAnswer.setText("");
+
+                    mb.etWordAnswer.setText("");
+
 
 
             }
@@ -152,6 +165,7 @@ public class TestFragment extends Fragment {
             public void onClick(View v) {
 
 
+                myArr[currentIdx] = mb.etWordAnswer.getText().toString();
                 currentIdx-=1;
                 mb.tvWordTestProgressText.setText((currentIdx+1)+"/" + dictMaxCount);
                 mb.pgWordTestProgress.setProgress(currentIdx+1);
@@ -207,8 +221,10 @@ public class TestFragment extends Fragment {
 
     public void readDBListItem() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(dictHostName);
-        myRef.child(dictTitle).child("list").addChildEventListener(new ChildEventListener() {
+        DatabaseReference myRef = database.getReference("WordStore");
+        Log.e(TAG, "readDBListItem: "+spUserId  );
+
+        myRef.child(spUserId).child(dictTitle).child("list").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Log.e(TAG, "onChildAdded: " + snapshot.getValue());

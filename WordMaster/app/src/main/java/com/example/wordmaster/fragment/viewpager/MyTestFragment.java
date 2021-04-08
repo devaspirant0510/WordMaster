@@ -21,7 +21,7 @@ import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.data.firebase.UserDictionary;
 import com.example.wordmaster.data.recycler.DictionaryListItem;
 import com.example.wordmaster.databinding.FragmentMyTestBinding;
-import com.example.wordmaster.define.Define;
+import com.example.wordmaster.model.Define;
 import com.example.wordmaster.dialog.bottomsheet.WordTestSettingDialog;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -46,6 +46,7 @@ public class MyTestFragment extends Fragment {
         spUserId = sharedPreferences.getString("userId","");
         spUserEmail = sharedPreferences.getString("userEmail","");
         spUserName = sharedPreferences.getString("userNickName","");
+        Log.e(TAG, "onAttach: e"+spUserId );
     }
 
     public void setListener(SendDataToActivity listener) {

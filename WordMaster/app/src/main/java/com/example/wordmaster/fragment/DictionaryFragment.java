@@ -3,6 +3,7 @@ package com.example.wordmaster.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.data.firebase.UserDictionary;
 import com.example.wordmaster.data.recycler.DictionaryListItem;
 import com.example.wordmaster.databinding.FragmentDictionaryBinding;
-import com.example.wordmaster.define.Define;
+import com.example.wordmaster.model.Define;
 import com.example.wordmaster.dialog.bottomsheet.CreateDictionarySheetDialog;
 import com.example.wordmaster.dialog.custom.DictionaryUpdateDialog;
 import com.google.firebase.database.ChildEventListener;
@@ -84,6 +85,7 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
 
     // 파이어베이스 DB 단어장 리스트 읽어오기
     private void readDB() {
+        Log.e(TAG, "readDB: "+spUserId );
         mMyRef.child("WordStore").child(spUserId).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
