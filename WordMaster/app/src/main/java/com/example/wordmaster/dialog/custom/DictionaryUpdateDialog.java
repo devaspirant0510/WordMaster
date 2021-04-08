@@ -6,11 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 
 import com.example.wordmaster.callback.DialogUpdateCallback;
 import com.example.wordmaster.databinding.DialogUpdateDictBinding;
-import com.example.wordmaster.define.Define;
+import com.example.wordmaster.model.Define;
 
 public class DictionaryUpdateDialog extends Dialog {
     private DialogUpdateDictBinding mb;
