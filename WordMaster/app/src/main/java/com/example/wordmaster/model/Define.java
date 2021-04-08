@@ -1,4 +1,4 @@
-package com.example.wordmaster.define;
+package com.example.wordmaster.model;
 
 public class Define {
     //바텀네비게이션 프레그먼트
