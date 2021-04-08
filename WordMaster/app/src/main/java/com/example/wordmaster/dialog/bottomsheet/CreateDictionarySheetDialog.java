@@ -1,7 +1,6 @@
 package com.example.wordmaster.dialog.bottomsheet;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import com.example.wordmaster.R;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.callback.BottomSheetCallBack;
 import com.example.wordmaster.databinding.DialogBottomSheetCreateDictBinding;
-import com.example.wordmaster.define.Define;
+import com.example.wordmaster.model.Define;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class CreateDictionarySheetDialog extends BottomSheetDialogFragment {
