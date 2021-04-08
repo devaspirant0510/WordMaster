@@ -1,16 +1,16 @@
 package com.example.wordmaster.activities;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
 
 import com.example.wordmaster.R;
 import com.example.wordmaster.adapter.DictionaryInfoAdapter;
@@ -21,7 +21,6 @@ import com.example.wordmaster.callback.InfoFragmentDialogCallback;
 import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.data.recycler.DictionaryWordItem;
 import com.example.wordmaster.databinding.ActivityMainBinding;
-import com.example.wordmaster.define.Define;
 import com.example.wordmaster.fragment.DictionaryFragment;
 import com.example.wordmaster.fragment.DictionaryInfoFragment;
 import com.example.wordmaster.fragment.HomeFragment;
@@ -31,6 +30,7 @@ import com.example.wordmaster.fragment.TestFragment;
 import com.example.wordmaster.fragment.TestResultFragment;
 import com.example.wordmaster.fragment.viewpager.MyTestFragment;
 import com.example.wordmaster.fragment.viewpager.OnlineTestFragment;
+import com.example.wordmaster.model.Define;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -43,6 +43,9 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
     private static final String TAG = "MainActivity";
     private String dictTitle,dictOption,dictDescription,dictHost,testingLimitTime,testingTitle,testingHost;
     private int dictCount,testingMaxCount,testingRgType,testingRgOption;
+    private int testMaxCount,testCurrentCount;
+    private String[] myArr;
+    private String[] answerArr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,6 +162,12 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
                 break;
             case Define.TEST_RESULT_FRAGMENT:
                 fr=new TestResultFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("testMaxCount",testMaxCount);
+                bundle.putInt("testCurrentCount",testCurrentCount);
+                bundle.putStringArray("myArr",myArr);
+                bundle.putStringArray("answerArr",answerArr);
+                fr.setArguments(bundle);
                 viewState = showFragment();
                 break;
             default:
@@ -178,6 +187,12 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
     }
     public void setDictionaryListCallBack(DictionaryFragmentCallBack callBack){
         this.dictionaryListCallBack = callBack;
+    }
+    public void setSendTestResult(DictionaryFragmentCallBack callBack){
+        this.dictionaryListCallBack = callBack;
+    }
+    public void sendTestResultCallback(int maxCount, int trueCount, String[] myAnswer,String[] answer){
+
     }
     public void sendInfoData(String title,String option,int count){
         dictionaryListCallBack.sendInfoData(title,option,count);
@@ -209,5 +224,14 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
         this.testingTitle = title;
         this.testingHost = host;
 
+    }
+
+    @Override
+    public void sendTestResult(int maxCount, int trueCount, String[] myAnswer, String[] answer) {
+        Log.e(TAG, "sendTestResult: "+maxCount+"/"+trueCount );
+        this.testMaxCount = maxCount;
+        this.testCurrentCount = trueCount;
+        this.myArr = myAnswer;
+        this.answerArr = answer;
     }
 }
