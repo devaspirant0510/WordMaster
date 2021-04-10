@@ -77,23 +77,27 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/rg_test_time_option"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9">
 
         <RadioButton
+            android:id="@+id/kor2eng"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="단어->영어"/>
+            android:text="영어->한글" />
 
         <RadioButton
+            android:id="@+id/eng2kor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="영어->단어"/>
+            android:text="한글->영어" />
 
         <RadioButton
+            android:id="@+id/random"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="랜덤"/>
+            android:text="랜덤" />
     </RadioGroup>
 
     <RadioGroup

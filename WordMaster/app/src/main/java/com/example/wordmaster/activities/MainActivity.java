@@ -30,7 +30,7 @@ import com.example.wordmaster.fragment.TestFragment;
 import com.example.wordmaster.fragment.TestResultFragment;
 import com.example.wordmaster.fragment.viewpager.MyTestFragment;
 import com.example.wordmaster.fragment.viewpager.OnlineTestFragment;
-import com.example.wordmaster.model.Define;
+import com.example.wordmaster.Define.Define;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
     private int testMaxCount,testCurrentCount;
     private String[] myArr;
     private String[] answerArr;
+    private ArrayList<DictionaryWordItem> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,6 +168,7 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
                 bundle.putInt("testCurrentCount",testCurrentCount);
                 bundle.putStringArray("myArr",myArr);
                 bundle.putStringArray("answerArr",answerArr);
+                bundle.putSerializable("list",list);
                 fr.setArguments(bundle);
                 viewState = showFragment();
                 break;
@@ -227,11 +229,13 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
     }
 
     @Override
-    public void sendTestResult(int maxCount, int trueCount, String[] myAnswer, String[] answer) {
+    public void sendTestResult(int maxCount, int trueCount, String[] myAnswer, String[] answer,ArrayList<DictionaryWordItem> list) {
         Log.e(TAG, "sendTestResult: "+maxCount+"/"+trueCount );
         this.testMaxCount = maxCount;
         this.testCurrentCount = trueCount;
         this.myArr = myAnswer;
         this.answerArr = answer;
+        this.list = list;
+
     }
 }

@@ -22,7 +22,7 @@ import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.data.firebase.UserDictionary;
 import com.example.wordmaster.data.recycler.DictionaryListItem;
 import com.example.wordmaster.databinding.FragmentDictionaryBinding;
-import com.example.wordmaster.model.Define;
+import com.example.wordmaster.Define.Define;
 import com.example.wordmaster.dialog.bottomsheet.CreateDictionarySheetDialog;
 import com.example.wordmaster.dialog.custom.DictionaryUpdateDialog;
 import com.google.firebase.database.ChildEventListener;

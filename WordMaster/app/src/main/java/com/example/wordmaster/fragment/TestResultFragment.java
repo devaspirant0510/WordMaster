@@ -10,13 +10,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.wordmaster.adapter.TestResultAdapter;
+import com.example.wordmaster.data.recycler.DictionaryWordItem;
+import com.example.wordmaster.data.recycler.TestResultItem;
 import com.example.wordmaster.databinding.FragmentTestResultBinding;
+
+import java.util.ArrayList;
 
 public class TestResultFragment extends Fragment {
     private FragmentTestResultBinding mb;
     private int maxCount,score;
     private String myArr[];
     private String answerArr[];
+    private ArrayList<DictionaryWordItem> list;
+    private static String TAG = "TestResultFragment";
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -27,7 +34,7 @@ public class TestResultFragment extends Fragment {
             score = getArgs.getInt("testCurrentCount");
             myArr = getArgs.getStringArray("myArr");
             answerArr = getArgs.getStringArray("answerArr");
-
+            list = (ArrayList<DictionaryWordItem>) getArgs.getSerializable("list");
         }
     }
 
@@ -42,7 +49,18 @@ public class TestResultFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mb.tvTestResult.setText(score+"/"+maxCount);
+        init();
         return mb.getRoot();
 
+    }
+
+    private void init() {
+        TestResultAdapter adapter = new TestResultAdapter();
+        for (int i=0; i<answerArr.length; i++){
+            String isCorrect = myArr[i].equals(answerArr[i]) ?"o":"x";
+            adapter.addItem(new TestResultItem(i,list.get(i).getEng(),list.get(i).getKor(),myArr[i],isCorrect));
+
+        }
+        mb.wordTestResultList.setAdapter(adapter);
     }
 }

@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 
 import com.example.wordmaster.callback.DialogUpdateCallback;
 import com.example.wordmaster.databinding.DialogUpdateDictBinding;
-import com.example.wordmaster.model.Define;
+import com.example.wordmaster.Define.Define;
 
 public class DictionaryUpdateDialog extends Dialog {
     private DialogUpdateDictBinding mb;

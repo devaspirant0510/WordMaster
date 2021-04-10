@@ -1,4 +1,4 @@
-package com.example.wordmaster.model;
+package com.example.wordmaster.Define;
 
 public class Define {
     //바텀네비게이션 프레그먼트
@@ -20,6 +20,11 @@ public class Define {
     public static final int PUBLIC = 1;
     public static final int PRIVATE = 2;
     public static final int ONLY_ME = 3;
+
+    // 테스트 유형
+    public static final int KOR2ENG = 0;
+    public static final int ENG2KOR = 1;
+    public static final int RANDOM = 2;
 
     // 리사이클러뷰 롱클릭시 다이얼로그 타입
     public static final int DIALOG_DICT_LIST = 100;

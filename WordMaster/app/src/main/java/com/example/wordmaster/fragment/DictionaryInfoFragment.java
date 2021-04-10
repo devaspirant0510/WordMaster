@@ -21,7 +21,7 @@ import com.example.wordmaster.callback.DictionaryFragmentCallBack;
 import com.example.wordmaster.callback.DictionaryListCallBack;
 import com.example.wordmaster.data.recycler.DictionaryWordItem;
 import com.example.wordmaster.databinding.FragmentDictionaryInfoBinding;
-import com.example.wordmaster.model.Define;
+import com.example.wordmaster.Define.Define;
 import com.example.wordmaster.dialog.custom.CreateWordDialog;
 import com.example.wordmaster.dialog.custom.DictionaryUpdateDialog;
 import com.google.firebase.database.ChildEventListener;
