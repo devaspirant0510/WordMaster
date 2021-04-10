@@ -1,4 +1,4 @@
-package com.example.wordmaster.model;
+package com.example.wordmaster.Define;
 
 public class util {
 }
