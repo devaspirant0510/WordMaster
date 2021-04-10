@@ -17,7 +17,7 @@ import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.data.recycler.DictionaryWordItem;
 import com.example.wordmaster.databinding.FragmentTestBinding;
-import com.example.wordmaster.model.Define;
+import com.example.wordmaster.Define.Define;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,11 +25,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class TestFragment extends Fragment {
     private FragmentTestBinding mb;
     private int dictMaxCount, rgDictType, rgOption;
-    private String dictTitle, dictHostName, limitTime,spUserId,spUserEmail,spUserName;
+    private String dictTitle, dictHostName, limitTime, spUserId, spUserEmail, spUserName;
     private static String TAG = "TestFragment";
     private int currentIdx = 0;
     private ArrayList<DictionaryWordItem> testList = new ArrayList<>();
@@ -51,16 +52,16 @@ public class TestFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof SendDataToActivity){
+        if (context instanceof SendDataToActivity) {
             sendDataToActivity = (SendDataToActivity) context;
         }
-        activity = (MainActivity)getActivity();
-        if(activity!=null){
+        activity = (MainActivity) getActivity();
+        if (activity != null) {
             SharedPreferences sharedPreferences = activity.getSharedPreferences("LoginInformation", Context.MODE_PRIVATE);
-            spUserId = sharedPreferences.getString("userId","");
-            spUserEmail = sharedPreferences.getString("userEmail","");
-            spUserName = sharedPreferences.getString("userNickName","");
-            Log.e(TAG, "onCreate: "+spUserId );
+            spUserId = sharedPreferences.getString("userId", "");
+            spUserEmail = sharedPreferences.getString("userEmail", "");
+            spUserName = sharedPreferences.getString("userNickName", "");
+            Log.e(TAG, "onCreate: " + spUserId);
 
         }
         Bundle getArgs = getArguments();
@@ -100,30 +101,30 @@ public class TestFragment extends Fragment {
             public void onClick(View v) {
                 myArr[currentIdx] = mb.etWordAnswer.getText().toString();
                 answerArr = answerList.toArray(new String[0]);
-                for (int i=0; i<answerArr.length; i++){
-                    if (answerArr[i].equals(myArr[i])){
-                        myScore+=1;
+                for (int i = 0; i < answerArr.length; i++) {
+                    Log.e("s",answerArr[i]+" "+myArr[i]);
+                    if (answerArr[i].equals(myArr[i])) {
+                        myScore += 1;
                     }
                 }
-                Toast.makeText(getContext(),"너님의 점수는"+myScore+"/"+dictMaxCount,Toast.LENGTH_SHORT).show();
-                sendDataToActivity.sendTestResult(dictMaxCount,myScore,myArr,answerArr);
+                Toast.makeText(getContext(), "너님의 점수는" + myScore + "/" + dictMaxCount, Toast.LENGTH_SHORT).show();
+                sendDataToActivity.sendTestResult(dictMaxCount, myScore, myArr, answerArr,testList);
                 activity.changeFragment(Define.TEST_RESULT_FRAGMENT);
             }
         });
 
     }
+
     public void showWord(int pos) {
-        if(pos==0){
+        if (pos == 0) {
             mb.ibPreviousWord.setVisibility(View.INVISIBLE);
-        }
-        else{
+        } else {
             mb.ibPreviousWord.setVisibility(View.VISIBLE);
         }
-        if (pos==dictMaxCount-1){
+        if (pos == dictMaxCount - 1) {
             mb.ibNextWord.setVisibility(View.INVISIBLE);
             mb.btnSubmit.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             mb.ibNextWord.setVisibility(View.VISIBLE);
             mb.btnSubmit.setVisibility(View.INVISIBLE);
         }
@@ -132,7 +133,17 @@ public class TestFragment extends Fragment {
         DictionaryWordItem item = testList.get(pos);
         String kor = item.getKor();
         String eng = item.getEng();
-        mb.tvWordQuestion.setText(eng);
+        Random random = new Random();
+        if(rgDictType==Define.ENG2KOR){
+            mb.tvWordQuestion.setText(eng);
+        }
+        else if(rgDictType==Define.KOR2ENG){
+            mb.tvWordQuestion.setText(kor);
+        }
+        else{
+            String getProblem = random.nextInt(2)==Define.ENG2KOR?eng:kor;
+            mb.tvWordQuestion.setText(getProblem);
+        }
 
     }
 
@@ -146,14 +157,13 @@ public class TestFragment extends Fragment {
 //                mylist.add(mb.etWordAnswer.getText().toString());
 //                Log.e(TAG, "onClick: "+mb.etWordAnswer.getText().toString() );
 //                Log.e(TAG, "onClick: "+mylist );
-                currentIdx+=1;
-                mb.tvWordTestProgressText.setText((currentIdx+1)+"/" + dictMaxCount);
-                mb.pgWordTestProgress.setProgress(currentIdx+1);
-                Log.e(TAG, "onClick: "+currentIdx );
+                currentIdx += 1;
+                mb.tvWordTestProgressText.setText((currentIdx + 1) + "/" + dictMaxCount);
+                mb.pgWordTestProgress.setProgress(currentIdx + 1);
+                Log.e(TAG, "onClick: " + currentIdx);
                 showWord(currentIdx);
 
-                    mb.etWordAnswer.setText("");
-
+                mb.etWordAnswer.setText("");
 
 
             }
@@ -163,15 +173,13 @@ public class TestFragment extends Fragment {
         mb.ibPreviousWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 myArr[currentIdx] = mb.etWordAnswer.getText().toString();
-                currentIdx-=1;
-                mb.tvWordTestProgressText.setText((currentIdx+1)+"/" + dictMaxCount);
-                mb.pgWordTestProgress.setProgress(currentIdx+1);
-                Toast.makeText(getContext(),currentIdx+"",Toast.LENGTH_SHORT).show();
+                currentIdx -= 1;
+                mb.tvWordTestProgressText.setText((currentIdx + 1) + "/" + dictMaxCount);
+                mb.pgWordTestProgress.setProgress(currentIdx + 1);
+                Toast.makeText(getContext(), currentIdx + "", Toast.LENGTH_SHORT).show();
                 showWord(currentIdx);
-                Log.e(TAG, "onClick: "+mylist );
+                Log.e(TAG, "onClick: " + mylist);
                 mb.etWordAnswer.setText(myArr[currentIdx]);
             }
         });
@@ -222,7 +230,7 @@ public class TestFragment extends Fragment {
     public void readDBListItem() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("WordStore");
-        Log.e(TAG, "readDBListItem: "+spUserId  );
+        Log.e(TAG, "readDBListItem: " + spUserId);
 
         myRef.child(spUserId).child(dictTitle).child("list").addChildEventListener(new ChildEventListener() {
             @Override
@@ -233,7 +241,13 @@ public class TestFragment extends Fragment {
                 String[] splitWord = item.split(",");
                 String strEng = splitWord[0].split("=")[1];
                 String strKor = splitWord[1].split("=")[1];
-                answerList.add(strEng);
+                if(rgDictType==Define.KOR2ENG){
+                    answerList.add(strKor);
+                }
+                else if (rgDictType==Define.ENG2KOR){
+
+                    answerList.add(strEng);
+                }
                 testList.add(new DictionaryWordItem(strEng, strKor));
                 Log.e(TAG, "onChildChanged: " + strEng);
                 showWord(0);
