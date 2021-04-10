@@ -21,7 +21,7 @@ import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.data.firebase.UserDictionary;
 import com.example.wordmaster.data.recycler.DictionaryListItem;
 import com.example.wordmaster.databinding.FragmentMyTestBinding;
-import com.example.wordmaster.model.Define;
+import com.example.wordmaster.Define.Define;
 import com.example.wordmaster.dialog.bottomsheet.WordTestSettingDialog;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;

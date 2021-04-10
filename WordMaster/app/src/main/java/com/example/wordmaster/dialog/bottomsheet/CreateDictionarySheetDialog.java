@@ -13,7 +13,7 @@ import com.example.wordmaster.R;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.callback.BottomSheetCallBack;
 import com.example.wordmaster.databinding.DialogBottomSheetCreateDictBinding;
-import com.example.wordmaster.model.Define;
+import com.example.wordmaster.Define.Define;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class CreateDictionarySheetDialog extends BottomSheetDialogFragment {

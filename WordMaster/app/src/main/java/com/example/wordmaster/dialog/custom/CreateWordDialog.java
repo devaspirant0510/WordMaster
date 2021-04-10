@@ -14,7 +14,7 @@ import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryInfoAdapter;
 import com.example.wordmaster.data.recycler.DictionaryWordItem;
 import com.example.wordmaster.databinding.DialogCreateWordDialogBinding;
-import com.example.wordmaster.model.Define;
+import com.example.wordmaster.Define.Define;
 import com.example.wordmaster.fragment.DictionaryInfoFragment;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
