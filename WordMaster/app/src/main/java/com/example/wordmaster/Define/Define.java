@@ -24,7 +24,11 @@ public class Define {
     // 테스트 유형
     public static final int KOR2ENG = 0;
     public static final int ENG2KOR = 1;
-    public static final int RANDOM = 2;
+    public static final int RANDOM2RANDOM = 2;
+
+    //출제 유형
+    public static final int LINEAR = 0;
+    public static final int RANDOM = 1;
 
     // 리사이클러뷰 롱클릭시 다이얼로그 타입
     public static final int DIALOG_DICT_LIST = 100;
