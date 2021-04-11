@@ -1,6 +1,6 @@
 package com.example.wordmaster.callback;
 
-import com.example.wordmaster.data.recycler.DictionaryWordItem;
+import com.example.wordmaster.model.recycler.DictionaryWordItem;
 
 import java.util.ArrayList;
 
