@@ -19,7 +19,7 @@ import com.example.wordmaster.callback.BottomSheetCallBack;
 import com.example.wordmaster.callback.DictionaryFragmentCallBack;
 import com.example.wordmaster.callback.InfoFragmentDialogCallback;
 import com.example.wordmaster.callback.SendDataToActivity;
-import com.example.wordmaster.data.recycler.DictionaryWordItem;
+import com.example.wordmaster.model.recycler.DictionaryWordItem;
 import com.example.wordmaster.databinding.ActivityMainBinding;
 import com.example.wordmaster.fragment.DictionaryFragment;
 import com.example.wordmaster.fragment.DictionaryInfoFragment;

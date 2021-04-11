@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wordmaster.R;
-import com.example.wordmaster.data.recycler.RankingItem;
+import com.example.wordmaster.model.recycler.RankingItem;
 
 import java.util.ArrayList;
 

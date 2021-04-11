@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wordmaster.R;
 import com.example.wordmaster.callback.DictionaryListCallBack;
-import com.example.wordmaster.data.recycler.DictionaryWordItem;
+import com.example.wordmaster.model.recycler.DictionaryWordItem;
 
 import java.util.ArrayList;
 

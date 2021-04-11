@@ -1,7 +1,6 @@
 package com.example.wordmaster.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wordmaster.R;
 import com.example.wordmaster.callback.DictionaryListCallBack;
-import com.example.wordmaster.data.recycler.DictionaryListItem;
+import com.example.wordmaster.model.recycler.DictionaryListItem;
 
 import java.util.ArrayList;
 
