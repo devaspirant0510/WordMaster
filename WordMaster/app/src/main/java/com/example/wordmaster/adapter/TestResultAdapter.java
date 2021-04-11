@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wordmaster.R;
-import com.example.wordmaster.data.recycler.TestResultItem;
+import com.example.wordmaster.model.recycler.TestResultItem;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,4 @@
-package com.example.wordmaster.data.recycler;
-
-import android.widget.ImageView;
+package com.example.wordmaster.model.recycler;
 
 public class RankingItem {
     String user;

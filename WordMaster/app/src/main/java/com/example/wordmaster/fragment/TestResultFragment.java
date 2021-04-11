@@ -11,8 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.wordmaster.adapter.TestResultAdapter;
-import com.example.wordmaster.data.recycler.DictionaryWordItem;
-import com.example.wordmaster.data.recycler.TestResultItem;
+import com.example.wordmaster.model.recycler.DictionaryWordItem;
+import com.example.wordmaster.model.recycler.TestResultItem;
 import com.example.wordmaster.databinding.FragmentTestResultBinding;
 
 import java.util.ArrayList;

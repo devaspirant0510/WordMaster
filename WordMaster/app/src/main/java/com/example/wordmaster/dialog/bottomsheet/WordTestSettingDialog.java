@@ -20,7 +20,7 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment {
     private DialogBottomSheetSetWordTestBinding mb;
     private TestBottomSheetCallBack listener;
     private int dictMaxCount;
-    private int rgTestType = 0;
+    private int rgTestType = 0,rgTestOption=0;
 
     public interface TestBottomSheetCallBack{
         void setOnClickListener(int maxCount,String limitTime,int rgTestType,int rgTestTimeOption);
@@ -61,9 +61,20 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment {
                         rgTestType = Define.ENG2KOR;
                     }
                     else{
-                        rgTestType = Define.RANDOM;
+                        rgTestType = Define.RANDOM2RANDOM;
                     }
                 Log.e("sd", "onCheckedChanged: "+rgTestType );
+            }
+        });
+        mb.rgTestTestOption.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId==R.id.test_option_linear){
+                    rgTestOption = Define.LINEAR;
+                }
+                else{
+                    rgTestOption = Define.RANDOM;
+                }
             }
         });
         mb.testStartBtn.setOnClickListener(new View.OnClickListener() {
@@ -71,9 +82,9 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment {
             public void onClick(View v) {
                 int testMaxCount = mb.tvTestMaxCount.getProgress();
                 String testLimitTime = mb.tvTestLimitTime.getText().toString();
-                int rgTestTimeOption = mb.rgTestTimeOption.getCheckedRadioButtonId();
                 dismiss();
-                listener.setOnClickListener(testMaxCount,testLimitTime,rgTestType,rgTestTimeOption);
+
+                listener.setOnClickListener(testMaxCount,testLimitTime,rgTestType,rgTestOption);
             }
         });
         mb.tvTestMaxCount.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {

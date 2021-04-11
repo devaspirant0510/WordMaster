@@ -1,4 +1,4 @@
-package com.example.wordmaster.data.firebase;
+package com.example.wordmaster.model.firebase;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 

@@ -1,4 +1,4 @@
-package com.example.wordmaster.data.recycler;
+package com.example.wordmaster.model.recycler;
 
 // 단어 리스트
 public class DictionaryWordItem {
