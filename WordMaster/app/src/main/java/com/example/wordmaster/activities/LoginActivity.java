@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.wordmaster.data.firebase.UserAccount;
+import com.example.wordmaster.model.firebase.UserAccount;
 import com.example.wordmaster.databinding.ActivityLoginBinding;
 import com.example.wordmaster.dialog.bottomsheet.LoginSuccessSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
@@ -99,11 +99,12 @@ public class LoginActivity extends AppCompatActivity {
                     loginSuccessSheetDialog.setBottomSheetSetOnClick(new LoginSuccessSheetDialog.BottomSheetSetOnClick() {
                         @Override
                         public void clickSubmit(String name) {
+                            //Log.e(TAG, user.getKakaoAccount().getAgeRange().toString()+"" );
                             addUserInformationFirebase(String.valueOf(user.getId()),new UserAccount(
                                     name,
                                     user.getKakaoAccount().getEmail(),
                                     user.getKakaoAccount().getGender().toString(),
-                                    user.getKakaoAccount().getAgeRange().toString(),
+                                    "",
                                     user.getKakaoAccount().getBirthday(),
                                     user.getKakaoAccount().getProfile().getProfileImageUrl()
                             ));
