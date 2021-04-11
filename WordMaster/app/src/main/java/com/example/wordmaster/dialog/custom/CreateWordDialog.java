@@ -9,13 +9,12 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.wordmaster.activities.LoginActivity;
+import com.example.wordmaster.Define.Define;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryInfoAdapter;
-import com.example.wordmaster.data.recycler.DictionaryWordItem;
 import com.example.wordmaster.databinding.DialogCreateWordDialogBinding;
-import com.example.wordmaster.Define.Define;
 import com.example.wordmaster.fragment.DictionaryInfoFragment;
+import com.example.wordmaster.model.recycler.DictionaryWordItem;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -111,7 +110,7 @@ public class CreateWordDialog extends Dialog  {
                     String eng = mb.etEng.getText().toString();
                     //adapter.addItem(new DictionaryWordItem(kor,eng));
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference(LoginActivity.USER);
+                    DatabaseReference myRef = database.getReference();
 
                     int idx = adapter.getItemCount()+1-1;
                     myRef.child("WordStore").child(spUserId).child(title).child("list").child(String.valueOf(idx)).setValue(new DictionaryWordItem(kor,eng));
@@ -121,13 +120,15 @@ public class CreateWordDialog extends Dialog  {
                 }
                 else {
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference(LoginActivity.USER);
+                    DatabaseReference myRef = database.getReference();
 
                     int idx = adapter.getItemCount()+1-1;
-                    myRef.child(title).child("list").child(String.valueOf(pos)).setValue(new DictionaryWordItem(mb.etKor.getText().toString(),mb.etEng.getText().toString()));
+                    myRef.child("WordStore").child(spUserId).child(title).child("list").child(String.valueOf(pos)).setValue(new DictionaryWordItem(mb.etKor.getText().toString(),mb.etEng.getText().toString()));
+//                    adapter.wordList.set(pos,new DictionaryWordItem(mb.etKor.getText().toString(),mb.etEng.getText().toString()));
+//                    adapter.notifyItemChanged(pos);
+                    Log.e(TAG, "onClick: "+adapter.getItemCount() );
                     adapter.wordList.set(pos,new DictionaryWordItem(mb.etKor.getText().toString(),mb.etEng.getText().toString()));
                     adapter.notifyItemChanged(pos);
-                    Log.e(TAG, "onClick: "+adapter.getItemCount() );
                     dismiss();
 
                 }

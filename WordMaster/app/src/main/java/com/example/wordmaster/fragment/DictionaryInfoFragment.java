@@ -19,7 +19,7 @@ import com.example.wordmaster.adapter.DictionaryInfoAdapter;
 import com.example.wordmaster.callback.DialogUpdateCallback;
 import com.example.wordmaster.callback.DictionaryFragmentCallBack;
 import com.example.wordmaster.callback.DictionaryListCallBack;
-import com.example.wordmaster.data.recycler.DictionaryWordItem;
+import com.example.wordmaster.model.recycler.DictionaryWordItem;
 import com.example.wordmaster.databinding.FragmentDictionaryInfoBinding;
 import com.example.wordmaster.Define.Define;
 import com.example.wordmaster.dialog.custom.CreateWordDialog;
@@ -93,15 +93,15 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                Log.e(TAG, "onChildAdded: "+snapshot.getChildrenCount() );
-                String item = snapshot.getValue().toString();
-                item = item.replaceAll("[}{]","");
-                String[] splitWord = item.split(",");
-                String strEng = splitWord[0].split("=")[1];
-                String strKor = splitWord[1].split("=")[1];
-                adapter.addItem(new DictionaryWordItem(strKor,strEng));
-                adapter.notifyDataSetChanged();
-                mb.progressBar.setProgress(adapter.getItemCount());
+//                Log.e(TAG, "onChildAdded: "+snapshot.getChildrenCount() );
+//                String item = snapshot.getValue().toString();
+//                item = item.replaceAll("[}{]","");
+//                String[] splitWord = item.split(",");
+//                String strEng = splitWord[0].split("=")[1];
+//                String strKor = splitWord[1].split("=")[1];
+//                adapter.addItem(new DictionaryWordItem(strKor,strEng));
+//                adapter.notifyDataSetChanged();
+//                mb.progressBar.setProgress(adapter.getItemCount());
             }
 
             @Override
@@ -155,6 +155,9 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                         CreateWordDialog dialog = new CreateWordDialog(getContext(),spUserId,wordList,adapter,dictInfoTitle,Define.UPDATE);
                         dialog.show();
                         dialog.setUpdateWord(adapter.wordList.get(pos).getEng(),adapter.wordList.get(pos).getKor(),pos);
+                        adapter.wordList.clear();
+                        adapter.notifyDataSetChanged();
+                        readWordList();
                         //readWordList();
                         adapter.notifyItemChanged(pos);
 
