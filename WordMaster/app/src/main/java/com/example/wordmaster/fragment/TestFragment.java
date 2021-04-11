@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.callback.SendDataToActivity;
-import com.example.wordmaster.data.recycler.DictionaryWordItem;
+import com.example.wordmaster.model.recycler.DictionaryWordItem;
 import com.example.wordmaster.databinding.FragmentTestBinding;
 import com.example.wordmaster.Define.Define;
 import com.google.firebase.database.ChildEventListener;

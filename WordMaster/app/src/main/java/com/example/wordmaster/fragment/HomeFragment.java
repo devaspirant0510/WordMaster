@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.example.wordmaster.R;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.RankingAdapter;
-import com.example.wordmaster.data.recycler.RankingItem;
+import com.example.wordmaster.model.recycler.RankingItem;
 import com.example.wordmaster.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
