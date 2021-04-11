@@ -1,9 +1,6 @@
-package com.example.wordmaster.data.firebase;
+package com.example.wordmaster.model.firebase;
 
-import com.example.wordmaster.data.recycler.DictionaryWordItem;
 import com.google.firebase.database.IgnoreExtraProperties;
-
-import java.util.ArrayList;
 
 @IgnoreExtraProperties
 public class UserDictionary {

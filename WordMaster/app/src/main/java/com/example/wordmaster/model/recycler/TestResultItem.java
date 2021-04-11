@@ -1,4 +1,4 @@
-package com.example.wordmaster.data.recycler;
+package com.example.wordmaster.model.recycler;
 
 public class TestResultItem {
     int index;
