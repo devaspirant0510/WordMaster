@@ -3,6 +3,7 @@ package com.example.wordmaster.dialog.custom;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -48,6 +49,7 @@ public class DictionaryUpdateDialog extends Dialog {
         mb.deleteDictBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e("fds","sdaf");
                 dialogUpdateCallback.setOnClickDeleteButton();
                 dismiss();
 

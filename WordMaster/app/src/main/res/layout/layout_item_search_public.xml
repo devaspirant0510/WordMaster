@@ -7,43 +7,43 @@
     android:layout_height="100dp">
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/tv_search_host"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/host"
-        app:layout_constraintEnd_toStartOf="@+id/textView20"
-        app:layout_constraintStart_toEndOf="@+id/textView19"
+        app:layout_constraintEnd_toStartOf="@+id/tv_search_max_count"
+        app:layout_constraintStart_toEndOf="@+id/tv_search_title"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/tv_search_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/title"
-        app:layout_constraintBottom_toTopOf="@+id/textView22"
-        app:layout_constraintEnd_toStartOf="@+id/textView21"
+        app:layout_constraintBottom_toTopOf="@+id/tv_search_description"
+        app:layout_constraintEnd_toStartOf="@+id/tv_search_host"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/tv_search_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_search_host" />
 
     <TextView
-        android:id="@+id/textView20"
+        android:id="@+id/tv_search_max_count"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/dict_max_count"
-        app:layout_constraintBottom_toTopOf="@+id/textView22"
+        app:layout_constraintBottom_toTopOf="@+id/tv_search_description"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView21"
+        app:layout_constraintStart_toEndOf="@+id/tv_search_host"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 

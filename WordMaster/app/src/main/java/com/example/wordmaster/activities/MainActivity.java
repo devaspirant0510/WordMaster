@@ -12,14 +12,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.wordmaster.Define.Define;
 import com.example.wordmaster.R;
 import com.example.wordmaster.adapter.DictionaryInfoAdapter;
-import com.example.wordmaster.adapter.TestViewPagerAdapter;
+import com.example.wordmaster.adapter.DictionaryViewPageAdapter;
 import com.example.wordmaster.callback.BottomSheetCallBack;
 import com.example.wordmaster.callback.DictionaryFragmentCallBack;
 import com.example.wordmaster.callback.InfoFragmentDialogCallback;
 import com.example.wordmaster.callback.SendDataToActivity;
-import com.example.wordmaster.model.recycler.DictionaryWordItem;
 import com.example.wordmaster.databinding.ActivityMainBinding;
 import com.example.wordmaster.fragment.DictionaryFragment;
 import com.example.wordmaster.fragment.DictionaryInfoFragment;
@@ -28,9 +28,10 @@ import com.example.wordmaster.fragment.MyInfoFragment;
 import com.example.wordmaster.fragment.SearchFragment;
 import com.example.wordmaster.fragment.TestFragment;
 import com.example.wordmaster.fragment.TestResultFragment;
+import com.example.wordmaster.fragment.viewpager.MyDictionaryFragment;
 import com.example.wordmaster.fragment.viewpager.MyTestFragment;
-import com.example.wordmaster.fragment.viewpager.OnlineTestFragment;
-import com.example.wordmaster.Define.Define;
+import com.example.wordmaster.fragment.viewpager.OtherDictionaryFragment;
+import com.example.wordmaster.model.recycler.DictionaryWordItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -116,16 +117,18 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
             case Define.DICTIONARY_FRAGMENT:
                 fr = new DictionaryFragment();
 
-                viewState = showFragment();
+                viewState = showViewPager();
+                DictionaryViewPageAdapter dictionaryViewPageAdapter = new DictionaryViewPageAdapter(getSupportFragmentManager(),FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+                dictionaryViewPageAdapter.addItem(new MyDictionaryFragment());
+                dictionaryViewPageAdapter.addItem(new OtherDictionaryFragment());
+                mb.testViewPager.setAdapter(dictionaryViewPageAdapter);
+
                 break;
             case Define.TEST_FRAGMENT:
-                viewState = showViewPager();
-                TestViewPagerAdapter adapter = new TestViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
                 MyTestFragment myTestFragment = new MyTestFragment();
                 myTestFragment.setListener(this);
-                adapter.addItem(myTestFragment);
-                adapter.addItem(new OnlineTestFragment());
-                mb.testViewPager.setAdapter(adapter);
+                fr = myTestFragment;
+                viewState = showFragment();
                 break;
             case Define.SEARCH_FRAGMENT:
                 fr = new SearchFragment();

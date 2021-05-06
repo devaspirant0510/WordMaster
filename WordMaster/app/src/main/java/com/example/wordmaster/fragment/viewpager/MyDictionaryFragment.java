@@ -1,4 +1,4 @@
-package com.example.wordmaster.fragment;
+package com.example.wordmaster.fragment.viewpager;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.wordmaster.Define.Define;
 import com.example.wordmaster.activities.LoginActivity;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryListAdapter;
@@ -19,20 +20,18 @@ import com.example.wordmaster.callback.BottomSheetCallBack;
 import com.example.wordmaster.callback.DialogUpdateCallback;
 import com.example.wordmaster.callback.DictionaryListCallBack;
 import com.example.wordmaster.callback.SendDataToActivity;
-import com.example.wordmaster.model.firebase.UserDictionary;
-import com.example.wordmaster.model.recycler.DictionaryListItem;
 import com.example.wordmaster.databinding.FragmentDictionaryBinding;
-import com.example.wordmaster.Define.Define;
 import com.example.wordmaster.dialog.bottomsheet.CreateDictionarySheetDialog;
 import com.example.wordmaster.dialog.custom.DictionaryUpdateDialog;
+import com.example.wordmaster.model.firebase.UserDictionary;
+import com.example.wordmaster.model.recycler.DictionaryListItem;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-
-public class DictionaryFragment extends Fragment implements BottomSheetCallBack {
+public class MyDictionaryFragment extends Fragment implements BottomSheetCallBack {
     private FragmentDictionaryBinding mb;
     protected static final String TAG = "DictionaryFragment";
     private CreateDictionarySheetDialog dialog;
@@ -100,23 +99,12 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
                         userDictionary.getOption(),
                         1
                 ));
-                adapter.notifyDataSetChanged();
+                mb.dictionaryList.scrollToPosition(adapter.getItemCount()-1);
 
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                UserDictionary userDictionary = snapshot.getValue(UserDictionary.class);
-                title = userDictionary.getTitle();
-                adapter.addItem(new DictionaryListItem(
-                        userDictionary.getTitle(),
-                        String.valueOf(userDictionary.getMaxCount()),
-                        userDictionary.getDescription(),
-                        userDictionary.getHashTag(),
-                        userDictionary.getOption(),
-                        1
-                ));
-                adapter.notifyDataSetChanged();
 
             }
 
@@ -187,9 +175,6 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
 
                     @Override
                     public void setOnClickDeleteButton() {
-                        String title = adapter.getItem(pos).getDictionaryTitle();
-                        Log.e(TAG, "setOnClickDeleteButton: "+"" );
-
                         // TODO : 해당 단어장 삭제후 어댑터 다시 업데이트
                     }
                 });

@@ -34,6 +34,9 @@ public class Define {
     public static final int DIALOG_DICT_LIST = 100;
     public static final int DIALOG_DICT_WORD = 101;
 
+    public static final int SEARCH_PUBLIC = 200;
+    public static final int SEARCH_PRIVATE = 201;
+
     //파이어베이스 경로
     public static final String USER = "lsh0510";
 
@@ -41,4 +44,6 @@ public class Define {
     public static final String CREATE = "create";
     public static final String UPDATE = "update";
 
+    public static final String FIREBASE_REFERENCE_USER_ACCOUNT = "UserAccount";
+    public static final String FIREBASE_REFERENCE_WORD_STORE = "WordStore";
 }

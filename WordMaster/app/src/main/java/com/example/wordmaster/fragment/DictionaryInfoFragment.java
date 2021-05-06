@@ -90,6 +90,8 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                     adapter.notifyDataSetChanged();
                     mb.progressBar.setProgress(adapter.getItemCount());
                 }
+                mb.progressState.setText(adapter.getItemCount()+"/"+dictCount);
+                mb.wordList.scrollToPosition(adapter.getItemCount()-1);
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -137,6 +139,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     }
 
     private void init() {
+        mb.progressState.setText("0/"+dictCount);
         mb.progressBar.setMax(dictCount);
         mb.dictInfoTitle.setText(dictInfoTitle);
         mb.dictInfoOption.setText(dictInfoOption);
@@ -185,8 +188,6 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                         setMode="add";
                         CreateWordDialog dialog = new CreateWordDialog(getContext(),spUserId,wordList,adapter,dictInfoTitle,Define.CREATE);
                         Log.e(TAG, "onClick: "+adapter.wordList );
-                        setCurrentItem(adapter.getItemCount());
-                        mb.progressState.setText(adapter.getItemCount()+"/"+dictCount);
                         dialog.show();
                     }
                 }
@@ -194,9 +195,6 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
 
         }
 
-    }
-    private void setCurrentItem(int size){
-        myRef.child(spUserId).child(dictInfoTitle).child("currentCount").setValue(size);
     }
 
     /**
