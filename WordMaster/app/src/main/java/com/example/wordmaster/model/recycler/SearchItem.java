@@ -15,6 +15,14 @@ public class SearchItem {
         this.viewType = viewType;
     }
 
+    public int getViewType() {
+        return viewType;
+    }
+
+    public void setViewType(int viewType) {
+        this.viewType = viewType;
+    }
+
     public String getHost() {
         return host;
     }
