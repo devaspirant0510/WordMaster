@@ -187,6 +187,9 @@ public class DictionaryFragment extends Fragment implements BottomSheetCallBack 
 
                     @Override
                     public void setOnClickDeleteButton() {
+                        String title = adapter.getItem(pos).getDictionaryTitle();
+                        Log.e(TAG, "setOnClickDeleteButton: "+"" );
+
                         // TODO : 해당 단어장 삭제후 어댑터 다시 업데이트
                     }
                 });
