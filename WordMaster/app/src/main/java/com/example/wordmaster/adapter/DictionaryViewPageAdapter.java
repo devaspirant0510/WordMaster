@@ -29,7 +29,7 @@ public class DictionaryViewPageAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "내 단어잠";
+                return "내 단어장";
             case 1:
                 return "외부 단어장";
             default:
