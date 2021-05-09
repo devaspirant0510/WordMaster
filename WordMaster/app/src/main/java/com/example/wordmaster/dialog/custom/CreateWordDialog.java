@@ -33,9 +33,10 @@ public class CreateWordDialog extends Dialog  {
     private String mode;
     private String title,spUserId;
     private int pos;
+    private String getRoomKey;
     private static final String TAG = "CreateWordDialog";
     private ArrayList<DictionaryWordItem> wordList;
-    public CreateWordDialog(@NonNull Context context,String spUserId,ArrayList<DictionaryWordItem> list,DictionaryInfoAdapter adapter,String tilte,String mode) {
+    public CreateWordDialog(@NonNull Context context,String spUserId,ArrayList<DictionaryWordItem> list,DictionaryInfoAdapter adapter,String tilte,String mode,String room) {
         super(context);
         this.context = context;
         this.adapter = adapter;
@@ -43,6 +44,7 @@ public class CreateWordDialog extends Dialog  {
         this.title = tilte;
         this.spUserId = spUserId;
         this.mode = mode;
+        this.getRoomKey = room;
         activity = (MainActivity)getOwnerActivity();
     }
 
@@ -112,8 +114,9 @@ public class CreateWordDialog extends Dialog  {
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference myRef = database.getReference();
 
-                    int idx = adapter.getItemCount()+1-1;
-                    myRef.child("WordStore").child(spUserId).child(title).child("list").child(String.valueOf(idx)).setValue(new DictionaryWordItem(kor,eng));
+                    int idx = adapter.getItemCount();
+                    myRef.child("WordStore").child(spUserId).child(getRoomKey).child("list").child(String.valueOf(idx)).setValue(new DictionaryWordItem(kor,eng));
+                    Log.e(TAG, "onClick: "+getRoomKey );
                     Log.e(TAG, "onClick: "+adapter.getItemCount() );
                     dismiss();
 

@@ -41,7 +41,11 @@ public class TestFragment extends Fragment {
     private MainActivity activity;
     private int myScore = 0;
     private SendDataToActivity sendDataToActivity = null;
+    private int pos;
+    public TestFragment(int pos){
+        this.pos = pos;
 
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -232,7 +236,7 @@ public class TestFragment extends Fragment {
         DatabaseReference myRef = database.getReference("WordStore");
         Log.e(TAG, "readDBListItem: " + spUserId);
 
-        myRef.child(spUserId).child(dictTitle).child("list").addChildEventListener(new ChildEventListener() {
+        myRef.child("1687548254").child("-M_Denc7iik1rncUijlM").child("list").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Log.e(TAG, "onChildAdded: " + snapshot.getValue());

@@ -15,6 +15,15 @@ import com.example.wordmaster.model.recycler.SearchItem;
 import java.util.ArrayList;
 
 public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private OnClickListener listener = null;
+    public interface OnClickListener{
+        void onClick(int click,View view);
+        void longClick(int click,View view);
+    }
+    public void setOnCustomOnClickListener(OnClickListener onClickListener){
+        this.listener = onClickListener;
+    }
+
     private ArrayList<SearchItem> list = new ArrayList<>();
 
     @NonNull
@@ -66,6 +75,26 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             tvTitle = itemView.findViewById(R.id.tv_search_title);
             tvMaxCount = itemView.findViewById(R.id.tv_search_max_count);
             tvDescription = itemView.findViewById(R.id.tv_search_description);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION){
+                        listener.onClick(pos,v);
+
+                    }
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int pos = getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION){
+                        listener.longClick(pos,v);
+                    }
+                    return false;
+                }
+            });
         }
         public void setItem(SearchItem item){
             tvHost.setText(item.getHost());
