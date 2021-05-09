@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +17,7 @@ import com.example.wordmaster.Define.Util;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.SearchAdapter;
 import com.example.wordmaster.databinding.FragmentSearchBinding;
+import com.example.wordmaster.dialog.bottomsheet.SearchInfoSheetDialog;
 import com.example.wordmaster.model.firebase.UserDictionary;
 import com.example.wordmaster.model.recycler.SearchItem;
 import com.google.firebase.database.DataSnapshot;
@@ -27,15 +29,19 @@ public class SearchFragment extends Fragment {
     private static final String TAG = "SearchFragment";
     private SearchAdapter mAdapter;
     private MainActivity activity;
-    private String user;
+    private String user,profile;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mb = FragmentSearchBinding.inflate(getLayoutInflater());
         activity = (MainActivity)getActivity();
+
         SharedPreferences preferences = activity.getSharedPreferences("LoginInformation", Context.MODE_PRIVATE);
         user = preferences.getString("UserID","");
+        Log.e(TAG, "onCreate: "+user );
+
+
 
     }
 
@@ -49,6 +55,27 @@ public class SearchFragment extends Fragment {
     }
     private void init(){
         mAdapter = new SearchAdapter();
+        mAdapter.setOnCustomOnClickListener(new SearchAdapter.OnClickListener() {
+            @Override
+            public void onClick(int click, View view) {
+                Toast.makeText(getContext(),"gggg"+click,Toast.LENGTH_SHORT).show();
+                SearchInfoSheetDialog sheetDialog = new SearchInfoSheetDialog();
+                Bundle args = new Bundle();
+                args.putString("user",user);
+                args.putInt("pos",click);
+
+                sheetDialog.setArguments(args);
+                if (getFragmentManager() != null) {
+                    sheetDialog.show(getFragmentManager(),"sheet");
+                }
+
+            }
+
+            @Override
+            public void longClick(int click, View view) {
+
+            }
+        });
         mb.wordDictionaryList.setAdapter(mAdapter);
     }
     private void readFireBaseDB(){
@@ -66,7 +93,7 @@ public class SearchFragment extends Fragment {
                     String option = dictionary.getOption();
                     String title = dictionary.getTitle();
                     Log.e(TAG, "onDataChange: "+title );
-                    mAdapter.addItem(new SearchItem("aa",title,description,currentCount+"/"+maxCount,3));
+                    mAdapter.addItem(new SearchItem("승호",title,description,currentCount+"/"+maxCount,3));
                     mb.wordDictionaryList.scrollToPosition(mAdapter.getItemCount()-1);
 
 
