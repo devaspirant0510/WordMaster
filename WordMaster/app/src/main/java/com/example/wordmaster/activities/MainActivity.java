@@ -1,5 +1,6 @@
 package com.example.wordmaster.activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -45,7 +46,9 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
     private String dictTitle,dictOption,dictDescription,dictHost,testingLimitTime,testingTitle,testingHost;
     private int dictCount,testingMaxCount,testingRgType,testingRgOption;
     private int testMaxCount,testCurrentCount;
+    private int dictPosition;
     private String[] myArr;
+    private int pos;
     private String[] answerArr;
     private ArrayList<DictionaryWordItem> list;
 
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
     private void init() {
         // 바텀네비게이션뷰 아이템 클릭스 프레그먼트 트랜잭션
         mb.bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
@@ -148,11 +152,12 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
                 infoArg.putString("Description",dictDescription);
                 infoArg.putString("HashTag",dictHost);
                 infoArg.putInt("Count",dictCount);
+                infoArg.putInt("Position",dictPosition);
                 fr.setArguments(infoArg);
                 break;
             case Define.TESTING_FRAGMENT:
                 Log.e(TAG,"testing");
-                fr = new TestFragment();
+                fr = new TestFragment(pos);
 
                 Bundle testingArg = new Bundle();
                 testingArg.putInt("testMaxCount",testingMaxCount);
@@ -187,8 +192,8 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
     public void BottomSheetCallBack(BottomSheetCallBack callBack){
         this.bottomSheetCallBack = callBack;
     }
-    public void sendCreateDictDialog(String title,int count,int currentCount,String description,String hashTag,String DictOption){
-        bottomSheetCallBack.createDialogGetData(title,count,currentCount,description,hashTag,DictOption);
+    public void sendCreateDictDialog(String title,int count,int currentCount,String description,String hashTag,String DictOption,String password){
+        bottomSheetCallBack.createDialogGetData(title,count,currentCount,description,hashTag,DictOption,password);
     }
     public void setDictionaryListCallBack(DictionaryFragmentCallBack callBack){
         this.dictionaryListCallBack = callBack;
@@ -211,25 +216,30 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
 
 
 
+
     @Override
-    public void sendDictData(String title, String option, String hashTag, int count) {
+    public void sendDictData(int pos, String title, String option, String hashTag, int count) {
         this.dictTitle = title;
         this.dictOption = option;
         this.dictHost = hashTag;
         this.dictCount = count;
+        this.dictPosition = pos;
+        Log.e(TAG, "sendDictData: "+pos );
 
     }
 
     @Override
-    public void sendTestingData(int maxCount, String limitTime, int rgTestType, int rgTestTimeOption,String host,String title) {
+    public void sendTestingData(int pos, int maxCount, String limitTime, int rgTestType, int rgTestTimeOption, String host, String title) {
+
         this.testingLimitTime = limitTime;
         this.testingMaxCount = maxCount;
         this.testingRgOption = rgTestTimeOption;
         this.testingRgType = rgTestType;
         this.testingTitle = title;
         this.testingHost = host;
-
+        this.pos = pos;
     }
+
 
     @Override
     public void sendTestResult(int maxCount, int trueCount, String[] myAnswer, String[] answer,ArrayList<DictionaryWordItem> list) {
