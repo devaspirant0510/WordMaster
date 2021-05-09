@@ -37,7 +37,6 @@ public class MyTestFragment extends Fragment {
     private WordTestSettingDialog dialog;
     private static final String TAG = "MyTestFragment";
     private String spUserId,spUserEmail,spUserName;
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -85,7 +84,7 @@ public class MyTestFragment extends Fragment {
                     @Override
                     public void setOnClickListener(int maxCount, String limitTime, int rgTestType, int rgTestTimeOption) {
                         Toast.makeText(getContext(),maxCount+"",Toast.LENGTH_SHORT).show();
-                        listener.sendTestingData(maxCount,limitTime,rgTestType,rgTestTimeOption,host,title);
+                        listener.sendTestingData(pos,maxCount,limitTime,rgTestType,rgTestTimeOption,host,title);
                         activity.changeFragment(Define.TESTING_FRAGMENT);
                     }
                 });
@@ -107,7 +106,7 @@ public class MyTestFragment extends Fragment {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
 
-        myRef.child("WordStore").child(spUserId).addChildEventListener(new ChildEventListener() {
+        myRef.child("WordStore").child("1687548254").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 UserDictionary userDictionary = snapshot.getValue(UserDictionary.class);
