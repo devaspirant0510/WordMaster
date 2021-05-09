@@ -5,6 +5,9 @@ public class DictionaryWordItem {
     String kor;
     String eng;
 
+    public DictionaryWordItem(){
+
+    }
     public DictionaryWordItem(String kor, String eng) {
         this.kor = kor;
         this.eng = eng;
