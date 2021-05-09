@@ -65,6 +65,9 @@ public class DictionaryListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void addItem(DictionaryListItem item){
         dictList.add(item);
     }
+    public void removeItem(int position){
+        dictList.remove(position);
+    }
     public class DictionaryItemHolder extends RecyclerView.ViewHolder {
         TextView dictionaryTitle;
         TextView dictionaryMaxCount;
