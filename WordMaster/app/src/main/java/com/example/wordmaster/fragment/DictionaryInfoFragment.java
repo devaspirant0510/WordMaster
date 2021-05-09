@@ -13,22 +13,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.wordmaster.activities.LoginActivity;
+import com.example.wordmaster.Define.Define;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryInfoAdapter;
 import com.example.wordmaster.callback.DialogUpdateCallback;
 import com.example.wordmaster.callback.DictionaryFragmentCallBack;
 import com.example.wordmaster.callback.DictionaryListCallBack;
-import com.example.wordmaster.model.recycler.DictionaryWordItem;
 import com.example.wordmaster.databinding.FragmentDictionaryInfoBinding;
-import com.example.wordmaster.Define.Define;
 import com.example.wordmaster.dialog.custom.CreateWordDialog;
 import com.example.wordmaster.dialog.custom.DictionaryUpdateDialog;
+import com.example.wordmaster.model.recycler.DictionaryWordItem;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -36,11 +36,12 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     private MainActivity activity;
     private FragmentDictionaryInfoBinding mb;
     protected static String TAG = "DictionaryInfoFragment";
-    private String dictInfoTitle,dictInfoOption,dictDescription,dictHashTag;
+    private String dictInfoTitle, dictInfoOption, dictDescription, dictHashTag;
     private DictionaryInfoAdapter adapter;
     private ArrayList<DictionaryWordItem> wordList = new ArrayList<>();
-    private int dictCount;
-    private String setMode = "add",spUserId,spUserEmail,spUserName;
+    private int dictCount, dictPosition;
+    private String roomKey;
+    private String setMode = "add", spUserId, spUserEmail, spUserName;
     // 파베
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference myRef = mDatabase.getReference("WordStore");
@@ -54,65 +55,77 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mb = FragmentDictionaryInfoBinding.inflate(getLayoutInflater());
-        activity = (MainActivity)getActivity();
+        activity = (MainActivity) getActivity();
         SharedPreferences sharedPreferences = activity.getSharedPreferences("LoginInformation", Context.MODE_PRIVATE);
-        spUserId = sharedPreferences.getString("userId","");
-        spUserEmail = sharedPreferences.getString("userEmail","");
-        spUserName = sharedPreferences.getString("userNickName","");
+        spUserId = sharedPreferences.getString("userId", "");
+        spUserEmail = sharedPreferences.getString("userEmail", "");
+        spUserName = sharedPreferences.getString("userNickName", "");
         // 프레그먼트 전환될때 argument 에 정보 들어있는지 확인
         adapter = new DictionaryInfoAdapter(getContext());
         mb.wordList.setAdapter(adapter);
         Bundle bundle = getArguments();
-        if (bundle!=null){
+        if (bundle != null) {
             dictInfoTitle = bundle.getString("Title");
             dictInfoOption = bundle.getString("Option");
             dictCount = bundle.getInt("Count");
             dictDescription = bundle.getString("Description");
             dictHashTag = bundle.getString("HashTag");
+            dictPosition = bundle.getInt("Position");
         }
         readWordList();
     }
+
     // 유저 id -> 단어장 -> list 를 참조하여 단어 불러옴
-    public void readWordList(){
+    public void readWordList() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference(LoginActivity.USER);
-        reference.child("WordStore").child(spUserId).child(dictInfoTitle).child("list").addChildEventListener(new ChildEventListener() {
+        DatabaseReference reference = database.getReference();
+        final int[] current = {0};
+        reference.child("WordStore").child(spUserId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (setMode.equals("add")){
-                    Log.e(TAG, "onChildAdded: "+snapshot.getChildrenCount() );
-                    String item = snapshot.getValue().toString();
-                    item = item.replaceAll("[}{]","");
-                    String[] splitWord = item.split(",");
-                    String strEng = splitWord[0].split("=")[1];
-                    String strKor = splitWord[1].split("=")[1];
-                    adapter.addItem(new DictionaryWordItem(strKor,strEng));
-                    adapter.notifyDataSetChanged();
-                    mb.progressBar.setProgress(adapter.getItemCount());
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    if (dictPosition == current[0]) {
+                        roomKey = data.getKey();
+
+                        Log.e(TAG, "onDataChange: " + roomKey);
+                        final int[] idx = {0};
+                        myRef.child(spUserId).child(roomKey).child("list").addChildEventListener(new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                                DictionaryWordItem item = snapshot.getValue(DictionaryWordItem.class);
+                                Log.e(TAG, "onChildAdded: " + snapshot.getValue());
+                                idx[0] += 1;
+                                mb.progressState.setText(adapter.getItemCount() + 1 + "/" + dictCount);
+                                myRef.child(spUserId).child(roomKey).child("currentCount").setValue(adapter.getItemCount() + 1);
+                                mb.progressBar.setProgress(adapter.getItemCount());
+                                adapter.addItem(item);
+                                adapter.notifyItemInserted(idx[0] - 1);
+
+                            }
+
+                            @Override
+                            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                            }
+
+                            @Override
+                            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                            }
+
+                            @Override
+                            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+                    current[0] += 1;
                 }
-                mb.progressState.setText(adapter.getItemCount()+"/"+dictCount);
-                mb.wordList.scrollToPosition(adapter.getItemCount()-1);
-            }
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//                Log.e(TAG, "onChildAdded: "+snapshot.getChildrenCount() );
-//                String item = snapshot.getValue().toString();
-//                item = item.replaceAll("[}{]","");
-//                String[] splitWord = item.split(",");
-//                String strEng = splitWord[0].split("=")[1];
-//                String strKor = splitWord[1].split("=")[1];
-//                adapter.addItem(new DictionaryWordItem(strKor,strEng));
-//                adapter.notifyDataSetChanged();
-//                mb.progressBar.setProgress(adapter.getItemCount());
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
             }
 
@@ -135,12 +148,11 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     @Override
     public void onResume() {
         super.onResume();
-        mb.progressState.setText(adapter.wordList.size()+"/"+dictCount);
     }
 
     private void init() {
-        mb.progressState.setText("0/"+dictCount);
         mb.progressBar.setMax(dictCount);
+        mb.progressState.setText(adapter.getItemCount() + "/" + dictCount);
         mb.dictInfoTitle.setText(dictInfoTitle);
         mb.dictInfoOption.setText(dictInfoOption);
         // 어댑터의 아이템 단어 를 클릭했을때
@@ -148,16 +160,17 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
             @Override
             public void onClick(View v, int pos) {
             }
+
             // 롱클릭  -> 수정 또는 삭제 여부 묻는 다이얼로그
             @Override
             public void onLongClick(View v, int pos) {
-                DictionaryUpdateDialog dialog = new DictionaryUpdateDialog(getContext(),Define.DIALOG_DICT_WORD);
+                DictionaryUpdateDialog dialog = new DictionaryUpdateDialog(getContext(), Define.DIALOG_DICT_WORD);
                 dialog.setDialogUpdateCallback(new DialogUpdateCallback() {
                     @Override
                     public void setOnClickUpdateButton() {
-                        CreateWordDialog dialog = new CreateWordDialog(getContext(),spUserId,wordList,adapter,dictInfoTitle,Define.UPDATE);
+                        CreateWordDialog dialog = new CreateWordDialog(getContext(), spUserId, wordList, adapter, dictInfoTitle, Define.UPDATE, roomKey);
                         dialog.show();
-                        dialog.setUpdateWord(adapter.wordList.get(pos).getEng(),adapter.wordList.get(pos).getKor(),pos);
+                        dialog.setUpdateWord(adapter.wordList.get(pos).getEng(), adapter.wordList.get(pos).getKor(), pos);
                         adapter.wordList.clear();
                         adapter.notifyDataSetChanged();
                         readWordList();
@@ -165,11 +178,12 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                         adapter.notifyItemChanged(pos);
 
                     }
+
                     @Override
                     public void setOnClickDeleteButton() {
-                        setMode="delete";
+                        setMode = "delete";
                         deleteFireBaseData(pos);
-                        mb.progressState.setText(adapter.getItemCount()+"/"+dictCount);
+                        mb.progressState.setText(adapter.getItemCount() + "/" + dictCount);
 
                     }
                 });
@@ -177,31 +191,31 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
             }
         });
         // 단어 추가 버튼을 눌렀을때
-        if (adapter.getItemCount()==dictCount){
-            Toast.makeText(getContext(),"더 이상 추가할수 없습니다.",Toast.LENGTH_SHORT).show();
-        }
-        else{
-            mb.btnDictInfoCreate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (getContext()!=null){
-                        setMode="add";
-                        CreateWordDialog dialog = new CreateWordDialog(getContext(),spUserId,wordList,adapter,dictInfoTitle,Define.CREATE);
-                        Log.e(TAG, "onClick: "+adapter.wordList );
+        mb.btnDictInfoCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getContext() != null) {
+                    setMode = "add";
+                    if (adapter.getItemCount() == dictCount) {
+                        Toast.makeText(getContext(), "더 이상 추가할수 없습니다.", Toast.LENGTH_SHORT).show();
+                    }else {
+                        CreateWordDialog dialog = new CreateWordDialog(getContext(), spUserId, wordList, adapter, dictInfoTitle, Define.CREATE, roomKey);
+                        Log.e(TAG, "onClick: " + adapter.wordList);
                         dialog.show();
                     }
                 }
-            });
+            }
+        });
 
-        }
 
     }
 
     /**
      * 포지션 값을 받아 해당 DB 삭제
+     *
      * @param pos : 포지션 값
      */
-    public void deleteFireBaseData(int pos){
+    public void deleteFireBaseData(int pos) {
         // 어댑터에 있는 리스트 가져와 해당 값 삭제
         ArrayList<DictionaryWordItem> list = adapter.wordList;
         adapter.removeItem(list.get(pos));
@@ -211,7 +225,6 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
         // 파이어베이스에서 list 통째로 삭제후 삭제된 리스트 setValue 시킴
         myRef.child(spUserId).child(dictInfoTitle).child("list").setValue(null);
         myRef.child(spUserId).child(dictInfoTitle).child("list").setValue(adapter.wordList);
-
 
 
     }
