@@ -9,7 +9,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.wordmaster.Define.Define;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryInfoAdapter;
 import com.example.wordmaster.databinding.DialogCreateWordDialogBinding;
@@ -36,6 +35,15 @@ public class CreateWordDialog extends Dialog  {
     private String getRoomKey;
     private static final String TAG = "CreateWordDialog";
     private ArrayList<DictionaryWordItem> wordList;
+    private OnClickListener listener = null;
+
+    public interface OnClickListener{
+        void onSubmitClick(String eng, String kor);
+    }
+    public void setOnClickListener(OnClickListener listener){
+        this.listener = listener;
+
+    }
     public CreateWordDialog(@NonNull Context context,String spUserId,ArrayList<DictionaryWordItem> list,DictionaryInfoAdapter adapter,String tilte,String mode,String room) {
         super(context);
         this.context = context;
@@ -107,34 +115,10 @@ public class CreateWordDialog extends Dialog  {
         mb.btnCreateWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mode.equals(Define.CREATE)){
-                    String kor = mb.etKor.getText().toString();
-                    String eng = mb.etEng.getText().toString();
-                    //adapter.addItem(new DictionaryWordItem(kor,eng));
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference();
-
-                    int idx = adapter.getItemCount();
-                    myRef.child("WordStore").child(spUserId).child(getRoomKey).child("list").child(String.valueOf(idx)).setValue(new DictionaryWordItem(kor,eng));
-                    Log.e(TAG, "onClick: "+getRoomKey );
-                    Log.e(TAG, "onClick: "+adapter.getItemCount() );
-                    dismiss();
-
-                }
-                else {
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference();
-
-                    int idx = adapter.getItemCount()+1-1;
-                    myRef.child("WordStore").child(spUserId).child(title).child("list").child(String.valueOf(pos)).setValue(new DictionaryWordItem(mb.etKor.getText().toString(),mb.etEng.getText().toString()));
-//                    adapter.wordList.set(pos,new DictionaryWordItem(mb.etKor.getText().toString(),mb.etEng.getText().toString()));
-//                    adapter.notifyItemChanged(pos);
-                    Log.e(TAG, "onClick: "+adapter.getItemCount() );
-                    adapter.wordList.set(pos,new DictionaryWordItem(mb.etKor.getText().toString(),mb.etEng.getText().toString()));
-                    adapter.notifyItemChanged(pos);
-                    dismiss();
-
-                }
+                String eng = mb.etEng.getText().toString();
+                String kor = mb.etKor.getText().toString();
+                listener.onSubmitClick(eng,kor);
+                dismiss();
             }
         });
     }
