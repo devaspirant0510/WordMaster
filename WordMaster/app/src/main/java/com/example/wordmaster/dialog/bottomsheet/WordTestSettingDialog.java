@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 
 import com.example.wordmaster.R;
 import com.example.wordmaster.databinding.DialogBottomSheetSetWordTestBinding;
-import com.example.wordmaster.Define.Define;
+import com.example.wordmaster.Define.Const;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class WordTestSettingDialog extends BottomSheetDialogFragment {
@@ -55,13 +55,13 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                     if (checkedId==R.id.kor2eng){
-                        rgTestType = Define.KOR2ENG;
+                        rgTestType = Const.KOR2ENG;
                     }
                     else if (checkedId == R.id.eng2kor){
-                        rgTestType = Define.ENG2KOR;
+                        rgTestType = Const.ENG2KOR;
                     }
                     else{
-                        rgTestType = Define.RANDOM2RANDOM;
+                        rgTestType = Const.RANDOM2RANDOM;
                     }
                 Log.e("sd", "onCheckedChanged: "+rgTestType );
             }
@@ -70,10 +70,10 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if(checkedId==R.id.test_option_linear){
-                    rgTestOption = Define.LINEAR;
+                    rgTestOption = Const.LINEAR;
                 }
                 else{
-                    rgTestOption = Define.RANDOM;
+                    rgTestOption = Const.RANDOM;
                 }
             }
         });
