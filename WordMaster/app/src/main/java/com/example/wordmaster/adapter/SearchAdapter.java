@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.wordmaster.Define.Define;
+import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.R;
 import com.example.wordmaster.model.recycler.SearchItem;
 
@@ -30,7 +30,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        if(viewType== Define.SEARCH_PRIVATE){
+        if(viewType== Const.SEARCH_PRIVATE){
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_search_private,parent,false);
             return new PrivateViewHodler(view);
         }
