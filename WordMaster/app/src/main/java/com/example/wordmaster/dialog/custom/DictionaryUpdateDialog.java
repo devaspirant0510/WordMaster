@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 
 import com.example.wordmaster.callback.DialogUpdateCallback;
 import com.example.wordmaster.databinding.DialogUpdateDictBinding;
-import com.example.wordmaster.Define.Define;
+import com.example.wordmaster.Define.Const;
 
 public class DictionaryUpdateDialog extends Dialog {
     private DialogUpdateDictBinding mb;
@@ -33,7 +33,7 @@ public class DictionaryUpdateDialog extends Dialog {
     }
 
     private void init() {
-        if (type == Define.DIALOG_DICT_LIST){
+        if (type == Const.DIALOG_DICT_LIST){
             mb.dialogDictTitle.setText("단어장");
         }
         else{

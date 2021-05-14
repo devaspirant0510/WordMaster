@@ -9,7 +9,7 @@ import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.wordmaster.Define.Define;
+import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.R;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.callback.BottomSheetCallBack;
@@ -48,14 +48,14 @@ public class CreateDictionarySheetDialog extends BottomSheetDialogFragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.test_public) {
-                    radioGroupType = Define.PUBLIC;
+                    radioGroupType = Const.PUBLIC;
                     mb.llPassword.setVisibility(View.GONE);
                     mb.tvLlPassword.setText("");
                 }else if (checkedId == R.id.test_private){
-                    radioGroupType = Define.PRIVATE;
+                    radioGroupType = Const.PRIVATE;
                     mb.llPassword.setVisibility(View.VISIBLE);
                 }else{
-                    radioGroupType = Define.ONLY_ME;
+                    radioGroupType = Const.ONLY_ME;
                     mb.llPassword.setVisibility(View.GONE);
                     mb.tvLlPassword.setText("");
 
