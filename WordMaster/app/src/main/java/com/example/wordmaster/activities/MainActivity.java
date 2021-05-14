@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.wordmaster.Define.Define;
+import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.R;
 import com.example.wordmaster.adapter.DictionaryInfoAdapter;
 import com.example.wordmaster.adapter.DictionaryViewPageAdapter;
@@ -22,7 +22,6 @@ import com.example.wordmaster.callback.DictionaryFragmentCallBack;
 import com.example.wordmaster.callback.InfoFragmentDialogCallback;
 import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.databinding.ActivityMainBinding;
-import com.example.wordmaster.fragment.DictionaryFragment;
 import com.example.wordmaster.fragment.DictionaryInfoFragment;
 import com.example.wordmaster.fragment.HomeFragment;
 import com.example.wordmaster.fragment.MyInfoFragment;
@@ -32,6 +31,7 @@ import com.example.wordmaster.fragment.TestResultFragment;
 import com.example.wordmaster.fragment.viewpager.MyDictionaryFragment;
 import com.example.wordmaster.fragment.viewpager.MyTestFragment;
 import com.example.wordmaster.fragment.viewpager.OtherDictionaryFragment;
+import com.example.wordmaster.model.recycler.DictionaryListItem;
 import com.example.wordmaster.model.recycler.DictionaryWordItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
     private BottomSheetCallBack bottomSheetCallBack;
     private DictionaryFragmentCallBack dictionaryListCallBack;
     private InfoFragmentDialogCallback infoFragmentDialogCallback;
+    // 단어장에서 단어장 세부로 이동할때 넘길 객체
+    private DictionaryListItem Dict2InfoItem;
     private static final String TAG = "MainActivity";
     private String dictTitle,dictOption,dictDescription,dictHost,testingLimitTime,testingTitle,testingHost;
     private int dictCount,testingMaxCount,testingRgType,testingRgOption;
@@ -57,7 +59,8 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
         super.onCreate(savedInstanceState);
         mb = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mb.getRoot());
-        changeFragment(Define.HOME_FRAGMENT);
+        // 화면켰을때 처음화면은 홈화면으로
+        changeFragment(Const.HOME_FRAGMENT);
         init();
     }
 
@@ -69,42 +72,43 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.navi_item_home:
-                        changeFragment(Define.HOME_FRAGMENT);
+                        changeFragment(Const.HOME_FRAGMENT);
                         break;
                     case R.id.navi_item_my_dict:
-                        changeFragment(Define.DICTIONARY_FRAGMENT);
+                        changeFragment(Const.DICTIONARY_FRAGMENT);
                         break;
                     case R.id.navi_item_test:
-                        changeFragment(Define.TEST_FRAGMENT);
+                        changeFragment(Const.TEST_FRAGMENT);
                         break;
                     case R.id.navi_item_search:
-                        changeFragment(Define.SEARCH_FRAGMENT);
+                        changeFragment(Const.SEARCH_FRAGMENT);
                         break;
                     case R.id.navi_item_profile:
-                        changeFragment(Define.MY_INFO_FRAGMENT);
+                        changeFragment(Const.MY_INFO_FRAGMENT);
                         break;
-
                 }
                 return true;
             }
         });
     }
+    // 바텀네비에서 보여줄 화면이 프레그먼트일경우 뷰페어저,탭레이아웃 Gone 처리
     public int showFragment(){
         mb.frame.setVisibility(View.VISIBLE);
         mb.testViewPager.setVisibility(View.GONE);
         mb.viewPagerTabLayout.setVisibility(View.GONE);
-        return Define.SHOW_FRAGMENT;
+        return Const.SHOW_FRAGMENT;
 
     }
+    // 바텀네비에서 보여줄 화면이 뷰페이저일경우 프레그먼트 Gone 처리
     public int showViewPager(){
         mb.frame.setVisibility(View.GONE);
         mb.testViewPager.setVisibility(View.VISIBLE);
         mb.viewPagerTabLayout.setVisibility(View.VISIBLE);
-        return Define.SHOW_VIEW_PAGER;
+        return Const.SHOW_VIEW_PAGER;
 
     }
-    Fragment fr = null;
-
+    // 프레그먼트
+    private Fragment fr = null;
     /**
      * Define.java 에서 정의된 상수값 받아서 프레그먼트 체인지
      * @param n 상수값
@@ -114,13 +118,14 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
         FragmentTransaction ft = fm.beginTransaction();
         int viewState=0;
         switch (n){
-            case Define.HOME_FRAGMENT:
+            // 홈화면일때 HomeFragment() 보여주고 viewState 는 프레그먼트
+            case Const.HOME_FRAGMENT:
                 fr = new HomeFragment();
                 viewState = showFragment();
                 break;
-            case Define.DICTIONARY_FRAGMENT:
-                fr = new DictionaryFragment();
-
+            // 사전 화면일때
+            case Const.DICTIONARY_FRAGMENT:
+                //fr = new DictionaryFragment();
                 viewState = showViewPager();
                 DictionaryViewPageAdapter dictionaryViewPageAdapter = new DictionaryViewPageAdapter(getSupportFragmentManager(),FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
                 dictionaryViewPageAdapter.addItem(new MyDictionaryFragment());
@@ -128,34 +133,33 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
                 mb.testViewPager.setAdapter(dictionaryViewPageAdapter);
 
                 break;
-            case Define.TEST_FRAGMENT:
+            case Const.TEST_FRAGMENT:
                 MyTestFragment myTestFragment = new MyTestFragment();
                 myTestFragment.setListener(this);
                 fr = myTestFragment;
                 viewState = showFragment();
                 break;
-            case Define.SEARCH_FRAGMENT:
+            case Const.SEARCH_FRAGMENT:
                 fr = new SearchFragment();
                 viewState = showFragment();
                 break;
-            case Define.MY_INFO_FRAGMENT:
+            case Const.MY_INFO_FRAGMENT:
                 fr = new MyInfoFragment();
                 viewState = showFragment();
                 break;
-            case Define.DICTIONARY_INFO_FRAGMENT:
+            case Const.DICTIONARY_INFO_FRAGMENT:
                 fr = new DictionaryInfoFragment();
                 viewState = showFragment();
-                Log.e(TAG, "changeFragment: "+342 );
                 Bundle infoArg = new Bundle();
-                infoArg.putString("Title",dictTitle);
-                infoArg.putString("Option",dictOption);
-                infoArg.putString("Description",dictDescription);
-                infoArg.putString("HashTag",dictHost);
-                infoArg.putInt("Count",dictCount);
-                infoArg.putInt("Position",dictPosition);
+                infoArg.putString("Title",Dict2InfoItem.getDictionaryTitle());
+                infoArg.putString("Option",Dict2InfoItem.getDictOption());
+                infoArg.putString("Description",Dict2InfoItem.getDictionaryDescription());
+                infoArg.putString("HashTag",Dict2InfoItem.getDictHashTag());
+                infoArg.putString("RoomKey",Dict2InfoItem.getRoomKey());
+                infoArg.putInt("Count",Integer.parseInt(Dict2InfoItem.getDictionaryMaxCount()));
                 fr.setArguments(infoArg);
                 break;
-            case Define.TESTING_FRAGMENT:
+            case Const.TESTING_FRAGMENT:
                 Log.e(TAG,"testing");
                 fr = new TestFragment(pos);
 
@@ -169,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
                 fr.setArguments(testingArg);
                 viewState = showFragment();
                 break;
-            case Define.TEST_RESULT_FRAGMENT:
+            case Const.TEST_RESULT_FRAGMENT:
                 fr=new TestResultFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("testMaxCount",testMaxCount);
@@ -183,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
             default:
                 break;
         }
-        if (viewState == Define.SHOW_FRAGMENT){
+        if (viewState == Const.SHOW_FRAGMENT){
             ft.replace(R.id.frame,fr);
             ft.commit();
         }
@@ -215,17 +219,9 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
     }
 
 
-
-
     @Override
-    public void sendDictData(int pos, String title, String option, String hashTag, int count) {
-        this.dictTitle = title;
-        this.dictOption = option;
-        this.dictHost = hashTag;
-        this.dictCount = count;
-        this.dictPosition = pos;
-        Log.e(TAG, "sendDictData: "+pos );
-
+    public void sendDictData(DictionaryListItem item) {
+        this.Dict2InfoItem = item;
     }
 
     @Override
