@@ -1,6 +1,6 @@
 package com.example.wordmaster.Define;
 
-public class Define {
+public class Const {
     //바텀네비게이션 프레그먼트
     public static final int HOME_FRAGMENT = 0;
     public static final int DICTIONARY_FRAGMENT = 1;
@@ -47,10 +47,12 @@ public class Define {
     // 파이어베이스 레퍼런스
     public static final String FIREBASE_REFERENCE_USER_ACCOUNT = "UserAccount";
     public static final String FIREBASE_REFERENCE_WORD_STORE = "WordStore";
+    public static final String FIREBASE_REFERENCE_WORD_LIST = "list";
 
     // 셰어드 메니저 에디터
-    public static final String USER_ID = "UserID";
-    public static final String USER_NAME = "UserName";
-    public static final String USER_PROFILE_URI = "UserProfileUri";
+    public static final String SHARED_USER_ID = "UserID";
+    public static final String SHARED_USER_NAME = "UserName";
+    public static final String SHARED_USER_PROFILE_URI = "UserProfileUri";
+    public static final String SHARED_USER_EMAIL = "UserEmail";
 
 }
