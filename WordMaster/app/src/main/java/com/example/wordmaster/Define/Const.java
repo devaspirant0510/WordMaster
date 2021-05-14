@@ -44,6 +44,13 @@ public class Define {
     public static final String CREATE = "create";
     public static final String UPDATE = "update";
 
+    // 파이어베이스 레퍼런스
     public static final String FIREBASE_REFERENCE_USER_ACCOUNT = "UserAccount";
     public static final String FIREBASE_REFERENCE_WORD_STORE = "WordStore";
+
+    // 셰어드 메니저 에디터
+    public static final String USER_ID = "UserID";
+    public static final String USER_NAME = "UserName";
+    public static final String USER_PROFILE_URI = "UserProfileUri";
+
 }
