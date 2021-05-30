@@ -31,6 +31,7 @@ import com.example.wordmaster.fragment.TestResultFragment;
 import com.example.wordmaster.fragment.viewpager.MyDictionaryFragment;
 import com.example.wordmaster.fragment.viewpager.MyTestFragment;
 import com.example.wordmaster.fragment.viewpager.OtherDictionaryFragment;
+import com.example.wordmaster.model.firebase.UserDictionary;
 import com.example.wordmaster.model.recycler.DictionaryListItem;
 import com.example.wordmaster.model.recycler.DictionaryWordItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -155,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
                 infoArg.putString("Option",Dict2InfoItem.getDictOption());
                 infoArg.putString("Description",Dict2InfoItem.getDictionaryDescription());
                 infoArg.putString("HashTag",Dict2InfoItem.getDictHashTag());
-                infoArg.putString("RoomKey",Dict2InfoItem.getRoomKey());
+                infoArg.putString("RoomKey",Dict2InfoItem.getDictRoomKey());
                 infoArg.putInt("Count",Integer.parseInt(Dict2InfoItem.getDictionaryMaxCount()));
                 fr.setArguments(infoArg);
                 break;
@@ -196,8 +197,8 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
     public void BottomSheetCallBack(BottomSheetCallBack callBack){
         this.bottomSheetCallBack = callBack;
     }
-    public void sendCreateDictDialog(String title,int count,int currentCount,String description,String hashTag,String DictOption,String password){
-        bottomSheetCallBack.createDialogGetData(title,count,currentCount,description,hashTag,DictOption,password);
+    public void sendCreateDictDialog(UserDictionary userDictionary){
+        bottomSheetCallBack.createDialogGetData(userDictionary);
     }
     public void setDictionaryListCallBack(DictionaryFragmentCallBack callBack){
         this.dictionaryListCallBack = callBack;
