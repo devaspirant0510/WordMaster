@@ -2,6 +2,7 @@ package com.example.wordmaster.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,6 +103,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
             public void onLongClick(View v, int pos) {
                 DictionaryUpdateDialog dialog = new DictionaryUpdateDialog(getContext(), Const.DIALOG_DICT_WORD);
                 dialog.setDialogUpdateCallback(new DialogUpdateCallback() {
+                    // 수정 버튼
                     @Override
                     public void setOnClickUpdateButton() {
                         CreateWordDialog dialog = new CreateWordDialog(getContext(), spUserId, wordList, adapter, dictInfoTitle, Const.UPDATE, roomKey);
@@ -119,6 +121,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                     public void setOnClickDeleteButton() {
                         setMode = "delete";
                         deleteFireBaseData(pos);
+
                         mb.progressState.setText(adapter.getItemCount() + "/" + dictCount);
 
                     }
@@ -141,8 +144,12 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                         dialog.setOnClickListener(new CreateWordDialog.OnClickListener() {
                             @Override
                             public void onSubmitClick(String eng, String kor) {
-                                Util.myRefWord.child(spUserId).child(roomKey).child(Const.FIREBASE_REFERENCE_WORD_LIST)
-                                        .push().setValue(new DictionaryWordItem(eng,kor));
+                                DatabaseReference pushRef = Util.myRefWord.child(spUserId).child(roomKey).child(Const.FIREBASE_REFERENCE_WORD_LIST)
+                                        .push();
+                                String roomKey = pushRef.getKey();
+                                DictionaryWordItem item = new DictionaryWordItem(kor,eng);
+                                item.setRoomKey(roomKey);
+                                pushRef.setValue(item);
                             }
                         });
                         dialog.show();
@@ -200,14 +207,14 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
      */
     public void deleteFireBaseData(int pos) {
         // 어댑터에 있는 리스트 가져와 해당 값 삭제
-        ArrayList<DictionaryWordItem> list = adapter.wordList;
-        adapter.removeItem(list.get(pos));
-        adapter.notifyDataSetChanged();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("WordStore");
-        // 파이어베이스에서 list 통째로 삭제후 삭제된 리스트 setValue 시킴
-        myRef.child(spUserId).child(dictInfoTitle).child("list").setValue(null);
-        myRef.child(spUserId).child(dictInfoTitle).child("list").setValue(adapter.wordList);
+        DictionaryWordItem item = adapter.getItem(pos);
+        String wordKey = item.getRoomKey();
+        Log.e(TAG, "deleteFireBaseData: "+roomKey );
+        // DB 에서 삭제
+        Util.myRefWord.child(spUserId).child(roomKey).child("list").child(wordKey).setValue(null);
+        // UI 에서 삭제
+        adapter.removeItem(pos);
+        adapter.notifyItemRemoved(pos);
 
 
     }
