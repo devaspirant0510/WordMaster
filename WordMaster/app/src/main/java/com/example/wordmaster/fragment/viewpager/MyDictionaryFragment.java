@@ -1,7 +1,6 @@
 package com.example.wordmaster.fragment.viewpager;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,8 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.wordmaster.Define.Define;
-import com.example.wordmaster.activities.LoginActivity;
+import com.example.wordmaster.Define.Const;
+import com.example.wordmaster.Define.SharedManger;
+import com.example.wordmaster.Define.Util;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryListAdapter;
 import com.example.wordmaster.callback.BottomSheetCallBack;
@@ -29,10 +29,6 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.MutableData;
-import com.google.firebase.database.Transaction;
-import com.google.firebase.database.ValueEventListener;
 
 public class MyDictionaryFragment extends Fragment implements BottomSheetCallBack {
     private FragmentDictionaryBinding mb;
@@ -41,20 +37,16 @@ public class MyDictionaryFragment extends Fragment implements BottomSheetCallBac
     private MainActivity activity;
     private DictionaryListAdapter adapter;
     private SendDataToActivity sendDataToActivity = null;
-    private FirebaseDatabase mDatabase;
-    private DatabaseReference mMyRef;
     private String title, spUserId, spUserEmail, spUserName;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = (MainActivity) getActivity();
-        mDatabase = FirebaseDatabase.getInstance();
-        mMyRef = mDatabase.getReference();
-        SharedPreferences sharedPreferences = activity.getSharedPreferences("LoginInformation", Context.MODE_PRIVATE);
-        spUserId = sharedPreferences.getString("userId", "");
-        spUserEmail = sharedPreferences.getString("userEmail", "");
-        spUserName = sharedPreferences.getString("userNickName", "");
+        // sharedManger 에서 저장된 정보 가져옴
+        spUserId = SharedManger.loadData(Const.SHARED_USER_ID,"");
+        spUserEmail = SharedManger.loadData(Const.SHARED_USER_EMAIL,"");
+        spUserName = SharedManger.loadData(Const.SHARED_USER_NAME,"");
 
 
     }
@@ -82,55 +74,30 @@ public class MyDictionaryFragment extends Fragment implements BottomSheetCallBac
         super.onResume();
     }
 
-    private void removeWordDictList(int position){
-        final int[] current = {0};
-
-        mMyRef.child("WordStore").child(spUserId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot data :snapshot.getChildren()) {
-                    Log.e(TAG, "onDataChange: "+data.getKey() );
-                    if (current[0]==position){
-                        String wordKey = data.getKey();
-                        if (wordKey != null) {
-
-                            mMyRef.child("WordStore").child(spUserId).child(wordKey).setValue(null);
-                        }
-
-                    }
-                    current[0] +=1;
-                }
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        adapter.removeItem(position);
-        adapter.notifyItemRemoved(position);
-
+    private void removeWordDictList(String roomKey,int pos){
+        Util.myRefWord.child(spUserId).child(roomKey).setValue(null);
+        adapter.removeItem(pos);
+        adapter.notifyItemRemoved(pos);
     }
+
     // 파이어베이스 DB 단어장 리스트 읽어오기
     private void readWordDictList() {
-        mMyRef.child("WordStore").child(spUserId).addChildEventListener(new ChildEventListener() {
+        Util.myRefWord.child(spUserId).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 UserDictionary userDictionary = snapshot.getValue(UserDictionary.class);
+                Log.e(TAG, "onChildAdded: "+userDictionary );
                 // 읽어와서 어댑터에 추가
-                Log.e(TAG, "onChildAdded: "+snapshot.getValue() );
-                if (userDictionary != null) {
                     adapter.addItem(new DictionaryListItem(
                             userDictionary.getTitle(),
                             String.valueOf(userDictionary.getMaxCount()),
                             userDictionary.getDescription(),
-                            LoginActivity.USER,
+                            SharedManger.loadData(Const.SHARED_USER_NAME,""),
                             userDictionary.getOption(),
-                            1
+                            userDictionary.getRoomKey(),
+                            userDictionary.getHashTag()
+                            ,1
                     ));
-                }
                 mb.dictionaryList.scrollToPosition(adapter.getItemCount() - 1);
 
             }
@@ -142,7 +109,6 @@ public class MyDictionaryFragment extends Fragment implements BottomSheetCallBac
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
             }
 
             @Override
@@ -156,50 +122,25 @@ public class MyDictionaryFragment extends Fragment implements BottomSheetCallBac
             }
         });
     }
-    private String roomKey = "";
-    public String getRoomKey(int pos){
-        final int[] current = {0};
 
-        mMyRef.child("WordStore").child(spUserId).runTransaction(new Transaction.Handler() {
-            @NonNull
-            @Override
-            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
-                return null;
-            }
-
-            @Override
-            public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
-                if (currentData != null) {
-                    for (DataSnapshot data:currentData.getChildren()) {
-                        if (current[0] == pos){
-                            roomKey = data.getKey();
-                        }
-
-
-                        current[0]+=1;
-
-                    }
-                }
-
-            }
-        });
-        return roomKey;
-
-    }
     /**
      * 파베 DB 에 단어장을 추가함
      *
      * @param dictionary : 단어장 정보 (설명,해시태그,최대개수,공개여부,제목)
      */
     private void createFirebaseReadDatabase(String userId,UserDictionary dictionary) {
-        mMyRef.child("WordStore").child(userId).push().setValue(dictionary);
+        DatabaseReference pushRef = Util.myRefWord.child(userId).push();
+        String roomKey = pushRef.getKey();
+        dictionary.setRoomKey(roomKey);
+        pushRef.setValue(dictionary);
     }
 
     private void init() {
         adapter = new DictionaryListAdapter(getContext());
         mb.dictionaryList.setAdapter(adapter);
-        //추가 플로팅 버튼을 눌렀을때
+        // 파베에서 데이터
         readWordDictList();
+        //추가 플로팅 버튼을 눌렀을때
         mb.createDictionary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -217,14 +158,14 @@ public class MyDictionaryFragment extends Fragment implements BottomSheetCallBac
             public void onClick(View v, int pos) {
                 DictionaryListItem item = adapter.getItem(pos);
                 // 메인액티비티에 정보보냄 프레그먼트 트랜잭션
-                sendDataToActivity.sendDictData(pos,item.getDictionaryTitle(), item.getDictOption(), item.getDictionaryHost(), Integer.parseInt(item.getDictionaryMaxCount()));
-                activity.changeFragment(Define.DICTIONARY_INFO_FRAGMENT);
+                sendDataToActivity.sendDictData(item);
+                activity.changeFragment(Const.DICTIONARY_INFO_FRAGMENT);
             }
 
             // 롱클릭 => 수정,삭제 다이얼로그
             @Override
             public void onLongClick(View v, int pos) {
-                DictionaryUpdateDialog dialog = new DictionaryUpdateDialog(getContext(), Define.DIALOG_DICT_WORD);
+                DictionaryUpdateDialog dialog = new DictionaryUpdateDialog(getContext(), Const.DIALOG_DICT_WORD);
                 dialog.setDialogUpdateCallback(new DialogUpdateCallback() {
                     @Override
                     // 다이얼로그에서 수정버튼을 눌렀을때
@@ -239,7 +180,10 @@ public class MyDictionaryFragment extends Fragment implements BottomSheetCallBac
 
                     @Override
                     public void setOnClickDeleteButton() {
-                        removeWordDictList(pos);
+                        //removeWordDictList(pos);
+                        String roomKey = adapter.getItem(pos).getDictRoomKey();
+                        removeWordDictList(roomKey,pos);
+                        
                         // TODO : 해당 단어장 삭제후 어댑터 다시 업데이트
 
                     }
@@ -250,20 +194,8 @@ public class MyDictionaryFragment extends Fragment implements BottomSheetCallBac
 
     }
 
-    // 바텀시트에서 입력한 정보 콜백으로 받아옴
     @Override
-    public void createDialogGetData(String title, int count, int currentCount, String description, String hashTag, String DictOption, String password) {
-        Log.e(TAG, "createDialogGetData: " + title);
-        createFirebaseReadDatabase(spUserId,new UserDictionary(DictOption,
-                title,
-                count,
-                currentCount,
-                description,
-                hashTag,
-                null,
-                spUserName,
-                null,
-                password));
-
+    public void createDialogGetData(UserDictionary userDictionary) {
+        createFirebaseReadDatabase(SharedManger.loadData(Const.SHARED_USER_ID,""),userDictionary);
     }
 }
