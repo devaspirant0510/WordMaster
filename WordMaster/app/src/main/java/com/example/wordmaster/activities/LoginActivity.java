@@ -31,6 +31,7 @@ import kotlin.jvm.functions.Function2;
 public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding mb;
     private static final String TAG = "LoginActivity";
+    Function2<OAuthToken, Throwable, Unit> callback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,15 +55,18 @@ public class LoginActivity extends AppCompatActivity {
 
     }
     public void init() {
+        getHashKey();
         // 로그인 성공여부 체크 콜백 메서드
         Function2<OAuthToken, Throwable, Unit> callback = new Function2<OAuthToken, Throwable, Unit>() {
             @Override
             public Unit invoke(OAuthToken oAuthToken, Throwable throwable) {
+                Log.e(TAG, "invoke: " );
                 if (oAuthToken != null) {
                     Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
                 }
+                showLoginSuccessDialog();
                 return null;
             }
         };
@@ -74,12 +78,16 @@ public class LoginActivity extends AppCompatActivity {
                     UserApiClient.getInstance().loginWithKakaoTalk(LoginActivity.this, callback);
 
                 } else {
+
                     UserApiClient.getInstance().loginWithKakaoAccount(LoginActivity.this, callback);
 
                 }
-                showLoginSuccessDialog();
             }
         });
+
+    }
+    private void web(){
+        UserApiClient.getInstance().loginWithKakaoAccount(LoginActivity.this, callback);
 
     }
     /**
