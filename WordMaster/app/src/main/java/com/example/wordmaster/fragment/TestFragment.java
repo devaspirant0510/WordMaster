@@ -13,11 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.model.recycler.DictionaryWordItem;
 import com.example.wordmaster.databinding.FragmentTestBinding;
-import com.example.wordmaster.Define.Define;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -113,7 +113,7 @@ public class TestFragment extends Fragment {
                 }
                 Toast.makeText(getContext(), "너님의 점수는" + myScore + "/" + dictMaxCount, Toast.LENGTH_SHORT).show();
                 sendDataToActivity.sendTestResult(dictMaxCount, myScore, myArr, answerArr,testList);
-                activity.changeFragment(Define.TEST_RESULT_FRAGMENT);
+                activity.changeFragment(Const.TEST_RESULT_FRAGMENT);
             }
         });
 
@@ -138,14 +138,14 @@ public class TestFragment extends Fragment {
         String kor = item.getKor();
         String eng = item.getEng();
         Random random = new Random();
-        if(rgDictType==Define.ENG2KOR){
+        if(rgDictType==Const.ENG2KOR){
             mb.tvWordQuestion.setText(eng);
         }
-        else if(rgDictType==Define.KOR2ENG){
+        else if(rgDictType==Const.KOR2ENG){
             mb.tvWordQuestion.setText(kor);
         }
         else{
-            String getProblem = random.nextInt(2)==Define.ENG2KOR?eng:kor;
+            String getProblem = random.nextInt(2)==Const.ENG2KOR?eng:kor;
             mb.tvWordQuestion.setText(getProblem);
         }
 
@@ -245,10 +245,10 @@ public class TestFragment extends Fragment {
                 String[] splitWord = item.split(",");
                 String strEng = splitWord[0].split("=")[1];
                 String strKor = splitWord[1].split("=")[1];
-                if(rgDictType==Define.KOR2ENG){
+                if(rgDictType==Const.KOR2ENG){
                     answerList.add(strKor);
                 }
-                else if (rgDictType==Define.ENG2KOR){
+                else if (rgDictType==Const.ENG2KOR){
 
                     answerList.add(strEng);
                 }
