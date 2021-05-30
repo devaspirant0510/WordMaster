@@ -49,7 +49,12 @@ public class DictionaryInfoAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public int getItemCount() {
         return wordList.size();
     }
-
+    public void removeItem(int pos){
+        wordList.remove(pos);
+    }
+    public DictionaryWordItem getItem(int pos){
+        return wordList.get(pos);
+    }
     public void addItem(DictionaryWordItem item){
         wordList.add(item);
     }
