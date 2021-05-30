@@ -13,16 +13,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.wordmaster.activities.LoginActivity;
+import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryListAdapter;
 import com.example.wordmaster.callback.DictionaryListCallBack;
 import com.example.wordmaster.callback.SendDataToActivity;
+import com.example.wordmaster.databinding.FragmentMyTestBinding;
+import com.example.wordmaster.dialog.bottomsheet.WordTestSettingDialog;
 import com.example.wordmaster.model.firebase.UserDictionary;
 import com.example.wordmaster.model.recycler.DictionaryListItem;
-import com.example.wordmaster.databinding.FragmentMyTestBinding;
-import com.example.wordmaster.Define.Define;
-import com.example.wordmaster.dialog.bottomsheet.WordTestSettingDialog;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -85,7 +84,7 @@ public class MyTestFragment extends Fragment {
                     public void setOnClickListener(int maxCount, String limitTime, int rgTestType, int rgTestTimeOption) {
                         Toast.makeText(getContext(),maxCount+"",Toast.LENGTH_SHORT).show();
                         listener.sendTestingData(pos,maxCount,limitTime,rgTestType,rgTestTimeOption,host,title);
-                        activity.changeFragment(Define.TESTING_FRAGMENT);
+                        activity.changeFragment(Const.TESTING_FRAGMENT);
                     }
                 });
                 if (getFragmentManager() != null) {
@@ -114,8 +113,10 @@ public class MyTestFragment extends Fragment {
                         userDictionary.getTitle(),
                         String.valueOf(userDictionary.getMaxCount()),
                         userDictionary.getDescription(),
-                        LoginActivity.USER,
+                        userDictionary.getHost(),
                         userDictionary.getOption(),
+                        userDictionary.getRoomKey(),
+                        userDictionary.getHashTag(),
                         1
                 ));
                 Log.e(TAG, "onChildAdded: " + adapter.dictList);
@@ -125,16 +126,6 @@ public class MyTestFragment extends Fragment {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                UserDictionary userDictionary = snapshot.getValue(UserDictionary.class);
-                adapter.addItem(new DictionaryListItem(
-                        userDictionary.getTitle(),
-                        String.valueOf(userDictionary.getMaxCount()),
-                        userDictionary.getDescription(),
-                        userDictionary.getHashTag(),
-                        userDictionary.getOption(),
-                        1
-                ));
-                adapter.notifyDataSetChanged();
 
             }
 
