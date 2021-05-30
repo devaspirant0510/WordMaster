@@ -4,6 +4,7 @@ package com.example.wordmaster.model.recycler;
 public class DictionaryWordItem {
     String kor;
     String eng;
+    String roomKey;
 
     public DictionaryWordItem(){
 
@@ -27,5 +28,13 @@ public class DictionaryWordItem {
 
     public void setEng(String eng) {
         this.eng = eng;
+    }
+
+    public String getRoomKey() {
+        return roomKey;
+    }
+
+    public void setRoomKey(String roomKey) {
+        this.roomKey = roomKey;
     }
 }
