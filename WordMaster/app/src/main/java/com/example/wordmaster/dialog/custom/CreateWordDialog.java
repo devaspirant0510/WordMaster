@@ -7,18 +7,12 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryInfoAdapter;
 import com.example.wordmaster.databinding.DialogCreateWordDialogBinding;
 import com.example.wordmaster.fragment.DictionaryInfoFragment;
 import com.example.wordmaster.model.recycler.DictionaryWordItem;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -76,39 +70,6 @@ public class CreateWordDialog extends Dialog  {
 
 //        mb.etEng.setText(getPosWord.get(0));
 //        mb.etEng.setText(getPosWord.get(1));
-
-    }
-    public void updateDialog(int pos){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("WordStore");
-        myRef.child(spUserId).child(title).child("list").child(String.valueOf(pos)).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                Log.e(TAG, "onChildAdded: "+snapshot.getValue() );
-                getPosWord.add(String.valueOf(snapshot.getValue()));
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                Log.e(TAG, "onChildAdded: "+snapshot );
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
     }
     private void init() {
