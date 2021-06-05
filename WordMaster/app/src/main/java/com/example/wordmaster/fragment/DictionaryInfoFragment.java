@@ -20,7 +20,9 @@ import com.example.wordmaster.adapter.DictionaryInfoAdapter;
 import com.example.wordmaster.callback.DialogUpdateCallback;
 import com.example.wordmaster.callback.DictionaryFragmentCallBack;
 import com.example.wordmaster.callback.DictionaryListCallBack;
+import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.databinding.FragmentDictionaryInfoBinding;
+import com.example.wordmaster.dialog.bottomsheet.MyTestOptionBottomSheetDialog;
 import com.example.wordmaster.dialog.custom.CreateWordDialog;
 import com.example.wordmaster.dialog.custom.DictionaryUpdateDialog;
 import com.example.wordmaster.model.recycler.DictionaryWordItem;
@@ -45,6 +47,10 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     // 파베
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference myRef = mDatabase.getReference("WordStore");
+    private SendDataToActivity sendDataToActivity = null;
+    public void setSendDataToActivity(SendDataToActivity callback){
+        this.sendDataToActivity = callback;
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -154,6 +160,27 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                         });
                         dialog.show();
                     }
+                }
+            }
+        });
+        // 테스트 버튼을 눌렀을때
+        mb.btnDictInfoTestBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(adapter.getItemCount()>0){
+
+                    MyTestOptionBottomSheetDialog dialog = new MyTestOptionBottomSheetDialog(getContext());
+                    dialog.setCallBackOption(new MyTestOptionBottomSheetDialog.CallBackOption() {
+                        @Override
+                        public void callBack(int option) {
+
+                            sendDataToActivity.sendTestingData(spUserId,roomKey,dictCount,option,spUserName,dictInfoTitle);
+                            activity.changeFragment(Const.TEST_MY_FRAGMENT);
+                        }
+                    });
+                    dialog.show();
+                }else{
+                    Toast.makeText(getContext(),"단어를 추가해주세요",Toast.LENGTH_SHORT).show();
                 }
             }
         });
