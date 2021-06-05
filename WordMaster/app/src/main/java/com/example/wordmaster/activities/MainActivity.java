@@ -24,7 +24,7 @@ import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.databinding.ActivityMainBinding;
 import com.example.wordmaster.fragment.DictionaryInfoFragment;
 import com.example.wordmaster.fragment.HomeFragment;
-import com.example.wordmaster.fragment.MyInfoFragment;
+import com.example.wordmaster.fragment.ProfileFragment;
 import com.example.wordmaster.fragment.SearchFragment;
 import com.example.wordmaster.fragment.TestFragment;
 import com.example.wordmaster.fragment.TestResultFragment;
@@ -145,11 +145,13 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
                 viewState = showFragment();
                 break;
             case Const.MY_INFO_FRAGMENT:
-                fr = new MyInfoFragment();
+                fr = new ProfileFragment();
                 viewState = showFragment();
                 break;
             case Const.DICTIONARY_INFO_FRAGMENT:
-                fr = new DictionaryInfoFragment();
+                DictionaryInfoFragment infoFragment = new DictionaryInfoFragment();
+                infoFragment.setSendDataToActivity(this);
+                fr = infoFragment;
                 viewState = showFragment();
                 Bundle infoArg = new Bundle();
                 infoArg.putString("Title",Dict2InfoItem.getDictionaryTitle());
@@ -162,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
                 break;
             case Const.TESTING_FRAGMENT:
                 Log.e(TAG,"testing");
-                fr = new TestFragment(pos);
+                fr = new TestFragment();
 
                 Bundle testingArg = new Bundle();
                 testingArg.putInt("testMaxCount",testingMaxCount);
@@ -183,6 +185,18 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
                 bundle.putStringArray("answerArr",answerArr);
                 bundle.putSerializable("list",list);
                 fr.setArguments(bundle);
+                viewState = showFragment();
+                break;
+            case Const.TEST_MY_FRAGMENT:
+                fr = new TestFragment();
+                Bundle myTestArgs = new Bundle();
+                myTestArgs.putString("userId",myTestUserid);
+                myTestArgs.putString("roomKey",myTestRoomKey);
+                myTestArgs.putInt("testOption",myTestRgTestType);
+                myTestArgs.putInt("maxCount",myTestMaxCount);
+                myTestArgs.putString("title",myTestTitle);
+                myTestArgs.putString("host",myTestHost);
+                fr.setArguments(myTestArgs);
                 viewState = showFragment();
                 break;
             default:
@@ -235,6 +249,19 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
         this.testingTitle = title;
         this.testingHost = host;
         this.pos = pos;
+    }
+
+    private String myTestUserid,myTestRoomKey,myTestHost,myTestTitle;
+    private int myTestMaxCount,myTestRgTestType;
+    @Override
+    public void sendTestingData(String userid, String roomKey, int maxCount, int rgTestType, String host, String title) {
+        this.myTestUserid = userid;
+        this.myTestRoomKey = roomKey;
+        this.myTestMaxCount = maxCount;
+        this.myTestRgTestType = rgTestType;
+        this.myTestHost = host;
+        this.myTestTitle = title;
+
     }
 
 
