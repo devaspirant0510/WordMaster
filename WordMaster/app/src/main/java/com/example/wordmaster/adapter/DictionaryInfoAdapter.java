@@ -76,7 +76,7 @@ public class DictionaryInfoAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int pos = getAdapterPosition();
+                    int pos = getBindingAdapterPosition();
                     if (pos != RecyclerView.NO_POSITION){
                         dictionaryListCallBack.onClick(v,pos);
                         dictionaryListCallBack.onLongClick(v,pos);
