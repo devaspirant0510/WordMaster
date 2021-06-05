@@ -65,6 +65,9 @@ public class DictionaryListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void addItem(DictionaryListItem item){
         dictList.add(item);
     }
+    public int getItemIndex(DictionaryListItem item){
+        return dictList.indexOf(item);
+    }
     public void removeItem(int position){
         dictList.remove(position);
     }
@@ -94,7 +97,7 @@ public class DictionaryListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    int pos = getAdapterPosition();
+                    int pos = getBindingAdapterPosition();
                     if (pos!=RecyclerView.NO_POSITION){
                         mListener.onLongClick(v,pos);
                     }

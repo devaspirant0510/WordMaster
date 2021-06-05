@@ -1,6 +1,9 @@
 package com.example.wordmaster.dialog.bottomsheet;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +13,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.wordmaster.Define.Const;
+import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.R;
 import com.example.wordmaster.activities.MainActivity;
-import com.example.wordmaster.callback.BottomSheetCallBack;
 import com.example.wordmaster.databinding.DialogBottomSheetCreateDictBinding;
+import com.example.wordmaster.model.firebase.UserDictionary;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.chip.Chip;
 
 public class CreateDictionarySheetDialog extends BottomSheetDialogFragment {
     private DialogBottomSheetCreateDictBinding mb;
     private static final String TAG = "CreateDictionarySheetDialog";
-    private BottomSheetCallBack bottomSheetCallBack;
     private MainActivity activity;
+    private String hasTag = "";
+
 
     public CreateDictionarySheetDialog(MainActivity activity) {
         this.activity = activity;
@@ -74,9 +80,49 @@ public class CreateDictionarySheetDialog extends BottomSheetDialogFragment {
 
 
                 String DictOption = changeDictOption(radioGroupType);
-                activity.sendCreateDictDialog(createDictTitle, createDictCount,0,
-                        createDictDescription, createDictHashTag, DictOption,createDictPassword);
+                UserDictionary item = new UserDictionary();
+                item.init(DictOption,createDictTitle,createDictCount,
+                        0,createDictDescription,hasTag,null,
+                        SharedManger.loadData(Const.SHARED_USER_NAME,""),null,
+                        createDictPassword,"",SharedManger.loadData(Const.SHARED_USER_ID,""));
+                activity.sendCreateDictDialog(item);
                 dismiss();
+            }
+        });
+        mb.createDictTag.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try{
+                    if (s.charAt(s.length() - 1) == ' ' && s.length() > 1) {
+                        Log.e(TAG, "afterTextChanged: "+s.charAt(s.length()-1) );
+                        Chip chip = new Chip(getContext());
+                        chip.setCloseIconVisible(true);
+                        hasTag+=s+",";
+                        chip.setText(s);
+                        mb.cgHashTag.addView(chip,mb.cgHashTag.getChildCount()-1);
+                        mb.createDictTag.setText("");
+                        chip.setOnCloseIconClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mb.cgHashTag.removeView(chip);
+                            }
+                        });
+
+                    }
+
+                }catch (Exception e){
+
+                }
+
             }
         });
     }

@@ -17,6 +17,8 @@ public class UserDictionary {
     String host;
     ArrayList<String> contributor;
     String password;
+    String roomKey;
+    String hostId;
     public UserDictionary(){
 
     }
@@ -33,10 +35,13 @@ public class UserDictionary {
      * @param host 단어 게시자 이름
      * @param contributor 수정권한 유저
      * @param password 비밀번호(private) 일경우
+     * @param roomKey 해당 단어장 room Key
+     * @param hostId 게시자의 ID
      */
-    public UserDictionary(String option, String title, int maxCount, int currentCount,
-                          String description, String hashTag, DictionaryWordItem wordItem,
-                          String host, ArrayList<String> contributor, String password) {
+    public void init(String option, String title, int maxCount, int currentCount,
+                     String description, String hashTag, DictionaryWordItem wordItem,
+                     String host, ArrayList<String> contributor, String password,
+                     String roomKey, String hostId) {
         this.option = option;
         this.title = title;
         this.maxCount = maxCount;
@@ -47,6 +52,8 @@ public class UserDictionary {
         this.host = host;
         this.contributor = contributor;
         this.password = password;
+        this.roomKey = roomKey;
+        this.hostId = hostId;
     }
     public String getOption() {
         return option;
@@ -126,5 +133,13 @@ public class UserDictionary {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRoomKey() {
+        return roomKey;
+    }
+
+    public void setRoomKey(String roomKey) {
+        this.roomKey = roomKey;
     }
 }

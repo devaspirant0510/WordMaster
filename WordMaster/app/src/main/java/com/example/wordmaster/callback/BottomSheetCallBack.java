@@ -1,6 +1,7 @@
 package com.example.wordmaster.callback;
 
+import com.example.wordmaster.model.firebase.UserDictionary;
+
 public interface BottomSheetCallBack {
-    void createDialogGetData(String title,int count,int currentCount,String description,
-                             String hashTag,String DictOption,String password);
+    void createDialogGetData(UserDictionary userDictionary);
 }

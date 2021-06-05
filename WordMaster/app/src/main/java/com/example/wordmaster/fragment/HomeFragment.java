@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.R;
 import com.example.wordmaster.activities.MainActivity;
@@ -39,7 +40,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void init() {
-        mb.tvWelcomeMessage.setText(SharedManger.getUserName() +"님 환영합니다.");
+        mb.tvWelcomeMessage.setText(SharedManger.loadData(Const.SHARED_USER_NAME,"") +"님 환영합니다.");
         RankingAdapter adapter = new RankingAdapter(getContext());
         adapter.addItem(new RankingItem("3.14썬",1,"lsh0510","강력하다",R.drawable.ic_launcher_foreground));
         adapter.addItem(new RankingItem("유클립트",2,"xkuq1234","유클립트 TV 구독과 좋아요",R.drawable.ic_launcher_foreground));

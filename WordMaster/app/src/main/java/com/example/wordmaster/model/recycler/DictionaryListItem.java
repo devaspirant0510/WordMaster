@@ -6,20 +6,26 @@ public class DictionaryListItem {
     String dictionaryDescription;
     String dictionaryHost;
     String dictOption;
+    String dictRoomKey;
+    String dictHashTag;
     int viewType;
 
-
-    public String getDictionaryTitle() {
-        return dictionaryTitle;
-    }
-
-    public DictionaryListItem(String dictionaryTitle, String dictionaryMaxCount, String dictionaryDescription, String dictionaryHost,String dictOption,int viewType) {
+    public DictionaryListItem(String dictionaryTitle, String dictionaryMaxCount,
+                              String dictionaryDescription, String dictionaryHost,
+                              String dictOption, String dictRoomKey, String dictHashTag,
+                              int viewType) {
         this.dictionaryTitle = dictionaryTitle;
         this.dictionaryMaxCount = dictionaryMaxCount;
         this.dictionaryDescription = dictionaryDescription;
         this.dictionaryHost = dictionaryHost;
         this.dictOption = dictOption;
+        this.dictRoomKey = dictRoomKey;
+        this.dictHashTag = dictHashTag;
         this.viewType = viewType;
+    }
+
+    public String getDictionaryTitle() {
+        return dictionaryTitle;
     }
 
     public void setDictionaryTitle(String dictionaryTitle) {
@@ -50,19 +56,35 @@ public class DictionaryListItem {
         this.dictionaryHost = dictionaryHost;
     }
 
-    public int getViewType() {
-        return viewType;
-    }
-
-    public void setViewType(int viewType) {
-        this.viewType = viewType;
-    }
-
     public String getDictOption() {
         return dictOption;
     }
 
     public void setDictOption(String dictOption) {
         this.dictOption = dictOption;
+    }
+
+    public String getDictRoomKey() {
+        return dictRoomKey;
+    }
+
+    public void setDictRoomKey(String dictRoomKey) {
+        this.dictRoomKey = dictRoomKey;
+    }
+
+    public String getDictHashTag() {
+        return dictHashTag;
+    }
+
+    public void setDictHashTag(String dictHashTag) {
+        this.dictHashTag = dictHashTag;
+    }
+
+    public int getViewType() {
+        return viewType;
+    }
+
+    public void setViewType(int viewType) {
+        this.viewType = viewType;
     }
 }
