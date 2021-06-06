@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class TestFragment extends Fragment {
-    private FragmentTestBinding getArgs;
+    private FragmentTestBinding mb;
     private int dictMaxCount, rgDictType, rgOption;
     private String dictTitle, dictHostName, limitTime, spUserId, spUserEmail, spUserName;
     private String myTestUserid, myTestRoomKey, myTestHost, myTestTitle;
@@ -48,7 +48,7 @@ public class TestFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getArgs = FragmentTestBinding.inflate(getLayoutInflater());
+        mb = FragmentTestBinding.inflate(getLayoutInflater());
     }
 
     @Override
@@ -91,20 +91,20 @@ public class TestFragment extends Fragment {
 
         //setFirstItem();
         //showWord(0);
-        return getArgs.getRoot();
+        return mb.getRoot();
     }
 
     private void init() {
-        getArgs.tvWordTestProgressText.setText("1/" + myTestMaxCount);
-        getArgs.tvTestTitle.setText(myTestTitle);
-        getArgs.tvTestHostName.setText(myTestHost + "님의 테스트");
-        getArgs.pgWordTestProgress.setMax(myTestMaxCount);
-        getArgs.ibPreviousWord.setVisibility(View.INVISIBLE);
+        mb.tvWordTestProgressText.setText("1/" + myTestMaxCount);
+        mb.tvTestTitle.setText(myTestTitle);
+        mb.tvTestHostName.setText(myTestHost + "님의 테스트");
+        mb.pgWordTestProgress.setMax(myTestMaxCount);
+        mb.ibPreviousWord.setVisibility(View.INVISIBLE);
 
-        getArgs.btnSubmit.setOnClickListener(new View.OnClickListener() {
+        mb.btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myArr[currentIdx] = getArgs.etWordAnswer.getText().toString();
+                myArr[currentIdx] = mb.etWordAnswer.getText().toString();
                 answerArr = answerList.toArray(new String[0]);
                 for (int i = 0; i < answerArr.length; i++) {
                     Log.e("s", answerArr[i] + " " + myArr[i]);
@@ -112,8 +112,10 @@ public class TestFragment extends Fragment {
                         myScore += 1;
                     }
                 }
-                Toast.makeText(getContext(), "너님의 점수는" + myScore + "/" + dictMaxCount, Toast.LENGTH_SHORT).show();
-                sendDataToActivity.sendTestResult(dictMaxCount, myScore, myArr, answerArr, testList);
+                Toast.makeText(getContext(), "너님의 점수는" + myScore + "/" + myTestMaxCount, Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onClick: "+answerArr.length+""+myArr.length );
+                Log.e(TAG, "onClick: "+testList.get(0).getEng() );
+                sendDataToActivity.sendTestResult(myTestMaxCount, myScore, myArr, answerArr, testList);
                 activity.changeFragment(Const.TEST_RESULT_FRAGMENT);
             }
         });
@@ -121,64 +123,66 @@ public class TestFragment extends Fragment {
     }
 
     public void showWord(int pos) {
+        Log.e(TAG, "showWord: "+pos+"/"+myTestMaxCount );
         if (pos == 0) {
-            getArgs.ibPreviousWord.setVisibility(View.INVISIBLE);
+            mb.ibPreviousWord.setVisibility(View.INVISIBLE);
         } else {
-            getArgs.ibPreviousWord.setVisibility(View.VISIBLE);
+            mb.ibPreviousWord.setVisibility(View.VISIBLE);
         }
-        if (pos == dictMaxCount - 1) {
-            getArgs.ibNextWord.setVisibility(View.INVISIBLE);
-            getArgs.btnSubmit.setVisibility(View.VISIBLE);
+        if (pos == myTestMaxCount - 1) {
+            mb.ibNextWord.setVisibility(View.INVISIBLE);
+            mb.btnSubmit.setVisibility(View.VISIBLE);
         } else {
-            getArgs.ibNextWord.setVisibility(View.VISIBLE);
-            getArgs.btnSubmit.setVisibility(View.INVISIBLE);
+            mb.ibNextWord.setVisibility(View.VISIBLE);
+            mb.btnSubmit.setVisibility(View.INVISIBLE);
         }
 
 
-            getArgs.tvWordQuestion.setText(mylist.get(pos));
+            mb.tvWordQuestion.setText(mylist.get(pos));
 
     }
 
 
     private void setTestList() {
         // 다음 문제 버튼을 눌렀을때
-        getArgs.ibNextWord.setOnClickListener(new View.OnClickListener() {
+        mb.ibNextWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myArr[currentIdx] = getArgs.etWordAnswer.getText().toString();
+                myArr[currentIdx] = mb.etWordAnswer.getText().toString();
 //                mylist.add(mb.etWordAnswer.getText().toString());
 //                Log.e(TAG, "onClick: "+mb.etWordAnswer.getText().toString() );
 //                Log.e(TAG, "onClick: "+mylist );
                 currentIdx += 1;
-                getArgs.tvWordTestProgressText.setText((currentIdx + 1) + "/" + dictMaxCount);
-                getArgs.pgWordTestProgress.setProgress(currentIdx + 1);
+                mb.tvWordTestProgressText.setText((currentIdx + 1) + "/" + myTestMaxCount);
+                mb.pgWordTestProgress.setProgress(currentIdx + 1);
                 Log.e(TAG, "onClick: " + currentIdx);
                 showWord(currentIdx);
 
-                getArgs.etWordAnswer.setText("");
+                mb.etWordAnswer.setText("");
 
 
             }
         });
 
         //이전문제 버튼을 눌렀을때
-        getArgs.ibPreviousWord.setOnClickListener(new View.OnClickListener() {
+        mb.ibPreviousWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myArr[currentIdx] = getArgs.etWordAnswer.getText().toString();
+                myArr[currentIdx] = mb.etWordAnswer.getText().toString();
                 currentIdx -= 1;
-                getArgs.tvWordTestProgressText.setText((currentIdx + 1) + "/" + dictMaxCount);
-                getArgs.pgWordTestProgress.setProgress(currentIdx + 1);
+                mb.tvWordTestProgressText.setText((currentIdx + 1) + "/" + myTestMaxCount);
+                mb.pgWordTestProgress.setProgress(currentIdx + 1);
                 Toast.makeText(getContext(), currentIdx + "", Toast.LENGTH_SHORT).show();
                 showWord(currentIdx);
                 Log.e(TAG, "onClick: " + mylist);
-                getArgs.etWordAnswer.setText(myArr[currentIdx]);
+                mb.etWordAnswer.setText(myArr[currentIdx]);
             }
         });
 
     }
 
     public void readDBListItem() {
+        Log.e(TAG, "readDBListItem: "+rgOption+"" );
         Util.myRefWord.child(myTestUserid).child(myTestRoomKey).child("list").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
@@ -188,9 +192,17 @@ public class TestFragment extends Fragment {
                         if(myTestRgTestType == Const.KOR2ENG){
                             mylist.add(item.getKor());
                             answerList.add(item.getEng());
+                            DictionaryWordItem wordItem = new DictionaryWordItem();
+                            wordItem.setEng(item.getEng());
+                            wordItem.setKor(item.getKor());
+                            testList.add(wordItem);
                         }else if(myTestRgTestType == Const.ENG2KOR){
                             mylist.add(item.getEng());
                             answerList.add(item.getKor());
+                            DictionaryWordItem wordItem = new DictionaryWordItem();
+                            wordItem.setEng(item.getEng());
+                            wordItem.setKor(item.getKor());
+                            testList.add(wordItem);
                         }else {
                             Random random = new Random();
                             int getValue = random.nextInt(2);
@@ -202,8 +214,13 @@ public class TestFragment extends Fragment {
                                 mylist.add(item.getKor());
                                 answerList.add(item.getEng());
                             }
+                            DictionaryWordItem wordItem = new DictionaryWordItem();
+                            wordItem.setEng(item.getEng());
+                            wordItem.setKor(item.getKor());
+                            testList.add(wordItem);
                         }
                     }
+                    showWord(0);
                 }
             }
             @Override
