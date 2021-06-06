@@ -51,7 +51,7 @@ public class MyTestOptionBottomSheetDialog extends BottomSheetDialog {
         mb.testOptionRandom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callBackOption.callBack(Const.RANDOM);
+                callBackOption.callBack(Const.RANDOM2RANDOM);
 
             }
         });
