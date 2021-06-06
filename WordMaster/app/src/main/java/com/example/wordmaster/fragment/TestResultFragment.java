@@ -2,6 +2,7 @@ package com.example.wordmaster.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,9 @@ public class TestResultFragment extends Fragment {
             score = getArgs.getInt("testCurrentCount");
             myArr = getArgs.getStringArray("myArr");
             answerArr = getArgs.getStringArray("answerArr");
+            Log.e(TAG, "onAttach:"+maxCount );
             list = (ArrayList<DictionaryWordItem>) getArgs.getSerializable("list");
+            Log.e(TAG, "onAttach: "+list.get(0) );
         }
     }
 
