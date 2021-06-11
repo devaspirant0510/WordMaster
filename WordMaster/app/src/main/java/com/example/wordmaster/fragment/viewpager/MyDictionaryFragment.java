@@ -66,7 +66,6 @@ public class MyDictionaryFragment extends Fragment implements BottomSheetCallBac
         mb = FragmentDictionaryBinding.inflate(getLayoutInflater());
         init();
         return mb.getRoot();
-
     }
 
     @Override

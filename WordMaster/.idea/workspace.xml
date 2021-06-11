@@ -40,10 +40,8 @@
   <component name="ChangeListManager">
     <list default="true" id="0b7062bc-63f3-4bc1-8be4-f7c10fa19572" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/adapter/DictionaryInfoAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/adapter/DictionaryInfoAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/custom/CreateWordDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/custom/CreateWordDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/DictionaryInfoFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/DictionaryInfoFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/model/recycler/DictionaryWordItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/model/recycler/DictionaryWordItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/bottomsheet/CreateDictionarySheetDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/bottomsheet/CreateDictionarySheetDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/viewpager/MyDictionaryFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/viewpager/MyDictionaryFragment.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
