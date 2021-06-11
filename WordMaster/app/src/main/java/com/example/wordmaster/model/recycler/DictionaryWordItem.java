@@ -2,6 +2,7 @@ package com.example.wordmaster.model.recycler;
 
 // 단어 리스트
 public class DictionaryWordItem {
+    int index;
     String kor;
     String eng;
     String roomKey;
@@ -36,5 +37,13 @@ public class DictionaryWordItem {
 
     public void setRoomKey(String roomKey) {
         this.roomKey = roomKey;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 }

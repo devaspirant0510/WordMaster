@@ -39,12 +39,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b7062bc-63f3-4bc1-8be4-f7c10fa19572" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/activities/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/activities/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/bottomsheet/MyTestOptionBottomSheetDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/bottomsheet/MyTestOptionBottomSheetDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/TestFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/TestFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/TestResultFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/TestResultFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/adapter/DictionaryInfoAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/adapter/DictionaryInfoAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/custom/CreateWordDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/custom/CreateWordDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/DictionaryInfoFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/DictionaryInfoFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/model/recycler/DictionaryWordItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/model/recycler/DictionaryWordItem.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -285,14 +284,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="477" y="266" key="#PSD" timestamp="1614652531901">
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1623413733250">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="477" y="266" key="#PSD/0.0.1920.1040@0.0.1920.1040" timestamp="1614652531901" />
-    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1622877314502">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1622877314502" />
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1623413733250" />
     <state x="724" y="374" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1622382727609">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -337,22 +332,6 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="303" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1622943335705" />
-    <state width="1877" height="467" key="GridCell.Tab.1.bottom" timestamp="1614399340876">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="467" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1614399340876" />
-    <state width="1877" height="467" key="GridCell.Tab.1.center" timestamp="1614399340876">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="467" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1614399340876" />
-    <state width="1877" height="467" key="GridCell.Tab.1.left" timestamp="1614399340875">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="467" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1614399340875" />
-    <state width="1877" height="467" key="GridCell.Tab.1.right" timestamp="1614399340876">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="467" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1614399340876" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1622525122076">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

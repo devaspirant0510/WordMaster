@@ -58,6 +58,9 @@ public class DictionaryInfoAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void addItem(DictionaryWordItem item){
         wordList.add(item);
     }
+    public void changeItem(int pos,DictionaryWordItem item){
+        wordList.set(pos,item);
+    }
 
     public void removeItem(DictionaryWordItem item){
         wordList.remove(item);
@@ -88,7 +91,7 @@ public class DictionaryInfoAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             Log.e("s", "setItem: "+item.getEng());
             koreanText.setText(item.getKor());
             englishText.setText(item.getEng());
-            indexNum.setText(String.valueOf(pos+1));
+            indexNum.setText(String.valueOf(item.getIndex()));
         }
     }
 }

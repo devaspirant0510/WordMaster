@@ -30,9 +30,11 @@ public class CreateWordDialog extends Dialog  {
     private static final String TAG = "CreateWordDialog";
     private ArrayList<DictionaryWordItem> wordList;
     private OnClickListener listener = null;
-
+    private static final int ADD = 0;
+    private static final int UPDATE = 1;
+    private int mod;
     public interface OnClickListener{
-        void onSubmitClick(String eng, String kor);
+        void onSubmitClick(String eng, String kor,int mode);
     }
     public void setOnClickListener(OnClickListener listener){
         this.listener = listener;
@@ -40,6 +42,7 @@ public class CreateWordDialog extends Dialog  {
     }
     public CreateWordDialog(@NonNull Context context,String spUserId,ArrayList<DictionaryWordItem> list,DictionaryInfoAdapter adapter,String tilte,String mode,String room) {
         super(context);
+        mod = ADD;
         this.context = context;
         this.adapter = adapter;
         this.wordList =list;
@@ -55,6 +58,7 @@ public class CreateWordDialog extends Dialog  {
         Log.e(TAG, "setUpdateWord: "+kor );
         mb.etEng.setText(eng);
         mb.etKor.setText(kor);
+        mod = UPDATE;
         this.pos = pos;
 
 
@@ -78,7 +82,7 @@ public class CreateWordDialog extends Dialog  {
             public void onClick(View v) {
                 String eng = mb.etEng.getText().toString();
                 String kor = mb.etKor.getText().toString();
-                listener.onSubmitClick(eng,kor);
+                listener.onSubmitClick(eng,kor,mod);
                 dismiss();
             }
         });
