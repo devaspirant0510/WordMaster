@@ -46,6 +46,9 @@ public class CreateDictionarySheetDialog extends BottomSheetDialogFragment {
         init();
         return root;
     }
+    private void dialogUpdateSetItem(){
+
+    }
 
     private int radioGroupType = 0;
     private void init() {
@@ -81,12 +84,39 @@ public class CreateDictionarySheetDialog extends BottomSheetDialogFragment {
 
                 String DictOption = changeDictOption(radioGroupType);
                 UserDictionary item = new UserDictionary();
+                hasTag="";
+                for (int i = 0; i < mb.cgHashTag.getChildCount()-1; i++) {
+                    Chip chip = (Chip)mb.cgHashTag.getChildAt(i);
+                    hasTag+=chip.getText().toString()+",";
+
+
+                }
                 item.init(DictOption,createDictTitle,createDictCount,
                         0,createDictDescription,hasTag,null,
                         SharedManger.loadData(Const.SHARED_USER_NAME,""),null,
                         createDictPassword,"",SharedManger.loadData(Const.SHARED_USER_ID,""));
                 activity.sendCreateDictDialog(item);
                 dismiss();
+            }
+        });
+        mb.createDictTag.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus){
+                    Chip chip = new Chip(getContext());
+                    chip.setText(mb.createDictTag.getText().toString());
+                    chip.setCloseIconVisible(true);
+                    mb.cgHashTag.addView(chip,mb.cgHashTag.getChildCount()-1);
+
+                    mb.createDictTag.setText("");
+                    chip.setOnCloseIconClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mb.cgHashTag.removeView(chip);
+                        }
+                    });
+                }
+
             }
         });
         mb.createDictTag.addTextChangedListener(new TextWatcher() {
@@ -106,7 +136,6 @@ public class CreateDictionarySheetDialog extends BottomSheetDialogFragment {
                         Log.e(TAG, "afterTextChanged: "+s.charAt(s.length()-1) );
                         Chip chip = new Chip(getContext());
                         chip.setCloseIconVisible(true);
-                        hasTag+=s+",";
                         chip.setText(s);
                         mb.cgHashTag.addView(chip,mb.cgHashTag.getChildCount()-1);
                         mb.createDictTag.setText("");

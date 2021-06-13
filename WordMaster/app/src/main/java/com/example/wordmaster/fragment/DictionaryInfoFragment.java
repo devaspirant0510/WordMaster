@@ -30,7 +30,6 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -45,8 +44,6 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     private String roomKey;
     private String setMode = "add", spUserId, spUserEmail, spUserName;
     // 파베
-    private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef = mDatabase.getReference("WordStore");
     private SendDataToActivity sendDataToActivity = null;
     public void setSendDataToActivity(SendDataToActivity callback){
         this.sendDataToActivity = callback;
@@ -80,6 +77,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
         }
         adapter = new DictionaryInfoAdapter(getContext());
         mb.wordList.setAdapter(adapter);
+
         readWordList();
     }
 
@@ -114,12 +112,21 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                     public void setOnClickUpdateButton() {
                         CreateWordDialog dialog = new CreateWordDialog(getContext(), spUserId, wordList, adapter, dictInfoTitle, Const.UPDATE, roomKey);
                         dialog.show();
+                        mb.wordList.scrollToPosition(pos);
                         dialog.setUpdateWord(adapter.wordList.get(pos).getEng(), adapter.wordList.get(pos).getKor(), pos);
-                        adapter.wordList.clear();
-                        adapter.notifyDataSetChanged();
-                        readWordList();
-                        //readWordList();
-                        adapter.notifyItemChanged(pos);
+                        dialog.setOnClickListener(new CreateWordDialog.OnClickListener() {
+                            @Override
+                            public void onSubmitClick(String eng, String kor, int mode) {
+                                DictionaryWordItem item = adapter.getItem(pos);
+                                item.setKor(kor);
+                                item.setEng(eng);
+                                adapter.changeItem(pos,item);
+                                Util.myRefWord.child(spUserId).child(roomKey).child("list").child(item.getRoomKey()).setValue(item);
+                                adapter.notifyItemChanged(pos);
+
+                            }
+                        });
+
 
                     }
 
@@ -149,7 +156,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                                                                                 Const.CREATE, roomKey);
                         dialog.setOnClickListener(new CreateWordDialog.OnClickListener() {
                             @Override
-                            public void onSubmitClick(String eng, String kor) {
+                            public void onSubmitClick(String eng, String kor, int mod) {
                                 DatabaseReference pushRef = Util.myRefWord.child(spUserId).child(roomKey).child(Const.FIREBASE_REFERENCE_WORD_LIST)
                                         .push();
                                 String roomKey = pushRef.getKey();
@@ -196,11 +203,15 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 // 단어장에서 단어 하나하나 불러오기
                 DictionaryWordItem item = snapshot.getValue(DictionaryWordItem.class);
-                adapter.addItem(item);
-                mb.wordList.scrollToPosition(adapter.getItemCount()-1);
-                // 프로그래스바에서 현재 단어장 개수 표시
-                mb.progressBar.setProgress(adapter.getItemCount());
-                mb.progressState.setText(adapter.getItemCount()+"/"+dictCount);
+                if (item != null) {
+                    item.setIndex(adapter.getItemCount()+1);
+                    adapter.addItem(item);
+
+                    mb.wordList.scrollToPosition(adapter.getItemCount()-1);
+                    // 프로그래스바에서 현재 단어장 개수 표시
+                    mb.progressBar.setProgress(adapter.getItemCount());
+                    mb.progressState.setText(adapter.getItemCount()+"/"+dictCount);
+                }
 
             }
 
@@ -242,10 +253,19 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
         // UI 에서 삭제
         adapter.removeItem(pos);
         adapter.notifyItemRemoved(pos);
+        updateIndex(pos);
 
 
     }
+    private void updateIndex(int pos){
+        for (int i = pos; i < adapter.getItemCount(); i++) {
+            DictionaryWordItem item = adapter.getItem(i);
+            item.setIndex(i+1);
+            adapter.changeItem(i,item);
+            adapter.notifyItemChanged(i);
 
+        }
+    }
 
     @Override
     public void sendInfoData(String title, String option, int count) {

@@ -5,13 +5,15 @@ public class SearchItem {
     String title;
     String description;
     String maxCount;
+    String passWord;
     int viewType;
 
-    public SearchItem(String host, String title, String description, String maxCount, int viewType) {
+    public SearchItem(String host, String title, String description, String maxCount, String passWord,int viewType) {
         this.host = host;
         this.title = title;
         this.description = description;
         this.maxCount = maxCount;
+        this.passWord = passWord;
         this.viewType = viewType;
     }
 
@@ -53,5 +55,13 @@ public class SearchItem {
 
     public void setMaxCount(String maxCount) {
         this.maxCount = maxCount;
+    }
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
     }
 }
