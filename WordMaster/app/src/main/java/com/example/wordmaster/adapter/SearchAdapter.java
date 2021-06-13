@@ -17,8 +17,8 @@ import java.util.ArrayList;
 public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private OnClickListener listener = null;
     public interface OnClickListener{
-        void onClick(int click,View view);
-        void longClick(int click,View view);
+        void onClick(int click,View view,int state);
+        void longClick(int click,View view,int state);
     }
     public void setOnCustomOnClickListener(OnClickListener onClickListener){
         this.listener = onClickListener;
@@ -66,6 +66,9 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         list.add(item);
     }
 
+    public SearchItem getItem(int pos){
+        return list.get(pos);
+    }
     public class PublicViewHolder extends RecyclerView.ViewHolder{
         public TextView tvHost,tvTitle,tvDescription,tvMaxCount;
 
@@ -78,9 +81,10 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int pos = getAdapterPosition();
+
+                    int pos = getBindingAdapterPosition();
                     if (pos != RecyclerView.NO_POSITION){
-                        listener.onClick(pos,v);
+                        listener.onClick(pos,v,Const.SEARCH_PUBLIC);
 
                     }
                 }
@@ -88,9 +92,9 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    int pos = getAdapterPosition();
+                    int pos = getBindingAdapterPosition();
                     if (pos != RecyclerView.NO_POSITION){
-                        listener.longClick(pos,v);
+                        listener.longClick(pos,v,Const.SEARCH_PUBLIC);
                     }
                     return false;
                 }
@@ -111,6 +115,26 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             tvHost = itemView.findViewById(R.id.tv_search_host);
             tvTitle = itemView.findViewById(R.id.tv_search_title);
             tvMaxCount = itemView.findViewById(R.id.tv_search_max_count);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    int pos = getBindingAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION){
+                        listener.onClick(pos,v,Const.SEARCH_PRIVATE);
+                    }
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int pos = getBindingAdapterPosition();
+                    if (pos!=RecyclerView.NO_POSITION){
+                        listener.longClick(pos,v,Const.SEARCH_PRIVATE);
+                    }
+                    return false;
+                }
+            });
         }
         public void setItem(SearchItem item){
             tvHost.setText(item.getHost());
