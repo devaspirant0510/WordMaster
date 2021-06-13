@@ -30,7 +30,6 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -45,8 +44,6 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     private String roomKey;
     private String setMode = "add", spUserId, spUserEmail, spUserName;
     // 파베
-    private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef = mDatabase.getReference("WordStore");
     private SendDataToActivity sendDataToActivity = null;
     public void setSendDataToActivity(SendDataToActivity callback){
         this.sendDataToActivity = callback;
