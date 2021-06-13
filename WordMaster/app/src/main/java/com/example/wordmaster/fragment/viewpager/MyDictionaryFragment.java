@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,6 +48,10 @@ public class MyDictionaryFragment extends Fragment implements BottomSheetCallBac
         spUserId = SharedManger.loadData(Const.SHARED_USER_ID,"");
         spUserEmail = SharedManger.loadData(Const.SHARED_USER_EMAIL,"");
         spUserName = SharedManger.loadData(Const.SHARED_USER_NAME,"");
+        Toast.makeText(getContext(),"oncreate",Toast.LENGTH_SHORT).show();
+        mb = FragmentDictionaryBinding.inflate(getLayoutInflater());
+        init();
+        readWordDictList();
 
 
     }
@@ -63,17 +68,11 @@ public class MyDictionaryFragment extends Fragment implements BottomSheetCallBac
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         activity.BottomSheetCallBack(this);
-        mb = FragmentDictionaryBinding.inflate(getLayoutInflater());
-        init();
         return mb.getRoot();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
 
-    private void removeWordDictList(String roomKey,int pos){
+    private void removeWordDictList(String roomKey, int pos){
         Util.myRefWord.child(spUserId).child(roomKey).setValue(null);
         adapter.removeItem(pos);
         adapter.notifyItemRemoved(pos);
@@ -97,6 +96,7 @@ public class MyDictionaryFragment extends Fragment implements BottomSheetCallBac
                             userDictionary.getHashTag()
                             ,1
                     ));
+                    adapter.notifyItemInserted(adapter.getItemCount()-1);
                 mb.dictionaryList.scrollToPosition(adapter.getItemCount() - 1);
 
             }
@@ -137,8 +137,6 @@ public class MyDictionaryFragment extends Fragment implements BottomSheetCallBac
     private void init() {
         adapter = new DictionaryListAdapter(getContext());
         mb.dictionaryList.setAdapter(adapter);
-        // 파베에서 데이터
-        readWordDictList();
         //추가 플로팅 버튼을 눌렀을때
         mb.createDictionary.setOnClickListener(new View.OnClickListener() {
             @Override
