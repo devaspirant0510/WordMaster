@@ -35,6 +35,7 @@ public class Const {
     public static final int DIALOG_DICT_LIST = 100;
     public static final int DIALOG_DICT_WORD = 101;
 
+    // SearchFragment 비공개 공개 여부
     public static final int SEARCH_PUBLIC = 200;
     public static final int SEARCH_PRIVATE = 201;
 
