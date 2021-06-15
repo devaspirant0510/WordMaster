@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.wordmaster.Define.Const;
@@ -18,12 +19,18 @@ import com.example.wordmaster.Define.Util;
 import com.example.wordmaster.databinding.ActivityLoginBinding;
 import com.example.wordmaster.dialog.bottomsheet.LoginSuccessSheetDialog;
 import com.example.wordmaster.model.firebase.UserAccount;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.kakao.sdk.auth.model.OAuthToken;
 import com.kakao.sdk.user.UserApiClient;
 import com.kakao.sdk.user.model.User;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function2;
@@ -116,40 +123,90 @@ public class LoginActivity extends AppCompatActivity {
                 if (user != null) {
                     // 유저 고유 값
                     String userId = String.valueOf(user.getId());
+                    checkUser(userId,user);
+
                     // 로그인 성공시 유저정보 바텀시트 뿌려줄 다이얼로그
-                    LoginSuccessSheetDialog loginSuccessSheetDialog = new LoginSuccessSheetDialog();
-                    // 다이얼로그에 넘겨줄값 번들에 저장
-                    Bundle bundle = new Bundle();
-                    // 프사 uri 와 닉네임 넘겨줌
-                    bundle.putString("image_uri",user.getKakaoAccount().getProfile().getProfileImageUrl());
-                    bundle.putString("nickname",user.getKakaoAccount().getProfile().getNickname());
-                    loginSuccessSheetDialog.setArguments(bundle);
-                    loginSuccessSheetDialog.show(getSupportFragmentManager(),"login_success_bottom_sheet");
-                    loginSuccessSheetDialog.setBottomSheetSetOnClick(new LoginSuccessSheetDialog.BottomSheetSetOnClick() {
-                        // 다이얼로그에서 콜백 받아서 name 값 가져옴
-                        @Override
-                        public void clickSubmit(String name) {
-                            //Log.e(TAG, user.getKakaoAccount().getAgeRange().toString()+"" );
-                            addUserInformationFirebase(String.valueOf(user.getId()),new UserAccount(
-                                    name,
-                                    user.getKakaoAccount().getEmail(),
-                                    user.getKakaoAccount().getGender().toString(),
-                                    "",
-                                    user.getKakaoAccount().getBirthday(),
-                                    user.getKakaoAccount().getProfile().getProfileImageUrl()
-                            ));
-                            // 셰어드 프리퍼런스에 계정 정보 저장
-                            SharedManger.saveUserId(Const.SHARED_USER_ID, userId);
-                            SharedManger.saveUserName(Const.SHARED_USER_NAME,name);
-                            SharedManger.saveUserProfileUri(Const.SHARED_USER_PROFILE_URI,user.getKakaoAccount().getProfile().getProfileImageUrl());
-                            SharedManger.saveUserEmail(Const.SHARED_USER_EMAIL,user.getKakaoAccount().getEmail());
-                            changeLogin2Main();
-                        }
-                    });
                 } else {
                     Toast.makeText(getApplicationContext(),"유저정보를 제대로 가져오지 못헀습니다. 다시시도해주세요",Toast.LENGTH_LONG).show();
                 }
                 return null;
+            }
+        });
+    }
+    private void saveUserData(String id){
+        Util.myRefUser.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                UserAccount userAccount = snapshot.getValue(UserAccount.class);
+                if (userAccount!=null) {
+                    SharedManger.savData(Const.SHARED_USER_NAME, userAccount.getUserName());
+                    SharedManger.savData(Const.SHARED_USER_ID,id);
+                    SharedManger.savData(Const.SHARED_USER_EMAIL,userAccount.getUserEmail());
+                    SharedManger.savData(Const.SHARED_USER_PROFILE_URI,userAccount.getUserProfileUri());
+                }
+                changeLogin2Main();
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    /**
+     * 로그인한 기록이 있는지 확인
+     * @param id user 고유 아이디
+     * @param user 카카오 user 정보
+     */
+    private void checkUser(String id ,User user){
+        Util.myRefUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                for (DataSnapshot item:snapshot.getChildren()){
+
+                    if(id!=null & Objects.equals(item.getKey(), id)){
+                        saveUserData(id);
+                    }
+                }
+
+                LoginSuccessSheetDialog loginSuccessSheetDialog = new LoginSuccessSheetDialog();
+                // 다이얼로그에 넘겨줄값 번들에 저장
+                Bundle bundle = new Bundle();
+                // 프사 uri 와 닉네임 넘겨줌
+                bundle.putString("image_uri",user.getKakaoAccount().getProfile().getProfileImageUrl());
+                bundle.putString("nickname",user.getKakaoAccount().getProfile().getNickname());
+                loginSuccessSheetDialog.setArguments(bundle);
+                loginSuccessSheetDialog.show(getSupportFragmentManager(),"login_success_bottom_sheet");
+                loginSuccessSheetDialog.setBottomSheetSetOnClick(new LoginSuccessSheetDialog.BottomSheetSetOnClick() {
+                    // 다이얼로그에서 콜백 받아서 name 값 가져옴
+                    @Override
+                    public void clickSubmit(String name) {
+                        //Log.e(TAG, user.getKakaoAccount().getAgeRange().toString()+"" );
+                        addUserInformationFirebase(String.valueOf(user.getId()),new UserAccount(
+                                name,
+                                user.getKakaoAccount().getEmail(),
+                                user.getKakaoAccount().getGender().toString(),
+                                "",
+                                user.getKakaoAccount().getBirthday(),
+                                user.getKakaoAccount().getProfile().getProfileImageUrl(),
+                                null
+                        ));
+                        // 셰어드 프리퍼런스에 계정 정보 저장
+                        SharedManger.savData(Const.SHARED_USER_ID, id);
+                        SharedManger.savData(Const.SHARED_USER_NAME,name);
+                        SharedManger.savData(Const.SHARED_USER_PROFILE_URI,user.getKakaoAccount().getProfile().getProfileImageUrl());
+                        SharedManger.savData(Const.SHARED_USER_EMAIL,user.getKakaoAccount().getEmail());
+                        changeLogin2Main();
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
             }
         });
     }

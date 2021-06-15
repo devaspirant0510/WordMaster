@@ -175,17 +175,22 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
             @Override
             public void onClick(View v) {
                 if(adapter.getItemCount()>0){
+                    Log.e(TAG, "onClick: "+dictCount+" "+adapter.getItemCount() );
+                    if(adapter.getItemCount()==dictCount){
+                        MyTestOptionBottomSheetDialog dialog = new MyTestOptionBottomSheetDialog(getContext());
+                        dialog.setCallBackOption(new MyTestOptionBottomSheetDialog.CallBackOption() {
+                            @Override
+                            public void callBack(int option) {
 
-                    MyTestOptionBottomSheetDialog dialog = new MyTestOptionBottomSheetDialog(getContext());
-                    dialog.setCallBackOption(new MyTestOptionBottomSheetDialog.CallBackOption() {
-                        @Override
-                        public void callBack(int option) {
+                                sendDataToActivity.sendTestingData(spUserId,roomKey,dictCount,option,spUserName,dictInfoTitle);
+                                activity.changeFragment(Const.TEST_MY_FRAGMENT);
+                            }
+                        });
+                        dialog.show();
 
-                            sendDataToActivity.sendTestingData(spUserId,roomKey,dictCount,option,spUserName,dictInfoTitle);
-                            activity.changeFragment(Const.TEST_MY_FRAGMENT);
-                        }
-                    });
-                    dialog.show();
+                    }else{
+                        Toast.makeText(getContext(),"단어를 다 채워주세요",Toast.LENGTH_SHORT).show();
+                    }
                 }else{
                     Toast.makeText(getContext(),"단어를 추가해주세요",Toast.LENGTH_SHORT).show();
                 }
@@ -207,7 +212,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                     item.setIndex(adapter.getItemCount()+1);
                     adapter.addItem(item);
 
-                    mb.wordList.scrollToPosition(adapter.getItemCount()-1);
+                    mb.wordList.scrollToPosition(0);
                     // 프로그래스바에서 현재 단어장 개수 표시
                     mb.progressBar.setProgress(adapter.getItemCount());
                     mb.progressState.setText(adapter.getItemCount()+"/"+dictCount);

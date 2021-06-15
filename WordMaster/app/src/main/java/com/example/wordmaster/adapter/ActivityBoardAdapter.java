@@ -1,6 +1,5 @@
 package com.example.wordmaster.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,14 +23,13 @@ import java.util.ArrayList;
  * description ProfileFragment 에서 내 활동기록을 보여줄 리사이클러뷰 그리드
  **/
 public class ActivityBoardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private ArrayList<Integer> list = new ArrayList<>();
-    private static String TAG = "ActivityBoardAdapter";
+    private final ArrayList<Integer> list = new ArrayList<>();
+    private static final String TAG = "ActivityBoardAdapter";
 
     @NonNull
     @NotNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        Log.e(TAG, "onCreateViewHolder: ");
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_layout_activity_board_item, parent, false);
         return new MyActivityAmount(view);
     }
@@ -43,7 +41,9 @@ public class ActivityBoardAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
 
     }
-
+    public void adapterClear(){
+        list.clear();
+    }
     @Override
     public int getItemCount() {
         return list.size();
@@ -60,26 +60,67 @@ public class ActivityBoardAdapter extends RecyclerView.Adapter<RecyclerView.View
         View btnNormal;
         View btnBad;
         View btnWorst;
+        View btnEmpty;
+        private final ArrayList<View> viewList = new ArrayList<>();
+
 
 
         public MyActivityAmount(@NonNull @NotNull View itemView) {
             super(itemView);
             btnNone = itemView.findViewById(R.id.v_activity_none);
-            btnNone.setVisibility(View.GONE);
             btnBest = itemView.findViewById(R.id.v_activity_best);
-            btnBest.setVisibility(View.VISIBLE);
             btnGood = itemView.findViewById(R.id.v_activity_good);
-            btnGood.setVisibility(View.GONE);
             btnNormal = itemView.findViewById(R.id.v_activity_normal);
-            btnNormal.setVisibility(View.GONE);
             btnBad = itemView.findViewById(R.id.v_activity_bad);
-            btnBad.setVisibility(View.GONE);
             btnWorst = itemView.findViewById(R.id.v_activity_worst);
-            btnWorst.setVisibility(View.GONE);
+            btnEmpty = itemView.findViewById(R.id.v_activity_empty);
 
+        }
+        private void checkItemType(int pos){
+            for (int i = 0; i < viewList.size(); i++) {
+                if (i==pos){
+                    viewList.get(i).setVisibility(View.VISIBLE);
+                }
+                else{
+                    viewList.get(i).setVisibility(View.GONE);
+                }
+
+            }
         }
 
         private void setItem(int point){
+            viewList.add(btnNone);
+            viewList.add(btnBest);
+            viewList.add(btnGood);
+            viewList.add(btnNormal);
+            viewList.add(btnBad);
+            viewList.add(btnWorst);
+            viewList.add(btnEmpty);
+            switch (point){
+                case 0:
+                    checkItemType(0);
+                    break;
+                case 1:
+                    checkItemType(1);
+                    break;
+                case 2:
+                    checkItemType(2);
+                    break;
+                case 3:
+                    checkItemType(3);
+                    break;
+                case 4:
+                    checkItemType(4);
+                    break;
+                case 5:
+                    checkItemType(5);
+                    break;
+                case 6:
+                    checkItemType(6);
+                    break;
+                default:
+                    break;
+            }
 
         }
     }

@@ -57,4 +57,13 @@ public class Const {
     public static final String SHARED_USER_PROFILE_URI = "UserProfileUri";
     public static final String SHARED_USER_EMAIL = "UserEmail";
 
+    // ProfileFragment 활동기록
+    public static final int ACTIVITY_GRID_NONE = 0;
+    public static final int ACTIVITY_GRID_BEST = 1;
+    public static final int ACTIVITY_GRID_GOOD = 2;
+    public static final int ACTIVITY_GRID_NORMAL = 3;
+    public static final int ACTIVITY_GRID_BAD = 4;
+    public static final int ACTIVITY_GRID_WORST = 5;
+    public static final int ACTIVITY_GRID_EMPTY = 6;
+
 }

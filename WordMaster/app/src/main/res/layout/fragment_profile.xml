@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/tv_profile_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -27,37 +27,37 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView23"
+        android:id="@+id/tv_profile_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/id"
-        app:layout_constraintEnd_toEndOf="@+id/textView21"
+        app:layout_constraintEnd_toEndOf="@+id/tv_profile_nickname"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView21"
-        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+        app:layout_constraintStart_toStartOf="@+id/tv_profile_nickname"
+        app:layout_constraintTop_toBottomOf="@+id/tv_profile_nickname" />
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/tv_profile_description"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="내가 강력하다"
         android:lines="3"
-        app:layout_constraintEnd_toEndOf="@+id/textView23"
+        app:layout_constraintEnd_toEndOf="@+id/tv_profile_id"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView23"
-        app:layout_constraintTop_toBottomOf="@+id/textView23" />
+        app:layout_constraintStart_toStartOf="@+id/tv_profile_id"
+        app:layout_constraintTop_toBottomOf="@+id/tv_profile_id" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/appCompatButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="구독"
-        app:layout_constraintEnd_toEndOf="@+id/textView22"
+        app:layout_constraintEnd_toEndOf="@+id/tv_profile_description"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView22"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+        app:layout_constraintStart_toStartOf="@+id/tv_profile_description"
+        app:layout_constraintTop_toBottomOf="@+id/tv_profile_description" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -76,21 +76,56 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appCompatButton" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_previous"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="@string/left"
+        app:layout_constraintBottom_toBottomOf="@+id/grid_rv_activity_board"
+        app:layout_constraintEnd_toStartOf="@+id/grid_rv_activity_board"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/grid_rv_activity_board"
+        app:layout_constraintVertical_bias="0.513" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_next"
+        android:layout_width="50dp"
+        android:text="@string/right"
+
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/grid_rv_activity_board"
+        app:layout_constraintStart_toEndOf="@+id/grid_rv_activity_board"
+        app:layout_constraintTop_toTopOf="@+id/grid_rv_activity_board" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/grid_rv_activity_board"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/mylist"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_activity_board_date"
+        app:layout_constraintStart_toStartOf="@+id/tv_activity_board_date"
+        app:layout_constraintTop_toBottomOf="@+id/tv_activity_board_date" />
 
     <ListView
         android:id="@+id/mylist"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        app:layout_constraintHorizontal_weight=".3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/grid_rv_activity_board"
+        app:layout_constraintHorizontal_bias="0.748"
+        app:layout_constraintHorizontal_weight=".3"
+        app:layout_constraintStart_toEndOf="@+id/btn_next"
         app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+    <TextView
+        android:id="@+id/tv_activity_board_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/grid_rv_activity_board"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView20"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
