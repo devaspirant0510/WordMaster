@@ -6,14 +6,16 @@ public class SearchItem {
     String description;
     String maxCount;
     String passWord;
+    String id;
     int viewType;
 
-    public SearchItem(String host, String title, String description, String maxCount, String passWord,int viewType) {
+    public SearchItem(String host, String title, String description, String maxCount, String passWord,String id,int viewType) {
         this.host = host;
         this.title = title;
         this.description = description;
         this.maxCount = maxCount;
         this.passWord = passWord;
+        this.id = id;
         this.viewType = viewType;
     }
 
@@ -63,5 +65,13 @@ public class SearchItem {
 
     public void setPassWord(String passWord) {
         this.passWord = passWord;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
