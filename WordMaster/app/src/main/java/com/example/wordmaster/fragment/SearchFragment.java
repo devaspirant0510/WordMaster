@@ -34,7 +34,7 @@ public class SearchFragment extends Fragment {
     private static final String TAG = "SearchFragment";
     private SearchAdapter mAdapter;
     private MainActivity activity;
-    private String spUserId,spUserName;
+    private String spUserId,spUserName,profileURI;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,7 +67,7 @@ public class SearchFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 String inputPassword = editText.getText().toString();
                 if (inputPassword.equals(item.getPassWord())){
-                    showInfoDialog();
+                    showInfoDialog(item);
 
 
                 }else{
@@ -86,9 +86,13 @@ public class SearchFragment extends Fragment {
         });
         builder.show();
     }
-    private void showInfoDialog(){
-        SearchInfoSheetDialog sheetDialog = new SearchInfoSheetDialog();
+    private void showInfoDialog(SearchItem item){
+        SearchInfoSheetDialog sheetDialog = new SearchInfoSheetDialog(item.getId());
         Bundle args = new Bundle();
+        args.putString("description",item.getDescription());
+        args.putString("host",item.getHost());
+        args.putString("title",item.getTitle());
+        args.putString("userName",item.getHost());
 
         sheetDialog.setArguments(args);
         if (getFragmentManager() != null) {
@@ -104,7 +108,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(int click, View view,int state) {
                 if (state==Const.SEARCH_PUBLIC){
-                    showInfoDialog();
+                    showInfoDialog(mAdapter.getItem(click));
 
                 }else{
                     SearchItem item = mAdapter.getItem(click);
@@ -135,12 +139,14 @@ public class SearchFragment extends Fragment {
 
                                     UserDictionary getItem = dict.getValue(UserDictionary.class);
                                     if (getItem!=null){
+                                        Log.e(TAG, "onDataChange: "+userDict.getKey() );
                                         mAdapter.addItem(new SearchItem(
                                                 getItem.getHost(),
                                                 getItem.getTitle(),
                                                 getItem.getDescription(),
                                                 String.valueOf(getItem.getMaxCount()),
                                                 getItem.getPassword(),
+                                                userDict.getKey(),
                                                 getItem.getPassword().equals("") ?Const.SEARCH_PUBLIC:Const.SEARCH_PRIVATE
                                         ));
                                         mAdapter.notifyItemInserted(mAdapter.getItemCount()-1);
