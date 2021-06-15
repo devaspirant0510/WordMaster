@@ -68,6 +68,7 @@ public class SharedManger {
     public static String  getUserName(){
         return mSharePre.getString(Const.SHARED_USER_NAME,"");
     }
+    @Deprecated
     public static void saveUserProfileUri(String key,String value){
         SharedPreferences.Editor editor = mSharePre.edit();
         editor.putString(key, value);
