@@ -40,18 +40,21 @@ public class MyTestOptionBottomSheetDialog extends BottomSheetDialog {
             @Override
             public void onClick(View v) {
                 callBackOption.callBack(Const.ENG2KOR);
+                dismiss();
             }
         });
         mb.testOptionKor2eng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 callBackOption.callBack(Const.KOR2ENG);
+                dismiss();
             }
         });
         mb.testOptionRandom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 callBackOption.callBack(Const.RANDOM2RANDOM);
+                dismiss();
 
             }
         });
