@@ -26,6 +26,7 @@ import com.example.wordmaster.fragment.DictionaryInfoFragment;
 import com.example.wordmaster.fragment.HomeFragment;
 import com.example.wordmaster.fragment.ProfileFragment;
 import com.example.wordmaster.fragment.SearchFragment;
+import com.example.wordmaster.fragment.SearchInfoFragment;
 import com.example.wordmaster.fragment.TestFragment;
 import com.example.wordmaster.fragment.TestResultFragment;
 import com.example.wordmaster.fragment.viewpager.MyDictionaryFragment;
@@ -49,9 +50,8 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
     private String dictTitle,dictOption,dictDescription,dictHost,testingLimitTime,testingTitle,testingHost;
     private int dictCount,testingMaxCount,testingRgType,testingRgOption;
     private int testMaxCount,testCurrentCount;
-    private int dictPosition;
     private String[] myArr;
-    private int pos;
+    private Bundle search2SearchInfo;
     private String[] answerArr;
     private ArrayList<DictionaryWordItem> list;
 
@@ -141,7 +141,9 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
                 viewState = showFragment();
                 break;
             case Const.SEARCH_FRAGMENT:
-                fr = new SearchFragment();
+                SearchFragment searchFragment = new SearchFragment();
+                searchFragment.setOnSendToActivityListener(this);
+                fr = searchFragment;
                 viewState = showFragment();
                 break;
             case Const.MY_INFO_FRAGMENT:
@@ -199,6 +201,14 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
                 fr.setArguments(myTestArgs);
                 viewState = showFragment();
                 break;
+            case Const.SEARCH_INFO_FRAGMENT:
+                SearchInfoFragment searchInfoFragment = new SearchInfoFragment(search2SearchInfo.getString("id"));
+                searchInfoFragment.setArguments(search2SearchInfo);
+                fr =searchInfoFragment;
+                viewState = showFragment();
+                break;
+
+
             default:
                 break;
         }
@@ -248,7 +258,6 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
         this.testingRgType = rgTestType;
         this.testingTitle = title;
         this.testingHost = host;
-        this.pos = pos;
     }
 
     private String myTestUserid,myTestRoomKey,myTestHost,myTestTitle;
@@ -273,6 +282,14 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
         this.myArr = myAnswer;
         this.answerArr = answer;
         this.list = list;
+
+    }
+
+    @Override
+    public void sendSearchInfoData(Bundle bundle) {
+        Log.e(TAG, "sendSearchInfoData: "+bundle );
+        Log.e(TAG, "sendSearchInfoData: "+bundle.get("title") );
+        this.search2SearchInfo = bundle;
 
     }
 }
