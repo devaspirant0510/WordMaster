@@ -7,15 +7,17 @@ public class SearchItem {
     String maxCount;
     String passWord;
     String id;
+    String roomKey;
     int viewType;
 
-    public SearchItem(String host, String title, String description, String maxCount, String passWord,String id,int viewType) {
+    public SearchItem(String host, String title, String description, String maxCount, String passWord,String id,String roomKey,int viewType) {
         this.host = host;
         this.title = title;
         this.description = description;
         this.maxCount = maxCount;
         this.passWord = passWord;
         this.id = id;
+        this.roomKey = roomKey;
         this.viewType = viewType;
     }
 
@@ -73,5 +75,13 @@ public class SearchItem {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getRoomKey() {
+        return roomKey;
+    }
+
+    public void setRoomKey(String roomKey) {
+        this.roomKey = roomKey;
     }
 }
