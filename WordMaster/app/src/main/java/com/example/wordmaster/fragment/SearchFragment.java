@@ -19,8 +19,8 @@ import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.Define.Util;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.SearchAdapter;
+import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.databinding.FragmentSearchBinding;
-import com.example.wordmaster.dialog.bottomsheet.SearchInfoSheetDialog;
 import com.example.wordmaster.model.firebase.UserDictionary;
 import com.example.wordmaster.model.recycler.SearchItem;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +35,11 @@ public class SearchFragment extends Fragment {
     private SearchAdapter mAdapter;
     private MainActivity activity;
     private String spUserId,spUserName,profileURI;
+    private SendDataToActivity sendDataToActivity = null;
+
+    public void setOnSendToActivityListener(SendDataToActivity sendToActivityListener){
+        this.sendDataToActivity = sendToActivityListener;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,17 +92,18 @@ public class SearchFragment extends Fragment {
         builder.show();
     }
     private void showInfoDialog(SearchItem item){
-        SearchInfoSheetDialog sheetDialog = new SearchInfoSheetDialog(item.getId());
         Bundle args = new Bundle();
+        args.putString("id",item.getId());
         args.putString("description",item.getDescription());
         args.putString("host",item.getHost());
         args.putString("title",item.getTitle());
         args.putString("userName",item.getHost());
+        args.putString("roomKey",item.getRoomKey());
+        Log.e(TAG, "showInfoDialog: "+item.getRoomKey() );
+        sendDataToActivity.sendSearchInfoData(args);
+        activity.changeFragment(Const.SEARCH_INFO_FRAGMENT);
 
-        sheetDialog.setArguments(args);
-        if (getFragmentManager() != null) {
-            sheetDialog.show(getFragmentManager(), "sheet");
-        }
+
 
     }
 
@@ -140,6 +146,7 @@ public class SearchFragment extends Fragment {
                                     UserDictionary getItem = dict.getValue(UserDictionary.class);
                                     if (getItem!=null){
                                         Log.e(TAG, "onDataChange: "+userDict.getKey() );
+
                                         mAdapter.addItem(new SearchItem(
                                                 getItem.getHost(),
                                                 getItem.getTitle(),
@@ -147,6 +154,7 @@ public class SearchFragment extends Fragment {
                                                 String.valueOf(getItem.getMaxCount()),
                                                 getItem.getPassword(),
                                                 userDict.getKey(),
+                                                getItem.getRoomKey(),
                                                 getItem.getPassword().equals("") ?Const.SEARCH_PUBLIC:Const.SEARCH_PRIVATE
                                         ));
                                         mAdapter.notifyItemInserted(mAdapter.getItemCount()-1);
