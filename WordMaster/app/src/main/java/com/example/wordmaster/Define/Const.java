@@ -16,6 +16,7 @@ public class Const {
     public static final int TESTING_FRAGMENT = 6;
     public static final int TEST_RESULT_FRAGMENT = 7;
     public static final int TEST_MY_FRAGMENT = 8;
+    public static final int SEARCH_INFO_FRAGMENT = 9;
 
     // 단어장 공개여부
     public static final int PUBLIC = 1;
