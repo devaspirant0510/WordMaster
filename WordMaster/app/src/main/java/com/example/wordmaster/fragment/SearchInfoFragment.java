@@ -10,21 +10,20 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.wordmaster.Define.GlideChip;
 import com.example.wordmaster.Define.Util;
-import com.example.wordmaster.R;
 import com.example.wordmaster.databinding.DialogBottomSheetFragmentSearchInfoBinding;
 import com.example.wordmaster.model.firebase.UserAccount;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
-public class SearchInfoSheetDialog extends BottomSheetDialogFragment {
+public class SearchInfoSheetDialog extends Fragment {
     private DialogBottomSheetFragmentSearchInfoBinding mb;
     private int pos;
     private String user,profileURI;
@@ -38,7 +37,6 @@ public class SearchInfoSheetDialog extends BottomSheetDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme);
         mb = DialogBottomSheetFragmentSearchInfoBinding.inflate(getLayoutInflater());
         Bundle bundle = getArguments();
         if (bundle != null) {
