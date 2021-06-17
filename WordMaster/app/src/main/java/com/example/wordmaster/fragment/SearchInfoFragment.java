@@ -13,7 +13,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.Define.GlideChip;
+import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.Define.Util;
 import com.example.wordmaster.databinding.FragmentSearchInfoBinding;
 import com.example.wordmaster.dialog.bottomsheet.PreviewWordListDialog;
@@ -110,6 +112,14 @@ public class SearchInfoFragment extends Fragment {
 
     }
     private void init(){
+        mb.btnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Util.myRefUser.child(SharedManger.loadData(Const.SHARED_USER_ID,""))
+                        .child("userDownloadDict").child(userId).push().setValue(roomKey);
+
+            }
+        });
 
 
     }
