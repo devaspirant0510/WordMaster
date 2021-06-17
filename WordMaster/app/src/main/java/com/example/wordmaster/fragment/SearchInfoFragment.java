@@ -1,4 +1,4 @@
-package com.example.wordmaster.dialog.bottomsheet;
+package com.example.wordmaster.fragment;
 
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
@@ -10,38 +10,41 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.Define.GlideChip;
+import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.Define.Util;
-import com.example.wordmaster.R;
-import com.example.wordmaster.databinding.DialogBottomSheetFragmentSearchInfoBinding;
+import com.example.wordmaster.databinding.FragmentSearchInfoBinding;
+import com.example.wordmaster.dialog.bottomsheet.PreviewWordListDialog;
 import com.example.wordmaster.model.firebase.UserAccount;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
-public class SearchInfoSheetDialog extends BottomSheetDialogFragment {
-    private DialogBottomSheetFragmentSearchInfoBinding mb;
+public class SearchInfoFragment extends Fragment {
+    private FragmentSearchInfoBinding mb;
     private int pos;
     private String user,profileURI;
     private static final String TAG = "SearchInfoSheetDialog";
-    private String userId,description,host,title,userName;
+    private String userId,description,host,title,userName,roomKey;
 
-    public SearchInfoSheetDialog(String userId) {
+    public SearchInfoFragment(String userId) {
         this.userId = userId;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme);
-        mb = DialogBottomSheetFragmentSearchInfoBinding.inflate(getLayoutInflater());
+        mb = FragmentSearchInfoBinding.inflate(getLayoutInflater());
         Bundle bundle = getArguments();
         if (bundle != null) {
+            userId = bundle.getString("id");
+            roomKey = bundle.getString("roomKey");
             user = bundle.getString("user");
             pos = bundle.getInt("pos");
             description = bundle.getString("description");
@@ -55,6 +58,22 @@ public class SearchInfoSheetDialog extends BottomSheetDialogFragment {
         mb.tvSearchInfoDescription.setText(description);
         mb.tvSearchInfoHost.setText(user);
         mb.tvSearchInfoTitle.setText(title);
+
+        mb.btnPreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PreviewWordListDialog dialog = new PreviewWordListDialog();
+                Bundle args = new Bundle();
+                Log.e(TAG, "onClick: "+roomKey );
+                args.putString("id",userId);
+                args.putString("roomKey",roomKey);
+                dialog.setArguments(args);
+                if (getFragmentManager() != null) {
+                    dialog.show(getFragmentManager(),"");
+                }
+
+            }
+        });
     }
     private void getProfileURI(String id){
         Util.myRefUser.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -93,6 +112,14 @@ public class SearchInfoSheetDialog extends BottomSheetDialogFragment {
 
     }
     private void init(){
+        mb.btnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Util.myRefUser.child(SharedManger.loadData(Const.SHARED_USER_ID,""))
+                        .child("userDownloadDict").child(userId).push().setValue(roomKey);
+
+            }
+        });
 
 
     }

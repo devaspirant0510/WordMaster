@@ -1,11 +1,14 @@
 package com.example.wordmaster.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -154,6 +157,8 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                         CreateWordDialog dialog = new CreateWordDialog(getContext(), spUserId, wordList,
                                                                                 adapter,dictInfoTitle,
                                                                                 Const.CREATE, roomKey);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
                         dialog.setOnClickListener(new CreateWordDialog.OnClickListener() {
                             @Override
                             public void onSubmitClick(String eng, String kor, int mod) {
