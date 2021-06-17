@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class DictionaryInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public ArrayList<DictionaryWordItem> wordList = new ArrayList<>();
     private Context context;
+    private boolean previewMode = false;
     private DictionaryListCallBack dictionaryListCallBack;
 
     public void setDictionaryListCallBack(DictionaryListCallBack callBack){
@@ -27,7 +28,10 @@ public class DictionaryInfoAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     public DictionaryInfoAdapter(Context context){
         this.context = context;
-
+    }
+    public DictionaryInfoAdapter(Context context,boolean previewMode){
+        this.context = context;
+        this.previewMode = previewMode;
     }
     @NonNull
     @Override
@@ -75,17 +79,18 @@ public class DictionaryInfoAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             englishText = itemView.findViewById(R.id.word_eng);
             koreanText = itemView.findViewById(R.id.word_kor);
             indexNum = itemView.findViewById(R.id.word_index_num);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getBindingAdapterPosition();
-                    if (pos != RecyclerView.NO_POSITION){
-                        dictionaryListCallBack.onClick(v,pos);
-                        dictionaryListCallBack.onLongClick(v,pos);
+            if (!previewMode){
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int pos = getBindingAdapterPosition();
+                        if (pos != RecyclerView.NO_POSITION){
+                            dictionaryListCallBack.onClick(v,pos);
+                            dictionaryListCallBack.onLongClick(v,pos);
+                        }
                     }
-                }
-            });
+                });
+            }
         }
         public void setItem(DictionaryWordItem item,int pos){
             Log.e("s", "setItem: "+item.getEng());
