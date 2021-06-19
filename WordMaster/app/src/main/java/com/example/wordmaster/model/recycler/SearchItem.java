@@ -1,5 +1,7 @@
 package com.example.wordmaster.model.recycler;
 
+import java.util.ArrayList;
+
 public class SearchItem {
     String host;
     String title;
@@ -8,9 +10,11 @@ public class SearchItem {
     String passWord;
     String id;
     String roomKey;
+    ArrayList<String> hashTag;
     int viewType;
 
-    public SearchItem(String host, String title, String description, String maxCount, String passWord,String id,String roomKey,int viewType) {
+    public SearchItem(String host, String title, String description, String maxCount,
+                      String passWord,String id,String roomKey,ArrayList<String> hashTag,int viewType) {
         this.host = host;
         this.title = title;
         this.description = description;
@@ -18,6 +22,7 @@ public class SearchItem {
         this.passWord = passWord;
         this.id = id;
         this.roomKey = roomKey;
+        this.hashTag = hashTag;
         this.viewType = viewType;
     }
 
@@ -83,5 +88,13 @@ public class SearchItem {
 
     public void setRoomKey(String roomKey) {
         this.roomKey = roomKey;
+    }
+
+    public ArrayList<String> getHashTag() {
+        return hashTag;
+    }
+
+    public void setHashTag(ArrayList<String> hashTag) {
+        this.hashTag = hashTag;
     }
 }
