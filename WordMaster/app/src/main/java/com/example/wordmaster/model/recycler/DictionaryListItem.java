@@ -1,4 +1,7 @@
 package com.example.wordmaster.model.recycler;
+
+import java.util.ArrayList;
+
 //단어장 항목 리스트
 public class DictionaryListItem {
     String dictionaryTitle;
@@ -7,12 +10,12 @@ public class DictionaryListItem {
     String dictionaryHost;
     String dictOption;
     String dictRoomKey;
-    String dictHashTag;
+    ArrayList<String> dictHashTag;
     int viewType;
 
     public DictionaryListItem(String dictionaryTitle, String dictionaryMaxCount,
                               String dictionaryDescription, String dictionaryHost,
-                              String dictOption, String dictRoomKey, String dictHashTag,
+                              String dictOption, String dictRoomKey, ArrayList<String> dictHashTag,
                               int viewType) {
         this.dictionaryTitle = dictionaryTitle;
         this.dictionaryMaxCount = dictionaryMaxCount;
@@ -72,11 +75,11 @@ public class DictionaryListItem {
         this.dictRoomKey = dictRoomKey;
     }
 
-    public String getDictHashTag() {
+    public ArrayList<String> getDictHashTag() {
         return dictHashTag;
     }
 
-    public void setDictHashTag(String dictHashTag) {
+    public void setDictHashTag(ArrayList<String> dictHashTag) {
         this.dictHashTag = dictHashTag;
     }
 
