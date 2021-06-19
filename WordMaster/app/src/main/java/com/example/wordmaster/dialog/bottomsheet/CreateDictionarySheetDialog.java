@@ -21,6 +21,8 @@ import com.example.wordmaster.model.firebase.UserDictionary;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.chip.Chip;
 
+import java.util.ArrayList;
+
 public class CreateDictionarySheetDialog extends BottomSheetDialogFragment {
     private DialogBottomSheetCreateDictBinding mb;
     private static final String TAG = "CreateDictionarySheetDialog";
@@ -85,15 +87,14 @@ public class CreateDictionarySheetDialog extends BottomSheetDialogFragment {
 
                 String DictOption = changeDictOption(radioGroupType);
                 UserDictionary item = new UserDictionary();
-                hasTag="";
+                ArrayList<String> list = new ArrayList<>();
+
                 for (int i = 0; i < mb.cgHashTag.getChildCount()-1; i++) {
                     Chip chip = (Chip)mb.cgHashTag.getChildAt(i);
-                    hasTag+=chip.getText().toString()+",";
-
-
+                    list.add(chip.getText().toString());
                 }
                 item.init(DictOption,createDictTitle,createDictCount,
-                        0,createDictDescription,hasTag,null,
+                        0,createDictDescription,list,null,
                         SharedManger.loadData(Const.SHARED_USER_NAME,""),null,
                         createDictPassword,"",SharedManger.loadData(Const.SHARED_USER_ID,""));
                 activity.sendCreateDictDialog(item);

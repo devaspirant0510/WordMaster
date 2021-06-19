@@ -12,7 +12,7 @@ public class UserDictionary {
     int maxCount;
     int currentCount;
     String description;
-    String hashTag;
+    ArrayList<String> hashTag;
     DictionaryWordItem wordItem;
     String host;
     ArrayList<String> contributor;
@@ -39,7 +39,7 @@ public class UserDictionary {
      * @param hostId 게시자의 ID
      */
     public void init(String option, String title, int maxCount, int currentCount,
-                     String description, String hashTag, DictionaryWordItem wordItem,
+                     String description, ArrayList<String> hashTag, DictionaryWordItem wordItem,
                      String host, ArrayList<String> contributor, String password,
                      String roomKey, String hostId) {
         this.option = option;
@@ -95,12 +95,20 @@ public class UserDictionary {
         this.description = description;
     }
 
-    public String getHashTag() {
+    public ArrayList<String> getHashTag() {
         return hashTag;
     }
 
-    public void setHashTag(String hashTag) {
+    public void setHashTag(ArrayList<String> hashTag) {
         this.hashTag = hashTag;
+    }
+
+    public String getHostId() {
+        return hostId;
+    }
+
+    public void setHostId(String hostId) {
+        this.hostId = hostId;
     }
 
     public DictionaryWordItem getWordItem() {

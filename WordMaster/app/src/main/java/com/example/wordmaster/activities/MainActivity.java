@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
                 infoArg.putString("Title",Dict2InfoItem.getDictionaryTitle());
                 infoArg.putString("Option",Dict2InfoItem.getDictOption());
                 infoArg.putString("Description",Dict2InfoItem.getDictionaryDescription());
-                infoArg.putString("HashTag",Dict2InfoItem.getDictHashTag());
+                infoArg.putStringArray("HashTag",Dict2InfoItem.getDictHashTag().toArray(new String[0]));
                 infoArg.putString("RoomKey",Dict2InfoItem.getDictRoomKey());
                 infoArg.putInt("Count",Integer.parseInt(Dict2InfoItem.getDictionaryMaxCount()));
                 fr.setArguments(infoArg);

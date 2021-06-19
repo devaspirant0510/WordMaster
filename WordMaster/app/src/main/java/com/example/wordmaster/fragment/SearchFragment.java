@@ -99,6 +99,7 @@ public class SearchFragment extends Fragment {
         args.putString("title",item.getTitle());
         args.putString("userName",item.getHost());
         args.putString("roomKey",item.getRoomKey());
+        args.putStringArrayList("hashTag",item.getHashTag());
         Log.e(TAG, "showInfoDialog: "+item.getRoomKey() );
         sendDataToActivity.sendSearchInfoData(args);
         activity.changeFragment(Const.SEARCH_INFO_FRAGMENT);
@@ -155,6 +156,7 @@ public class SearchFragment extends Fragment {
                                                 getItem.getPassword(),
                                                 userDict.getKey(),
                                                 getItem.getRoomKey(),
+                                                getItem.getHashTag(),
                                                 getItem.getPassword().equals("") ?Const.SEARCH_PUBLIC:Const.SEARCH_PRIVATE
                                         ));
                                         mAdapter.notifyItemInserted(mAdapter.getItemCount()-1);

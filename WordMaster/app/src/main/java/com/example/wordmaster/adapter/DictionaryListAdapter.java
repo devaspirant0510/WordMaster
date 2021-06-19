@@ -19,6 +19,12 @@ public class DictionaryListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public ArrayList<DictionaryListItem> dictList = new ArrayList<>();
     private Context context;
     private DictionaryListCallBack mListener;
+    private boolean myDict = true;
+
+    public DictionaryListAdapter(Context context, boolean myDict) {
+        this.context = context;
+        this.myDict = myDict;
+    }
 
     public DictionaryListAdapter(Context context) {
         this.context = context;
@@ -85,25 +91,28 @@ public class DictionaryListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             dictionaryDescription = itemView.findViewById(R.id.dict_desc);
             dictionaryHost = itemView.findViewById(R.id.dict_host);
             dictionaryOption = itemView.findViewById(R.id.dict_open_option);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition();
-                    if (pos!=RecyclerView.NO_POSITION){
-                        mListener.onClick(v,pos);
+            if (myDict){
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int pos = getAdapterPosition();
+                        if (pos!=RecyclerView.NO_POSITION){
+                            mListener.onClick(v,pos);
+                        }
                     }
-                }
-            });
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    int pos = getBindingAdapterPosition();
-                    if (pos!=RecyclerView.NO_POSITION){
-                        mListener.onLongClick(v,pos);
+                });
+                itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        int pos = getBindingAdapterPosition();
+                        if (pos!=RecyclerView.NO_POSITION){
+                            mListener.onLongClick(v,pos);
+                        }
+                        return true;
                     }
-                    return true;
-                }
-            });
+                });
+
+            }
         }
         public void setItem(DictionaryListItem item){
             dictionaryTitle.setText(item.getDictionaryTitle());
