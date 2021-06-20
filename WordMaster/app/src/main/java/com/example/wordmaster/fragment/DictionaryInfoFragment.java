@@ -5,7 +5,11 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -13,11 +17,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 
 import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.Define.Util;
+import com.example.wordmaster.R;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryInfoAdapter;
 import com.example.wordmaster.callback.DialogUpdateCallback;
@@ -34,6 +40,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 public class DictionaryInfoFragment extends Fragment implements DictionaryFragmentCallBack {
@@ -46,9 +54,18 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     private int dictCount, dictPosition;
     private String roomKey;
     private String setMode = "add", spUserId, spUserEmail, spUserName;
+    private boolean otherDict = false;
+    private ActionBar actionBar;
     // 파베
     private SendDataToActivity sendDataToActivity = null;
-    public void setSendDataToActivity(SendDataToActivity callback){
+    public DictionaryInfoFragment(){
+
+    }
+    public DictionaryInfoFragment(boolean otherDict){
+        this.otherDict = otherDict;
+    }
+
+    public void setSendDataToActivity(SendDataToActivity callback) {
         this.sendDataToActivity = callback;
     }
 
@@ -57,26 +74,41 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
         super.onAttach(context);
     }
 
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mb = FragmentDictionaryInfoBinding.inflate(getLayoutInflater());
 
         activity = (MainActivity) getActivity();
-        spUserId = SharedManger.loadData(Const.SHARED_USER_ID,"");
-        spUserEmail = SharedManger.loadData(Const.SHARED_USER_EMAIL,"");
-        spUserName = SharedManger.loadData(Const.SHARED_USER_NAME,"");
+        if(otherDict){
+            Bundle bundle = getArguments();
+            if(bundle!=null){
+                spUserId = bundle.getString("userId");
+                dictInfoTitle = bundle.getString("title");
+                dictCount = bundle.getInt("maxCount");
+                dictInfoOption = bundle.getString("option");
+                roomKey = bundle.getString("roomKey");
+            }
 
-        // 프레그먼트 트랜잭션 하면서 넘긴 값들 가져옴
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            dictInfoTitle = bundle.getString("Title");
-            dictInfoOption = bundle.getString("Option");
-            dictCount = bundle.getInt("Count");
-            dictDescription = bundle.getString("Description");
-            dictHashTag = bundle.getString("HashTag");
-            dictPosition = bundle.getInt("Position");
-            roomKey = bundle.getString("RoomKey");
+        }else{
+            spUserId = SharedManger.loadData(Const.SHARED_USER_ID, "");
+            spUserEmail = SharedManger.loadData(Const.SHARED_USER_EMAIL, "");
+            spUserName = SharedManger.loadData(Const.SHARED_USER_NAME, "");
+
+            // 프레그먼트 트랜잭션 하면서 넘긴 값들 가져옴
+            Bundle bundle = getArguments();
+            if (bundle != null) {
+                dictInfoTitle = bundle.getString("Title");
+                dictInfoOption = bundle.getString("Option");
+                dictCount = bundle.getInt("Count");
+                dictDescription = bundle.getString("Description");
+                dictHashTag = bundle.getString("HashTag");
+                dictPosition = bundle.getInt("Position");
+                roomKey = bundle.getString("RoomKey");
+            }
+
         }
         adapter = new DictionaryInfoAdapter(getContext());
         mb.wordList.setAdapter(adapter);
@@ -85,16 +117,59 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
     }
 
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         activity.setDictionaryListCallBack(this);
         init();
+        actionBar = activity.getSupportActionBar();
+        actionBar.setTitle(dictInfoTitle);
+        actionBar.setSubtitle(dictInfoOption);
+
+        setHasOptionsMenu(true);
+
         return mb.getRoot();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        actionBar.setTitle(R.string.app_name);
+        actionBar.setSubtitle(null);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onCreateContextMenu(@NonNull @NotNull ContextMenu menu, @NonNull @NotNull View v, @Nullable @org.jetbrains.annotations.Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        Log.e(TAG, "onCreateContextMenu: " );
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull @NotNull Menu menu, @NonNull @NotNull MenuInflater inflater) {
+        Log.e(TAG, "onCreateOptionsMenu: " );
+        inflater.inflate(R.menu.toolbar_menu,menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull @NotNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.setting:
+                // TODO: 세팅 버튼 클릭시 infoFragment 로 트랜잭션 시킴
+                Toast.makeText(getContext(),"fd",Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void init() {
+
         mb.progressBar.setMax(dictCount);
         mb.progressState.setText(adapter.getItemCount() + "/" + dictCount);
         mb.dictInfoTitle.setText(dictInfoTitle);
@@ -123,7 +198,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                                 DictionaryWordItem item = adapter.getItem(pos);
                                 item.setKor(kor);
                                 item.setEng(eng);
-                                adapter.changeItem(pos,item);
+                                adapter.changeItem(pos, item);
                                 Util.myRefWord.child(spUserId).child(roomKey).child("list").child(item.getRoomKey()).setValue(item);
                                 adapter.notifyItemChanged(pos);
 
@@ -153,10 +228,10 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                     setMode = "add";
                     if (adapter.getItemCount() == dictCount) {
                         Toast.makeText(getContext(), "더 이상 추가할수 없습니다.", Toast.LENGTH_SHORT).show();
-                    }else {
+                    } else {
                         CreateWordDialog dialog = new CreateWordDialog(getContext(), spUserId, wordList,
-                                                                                adapter,dictInfoTitle,
-                                                                                Const.CREATE, roomKey);
+                                adapter, dictInfoTitle,
+                                Const.CREATE, roomKey);
                         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
                         dialog.setOnClickListener(new CreateWordDialog.OnClickListener() {
@@ -165,7 +240,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                                 DatabaseReference pushRef = Util.myRefWord.child(spUserId).child(roomKey).child(Const.FIREBASE_REFERENCE_WORD_LIST)
                                         .push();
                                 String roomKey = pushRef.getKey();
-                                DictionaryWordItem item = new DictionaryWordItem(kor,eng);
+                                DictionaryWordItem item = new DictionaryWordItem(kor, eng);
                                 item.setRoomKey(roomKey);
                                 pushRef.setValue(item);
                             }
@@ -179,25 +254,25 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
         mb.btnDictInfoTestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(adapter.getItemCount()>0){
-                    Log.e(TAG, "onClick: "+dictCount+" "+adapter.getItemCount() );
-                    if(adapter.getItemCount()==dictCount){
+                if (adapter.getItemCount() > 0) {
+                    Log.e(TAG, "onClick: " + dictCount + " " + adapter.getItemCount());
+                    if (adapter.getItemCount() == dictCount) {
                         MyTestOptionBottomSheetDialog dialog = new MyTestOptionBottomSheetDialog(getContext());
                         dialog.setCallBackOption(new MyTestOptionBottomSheetDialog.CallBackOption() {
                             @Override
                             public void callBack(int option) {
 
-                                sendDataToActivity.sendTestingData(spUserId,roomKey,dictCount,option,spUserName,dictInfoTitle);
+                                sendDataToActivity.sendTestingData(spUserId, roomKey, dictCount, option, spUserName, dictInfoTitle);
                                 activity.changeFragment(Const.TEST_MY_FRAGMENT);
                             }
                         });
                         dialog.show();
 
-                    }else{
-                        Toast.makeText(getContext(),"단어를 다 채워주세요",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "단어를 다 채워주세요", Toast.LENGTH_SHORT).show();
                     }
-                }else{
-                    Toast.makeText(getContext(),"단어를 추가해주세요",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "단어를 추가해주세요", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -214,13 +289,13 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                 // 단어장에서 단어 하나하나 불러오기
                 DictionaryWordItem item = snapshot.getValue(DictionaryWordItem.class);
                 if (item != null) {
-                    item.setIndex(adapter.getItemCount()+1);
+                    item.setIndex(adapter.getItemCount() + 1);
                     adapter.addItem(item);
 
                     mb.wordList.scrollToPosition(0);
                     // 프로그래스바에서 현재 단어장 개수 표시
                     mb.progressBar.setProgress(adapter.getItemCount());
-                    mb.progressState.setText(adapter.getItemCount()+"/"+dictCount);
+                    mb.progressState.setText(adapter.getItemCount() + "/" + dictCount);
                 }
 
             }
@@ -257,7 +332,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
         // 어댑터에 있는 리스트 가져와 해당 값 삭제
         DictionaryWordItem item = adapter.getItem(pos);
         String wordKey = item.getRoomKey();
-        Log.e(TAG, "deleteFireBaseData: "+roomKey );
+        Log.e(TAG, "deleteFireBaseData: " + roomKey);
         // DB 에서 삭제
         Util.myRefWord.child(spUserId).child(roomKey).child("list").child(wordKey).setValue(null);
         // UI 에서 삭제
@@ -267,11 +342,12 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
 
 
     }
-    private void updateIndex(int pos){
+
+    private void updateIndex(int pos) {
         for (int i = pos; i < adapter.getItemCount(); i++) {
             DictionaryWordItem item = adapter.getItem(i);
-            item.setIndex(i+1);
-            adapter.changeItem(i,item);
+            item.setIndex(i + 1);
+            adapter.changeItem(i, item);
             adapter.notifyItemChanged(i);
 
         }
