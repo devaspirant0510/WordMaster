@@ -30,20 +30,20 @@ public class DictionaryListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         this.context = context;
     }
 
-    public void setDictionaryListCallBack(DictionaryListCallBack callBack){
+    public void setDictionaryListCallBack(DictionaryListCallBack callBack) {
         this.mListener = callBack;
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (viewType==1){
-            View view = inflater.inflate(R.layout.layout_item_dictionary_list,parent,false);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (viewType == 1) {
+            View view = inflater.inflate(R.layout.layout_item_dictionary_list, parent, false);
             return new DictionaryItemHolder(view);
 
-        }
-        else{
-            View view = inflater.inflate(R.layout.layout_item_dictionary_default,parent,false);
+        } else {
+            View view = inflater.inflate(R.layout.layout_item_dictionary_default, parent, false);
             return new DefaultItem(view);
 
         }
@@ -51,14 +51,16 @@ public class DictionaryListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof DictionaryItemHolder){
+        if (holder instanceof DictionaryItemHolder) {
             //((DictionaryItemHolder) holder).dictionaryDescription.setText("A");
             ((DictionaryItemHolder) holder).setItem(dictList.get(position));
         }
     }
-    public DictionaryListItem getItem(int pos){
+
+    public DictionaryListItem getItem(int pos) {
         return dictList.get(pos);
     }
+
     @Override
     public int getItemViewType(int position) {
         return dictList.get(position).getViewType();
@@ -68,15 +70,19 @@ public class DictionaryListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public int getItemCount() {
         return dictList.size();
     }
-    public void addItem(DictionaryListItem item){
+
+    public void addItem(DictionaryListItem item) {
         dictList.add(item);
     }
-    public int getItemIndex(DictionaryListItem item){
+
+    public int getItemIndex(DictionaryListItem item) {
         return dictList.indexOf(item);
     }
-    public void removeItem(int position){
+
+    public void removeItem(int position) {
         dictList.remove(position);
     }
+
     public class DictionaryItemHolder extends RecyclerView.ViewHolder {
         TextView dictionaryTitle;
         TextView dictionaryMaxCount;
@@ -91,30 +97,29 @@ public class DictionaryListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             dictionaryDescription = itemView.findViewById(R.id.dict_desc);
             dictionaryHost = itemView.findViewById(R.id.dict_host);
             dictionaryOption = itemView.findViewById(R.id.dict_open_option);
-            if (myDict){
-                itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int pos = getAdapterPosition();
-                        if (pos!=RecyclerView.NO_POSITION){
-                            mListener.onClick(v,pos);
-                        }
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION) {
+                        mListener.onClick(v, pos);
                     }
-                });
-                itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        int pos = getBindingAdapterPosition();
-                        if (pos!=RecyclerView.NO_POSITION){
-                            mListener.onLongClick(v,pos);
-                        }
-                        return true;
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int pos = getBindingAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION) {
+                        mListener.onLongClick(v, pos);
                     }
-                });
+                    return true;
+                }
+            });
 
-            }
         }
-        public void setItem(DictionaryListItem item){
+
+        public void setItem(DictionaryListItem item) {
             dictionaryTitle.setText(item.getDictionaryTitle());
             dictionaryMaxCount.setText(item.getDictionaryMaxCount());
             dictionaryDescription.setText(item.getDictionaryDescription());
@@ -123,6 +128,7 @@ public class DictionaryListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         }
     }
+
     public class DefaultItem extends RecyclerView.ViewHolder {
         public DefaultItem(@NonNull View itemView) {
             super(itemView);
