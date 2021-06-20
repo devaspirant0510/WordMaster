@@ -10,11 +10,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 
 import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.Define.Util;
+import com.example.wordmaster.R;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryListAdapter;
 import com.example.wordmaster.callback.BottomSheetCallBack;
@@ -68,6 +70,9 @@ public class MyDictionaryFragment extends Fragment implements BottomSheetCallBac
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         activity.BottomSheetCallBack(this);
+        ActionBar actionBar = activity.getSupportActionBar();
+        actionBar.setTitle(R.string.app_name);
+        actionBar.setSubtitle(null);
         return mb.getRoot();
     }
 
@@ -93,7 +98,9 @@ public class MyDictionaryFragment extends Fragment implements BottomSheetCallBac
                             SharedManger.loadData(Const.SHARED_USER_NAME,""),
                             userDictionary.getOption(),
                             userDictionary.getRoomKey(),
-                            userDictionary.getHashTag()
+                            userDictionary.getHashTag(),
+                            userDictionary.getHostId(),
+                            userDictionary.getHost()
                             ,1
                     ));
                     adapter.notifyItemInserted(adapter.getItemCount()-1);
