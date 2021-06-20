@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.example.wordmaster.Define.Const;
@@ -21,6 +22,8 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding mb;
     private String spUserName,spUserId,spUserEmail;
     private MainActivity activity;
+    private Toolbar toolbar;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,12 +32,19 @@ public class HomeFragment extends Fragment {
         spUserId = SharedManger.getUserName();
         spUserEmail = SharedManger.getUserEmail();
         spUserName = SharedManger.getUserName();
+
+    }
+    private void toolbarSetting(){
+
+
+
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mb = FragmentHomeBinding.inflate(getLayoutInflater());
+        toolbarSetting();
         init();
         return mb.getRoot();
     }

@@ -11,12 +11,14 @@ public class DictionaryListItem {
     String dictOption;
     String dictRoomKey;
     ArrayList<String> dictHashTag;
+    String userId;
+    String userName;
     int viewType;
 
     public DictionaryListItem(String dictionaryTitle, String dictionaryMaxCount,
                               String dictionaryDescription, String dictionaryHost,
                               String dictOption, String dictRoomKey, ArrayList<String> dictHashTag,
-                              int viewType) {
+                              String userId, String userName,int viewType) {
         this.dictionaryTitle = dictionaryTitle;
         this.dictionaryMaxCount = dictionaryMaxCount;
         this.dictionaryDescription = dictionaryDescription;
@@ -25,6 +27,8 @@ public class DictionaryListItem {
         this.dictRoomKey = dictRoomKey;
         this.dictHashTag = dictHashTag;
         this.viewType = viewType;
+        this.userId = userId;
+        this.userName = userName;
     }
 
     public String getDictionaryTitle() {
@@ -89,5 +93,21 @@ public class DictionaryListItem {
 
     public void setViewType(int viewType) {
         this.viewType = viewType;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

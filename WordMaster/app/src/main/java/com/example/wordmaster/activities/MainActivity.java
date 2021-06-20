@@ -3,6 +3,7 @@ package com.example.wordmaster.activities;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -15,7 +16,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.R;
-import com.example.wordmaster.adapter.DictionaryInfoAdapter;
 import com.example.wordmaster.adapter.DictionaryViewPageAdapter;
 import com.example.wordmaster.callback.BottomSheetCallBack;
 import com.example.wordmaster.callback.DictionaryFragmentCallBack;
@@ -54,15 +54,29 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
     private Bundle search2SearchInfo;
     private String[] answerArr;
     private ArrayList<DictionaryWordItem> list;
+    private Bundle otherDict2Info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mb = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mb.getRoot());
+        setSupportActionBar(mb.toolBar);
+
         // 화면켰을때 처음화면은 홈화면으로
         changeFragment(Const.HOME_FRAGMENT);
         init();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_main,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 
     private void init() {
@@ -118,16 +132,19 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         int viewState=0;
+
         switch (n){
             // 홈화면일때 HomeFragment() 보여주고 viewState 는 프레그먼트
             case Const.HOME_FRAGMENT:
                 fr = new HomeFragment();
                 viewState = showFragment();
+                fm.popBackStack();
                 break;
             // 사전 화면일때
             case Const.DICTIONARY_FRAGMENT:
                 //fr = new DictionaryFragment();
                 viewState = showViewPager();
+                fm.popBackStack();
                 DictionaryViewPageAdapter dictionaryViewPageAdapter = new DictionaryViewPageAdapter(getSupportFragmentManager(),FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
                 dictionaryViewPageAdapter.addItem(new MyDictionaryFragment());
                 dictionaryViewPageAdapter.addItem(new OtherDictionaryFragment());
@@ -137,23 +154,27 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
             case Const.TEST_FRAGMENT:
                 MyTestFragment myTestFragment = new MyTestFragment();
                 myTestFragment.setListener(this);
+                fm.popBackStack();
                 fr = myTestFragment;
                 viewState = showFragment();
                 break;
             case Const.SEARCH_FRAGMENT:
                 SearchFragment searchFragment = new SearchFragment();
                 searchFragment.setOnSendToActivityListener(this);
+                fm.popBackStack();
                 fr = searchFragment;
                 viewState = showFragment();
                 break;
             case Const.MY_INFO_FRAGMENT:
                 fr = new ProfileFragment();
+                fm.popBackStack();
                 viewState = showFragment();
                 break;
             case Const.DICTIONARY_INFO_FRAGMENT:
                 DictionaryInfoFragment infoFragment = new DictionaryInfoFragment();
                 infoFragment.setSendDataToActivity(this);
                 fr = infoFragment;
+                fm.popBackStack();
                 viewState = showFragment();
                 Bundle infoArg = new Bundle();
                 infoArg.putString("Title",Dict2InfoItem.getDictionaryTitle());
@@ -167,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
             case Const.TESTING_FRAGMENT:
                 Log.e(TAG,"testing");
                 fr = new TestFragment();
-
+                fm.popBackStack();
                 Bundle testingArg = new Bundle();
                 testingArg.putInt("testMaxCount",testingMaxCount);
                 testingArg.putString("testLimitTime",testingLimitTime);
@@ -180,6 +201,7 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
                 break;
             case Const.TEST_RESULT_FRAGMENT:
                 fr=new TestResultFragment();
+                fm.popBackStack();
                 Bundle bundle = new Bundle();
                 bundle.putInt("testMaxCount",testMaxCount);
                 bundle.putInt("testCurrentCount",testCurrentCount);
@@ -191,6 +213,7 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
                 break;
             case Const.TEST_MY_FRAGMENT:
                 fr = new TestFragment();
+                fm.popBackStack();
                 Bundle myTestArgs = new Bundle();
                 myTestArgs.putString("userId",myTestUserid);
                 myTestArgs.putString("roomKey",myTestRoomKey);
@@ -204,7 +227,15 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
             case Const.SEARCH_INFO_FRAGMENT:
                 SearchInfoFragment searchInfoFragment = new SearchInfoFragment(search2SearchInfo.getString("id"));
                 searchInfoFragment.setArguments(search2SearchInfo);
+                fm.popBackStack();
                 fr =searchInfoFragment;
+                viewState = showFragment();
+                break;
+            case Const.OTHER_DICT2DICTIONARY_INFO:
+                DictionaryInfoFragment dictionaryInfoFragment = new DictionaryInfoFragment(true);
+                fm.popBackStack();
+                fr = dictionaryInfoFragment;
+                dictionaryInfoFragment.setArguments(otherDict2Info);
                 viewState = showFragment();
                 break;
 
@@ -227,23 +258,6 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
     public void setDictionaryListCallBack(DictionaryFragmentCallBack callBack){
         this.dictionaryListCallBack = callBack;
     }
-    public void setSendTestResult(DictionaryFragmentCallBack callBack){
-        this.dictionaryListCallBack = callBack;
-    }
-    public void sendTestResultCallback(int maxCount, int trueCount, String[] myAnswer,String[] answer){
-
-    }
-    public void sendInfoData(String title,String option,int count){
-        dictionaryListCallBack.sendInfoData(title,option,count);
-    }
-    public void setInfoFragmentDialogCallback(InfoFragmentDialogCallback callback){
-        this.infoFragmentDialogCallback = callback;
-    }
-    public void sendInfoData(ArrayList<DictionaryWordItem> list, DictionaryInfoAdapter adapter, String title){
-        infoFragmentDialogCallback.send(list,adapter,title);
-    }
-
-
     @Override
     public void sendDictData(DictionaryListItem item) {
         this.Dict2InfoItem = item;
@@ -290,6 +304,19 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
         Log.e(TAG, "sendSearchInfoData: "+bundle );
         Log.e(TAG, "sendSearchInfoData: "+bundle.get("title") );
         this.search2SearchInfo = bundle;
+
+    }
+
+    @Override
+    public void otherDict2Info(String title, String option, int maxCount, String roomKey, String userId, String userName) {
+        otherDict2Info = new Bundle();
+        otherDict2Info.putString("title",title);
+        otherDict2Info.putString("option",option);
+        otherDict2Info.putInt("maxCount",maxCount);
+        otherDict2Info.putString("roomKey",roomKey);
+        otherDict2Info.putString("userId",userId);
+        otherDict2Info.putString("userName",userName);
+
 
     }
 }

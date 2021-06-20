@@ -117,6 +117,8 @@ public class MyTestFragment extends Fragment {
                         userDictionary.getOption(),
                         userDictionary.getRoomKey(),
                         userDictionary.getHashTag(),
+                        userDictionary.getHostId(),
+                        userDictionary.getHost(),
                         1
                 ));
                 Log.e(TAG, "onChildAdded: " + adapter.dictList);

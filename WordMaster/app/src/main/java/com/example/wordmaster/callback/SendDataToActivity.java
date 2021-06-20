@@ -17,4 +17,6 @@ public interface SendDataToActivity {
     void sendTestResult(int maxCount, int trueCount, String[] myAnswer, String[] answer, ArrayList<DictionaryWordItem> list);
 
     void sendSearchInfoData(Bundle bundle);
+
+    void otherDict2Info(String title,String option,int maxCount,String roomKey,String userId,String userName);
 }

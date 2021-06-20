@@ -38,5 +38,7 @@
         android:background="@drawable/kakao_login_large_wide" />
 
 
-
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>
