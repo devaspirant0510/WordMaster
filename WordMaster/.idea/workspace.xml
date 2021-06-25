@@ -41,13 +41,16 @@
     <list default="true" id="0b7062bc-63f3-4bc1-8be4-f7c10fa19572" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/Define/Const.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/Define/Const.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/activities/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/activities/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/adapter/DictionaryListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/adapter/DictionaryListAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/callback/SendDataToActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/callback/SendDataToActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/DictionaryInfoFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/DictionaryInfoFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/HomeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/HomeFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/viewpager/MyDictionaryFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/viewpager/MyDictionaryFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/Define/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/Define/Util.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/adapter/OnlineTestAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/adapter/OnlineTestAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/bottomsheet/WordTestSettingDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/bottomsheet/WordTestSettingDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/viewpager/MyTestFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/viewpager/MyTestFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/model/recycler/OnlineTestItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/model/recycler/OnlineTestItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/font/font_setting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/font/font_setting.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_bottom_sheet_set_word_test.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_bottom_sheet_set_word_test.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_my_test.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_my_test.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_item_online_test_private.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_item_online_test_private.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,8 +103,8 @@
         <option value="Interface" />
         <option value="valueResourceFile" />
         <option value="resourceFile" />
-        <option value="Class" />
         <option value="layoutResourceFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -129,18 +132,19 @@
     <property name="project.structure.last.edited" value="Dependencies" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="editing.templates" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\seungho\application\android_app\WordMaster\WordMaster\app\src\main\res\drawable" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\seungho\application\android_app\WordMaster\WordMaster\app\src\main\res\font" />
     </key>
     <key name="android.template.-1751191417">
       <recent name="com.example.wordmaster.activities" />
       <recent name="com.example.wordmaster" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\seungho\application\android_app\WordMaster\WordMaster\app\src\main\res\font" />
+      <recent name="D:\seungho\application\android_app\WordMaster\WordMaster\app\src\main\res\drawable" />
     </key>
   </component>
   <component name="RunManager" selected="Android App.app">
@@ -293,14 +297,18 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="552" y="160" key="#Plugins" timestamp="1624433825553">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="160" key="#Plugins/0.0.1920.1040@0.0.1920.1040" timestamp="1624433825553" />
     <state x="1264" y="401" key="#com.intellij.codeInsight.template.impl.EditVariableDialog" timestamp="1623580527094">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1264" y="401" key="#com.intellij.codeInsight.template.impl.EditVariableDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1623580527094" />
-    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1624200483389">
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1624631824476">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1624200483389" />
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1624631824476" />
     <state x="724" y="374" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1622382727609">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -309,10 +317,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="506" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1622095041783" />
-    <state x="530" y="402" key="AndroidCreateResourceFileDialog" timestamp="1624201049497">
+    <state x="530" y="402" key="AndroidCreateResourceFileDialog" timestamp="1624439151876">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="530" y="402" key="AndroidCreateResourceFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1624201049496" />
+    <state x="530" y="402" key="AndroidCreateResourceFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1624439151876" />
     <state x="805" y="292" key="AndroidCreateXmlResourceDialog" timestamp="1623745050667">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -321,30 +329,30 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1623721074780" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1624157896627">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1624541894232">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1624157896627" />
-    <state width="1877" height="270" key="GridCell.Tab.0.bottom" timestamp="1624200181307">
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1624541894232" />
+    <state width="1877" height="73" key="GridCell.Tab.0.bottom" timestamp="1624631107591">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="270" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1624200181307" />
-    <state width="1877" height="270" key="GridCell.Tab.0.center" timestamp="1624200181307">
+    <state width="1877" height="73" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1624631107591" />
+    <state width="1877" height="73" key="GridCell.Tab.0.center" timestamp="1624631107591">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="270" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1624200181307" />
-    <state width="1877" height="270" key="GridCell.Tab.0.left" timestamp="1624200181306">
+    <state width="1877" height="73" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1624631107591" />
+    <state width="1877" height="73" key="GridCell.Tab.0.left" timestamp="1624631107591">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="270" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1624200181306" />
-    <state width="1877" height="270" key="GridCell.Tab.0.right" timestamp="1624200181307">
+    <state width="1877" height="73" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1624631107591" />
+    <state width="1877" height="73" key="GridCell.Tab.0.right" timestamp="1624631107591">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="270" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1624200181307" />
-    <state x="750" y="168" key="SettingsEditor" timestamp="1623580527650">
+    <state width="1877" height="73" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1624631107591" />
+    <state x="750" y="168" key="SettingsEditor" timestamp="1624620642792">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="750" y="168" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1623580527650" />
+    <state x="750" y="168" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1624620642792" />
     <state x="669" y="236" width="582" height="568" key="find.popup" timestamp="1622095569270">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
