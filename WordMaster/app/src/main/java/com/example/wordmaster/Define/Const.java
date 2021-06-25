@@ -52,6 +52,8 @@ public class Const {
     public static final String FIREBASE_REFERENCE_USER_ACCOUNT = "UserAccount";
     public static final String FIREBASE_REFERENCE_WORD_STORE = "WordStore";
     public static final String FIREBASE_REFERENCE_WORD_LIST = "list";
+    public static final String FIREBASE_REFERENCE_WORD_TEST = "WordTest";
+
 
     // 셰어드 메니저 에디터
     public static final String SHARED_USER_ID = "UserID";

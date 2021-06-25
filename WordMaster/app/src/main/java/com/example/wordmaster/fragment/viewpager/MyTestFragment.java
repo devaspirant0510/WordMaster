@@ -7,30 +7,28 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.wordmaster.Define.Const;
+import com.example.wordmaster.Define.Util;
 import com.example.wordmaster.activities.MainActivity;
-import com.example.wordmaster.adapter.DictionaryListAdapter;
-import com.example.wordmaster.callback.DictionaryListCallBack;
+import com.example.wordmaster.adapter.OnlineTestAdapter;
 import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.databinding.FragmentMyTestBinding;
 import com.example.wordmaster.dialog.bottomsheet.WordTestSettingDialog;
-import com.example.wordmaster.model.firebase.UserDictionary;
-import com.example.wordmaster.model.recycler.DictionaryListItem;
+import com.example.wordmaster.model.firebase.UserTest;
+import com.example.wordmaster.model.recycler.OnlineTestItem;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
+import org.jetbrains.annotations.NotNull;
 
 public class MyTestFragment extends Fragment {
     private FragmentMyTestBinding mb;
-    private DictionaryListAdapter adapter;
+    private OnlineTestAdapter adapter;
     private MainActivity activity;
     private SendDataToActivity listener = null;
     private WordTestSettingDialog dialog;
@@ -70,82 +68,79 @@ public class MyTestFragment extends Fragment {
 
 
     private void init() {
-        adapter = new DictionaryListAdapter(getContext());
-        mb.myTestList.setAdapter(adapter);
-        adapter.setDictionaryListCallBack(new DictionaryListCallBack() {
+        adapter = new OnlineTestAdapter(getContext());
+        adapter.setOnClickListener(new OnlineTestAdapter.onClickListener() {
             @Override
-            public void onClick(View v, int pos) {
-                String host = adapter.getItem(pos).getDictionaryHost();
-                String title = adapter.getItem(pos).getDictionaryTitle();
-                int DictMaxCount = Integer.parseInt(adapter.getItem(pos).getDictionaryMaxCount());
-                dialog = new WordTestSettingDialog(DictMaxCount);
-                dialog.setListener(new WordTestSettingDialog.TestBottomSheetCallBack() {
-                    @Override
-                    public void setOnClickListener(int maxCount, String limitTime, int rgTestType, int rgTestTimeOption) {
-                        Toast.makeText(getContext(),maxCount+"",Toast.LENGTH_SHORT).show();
-                        listener.sendTestingData(pos,maxCount,limitTime,rgTestType,rgTestTimeOption,host,title);
-                        activity.changeFragment(Const.TESTING_FRAGMENT);
-                    }
-                });
-                if (getFragmentManager() != null) {
-                    dialog.show(getFragmentManager(), "fr");
-                }
+            public void onClickViewMore(int pos) {
+
+                Log.e(TAG, "onClickViewMore: " );
             }
 
             @Override
-            public void onLongClick(View v, int pos) {
+            public void onClickJoin(int pos) {
+                Log.e(TAG, "onClickJoin: " );
 
             }
         });
-
-
+        mb.fBtnAddTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WordTestSettingDialog dialog = new WordTestSettingDialog();
+                if (getFragmentManager() != null) {
+                    dialog.show(getFragmentManager(),"");
+                }
+            }
+        });
+        mb.myTestList.setAdapter(adapter);
     }
 
     private void readDB() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
-
-        myRef.child("WordStore").child("1687548254").addChildEventListener(new ChildEventListener() {
+        Util.myRefTest.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                UserDictionary userDictionary = snapshot.getValue(UserDictionary.class);
-                adapter.addItem(new DictionaryListItem(
-                        userDictionary.getTitle(),
-                        String.valueOf(userDictionary.getMaxCount()),
-                        userDictionary.getDescription(),
-                        userDictionary.getHost(),
-                        userDictionary.getOption(),
-                        userDictionary.getRoomKey(),
-                        userDictionary.getHashTag(),
-                        userDictionary.getHostId(),
-                        userDictionary.getHost(),
-                        1
-                ));
-                Log.e(TAG, "onChildAdded: " + adapter.dictList);
-                adapter.notifyDataSetChanged();
+            public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+                UserTest userTest= snapshot.getValue(UserTest.class);
+                if (userTest!=null){
+                    adapter.addItem(new OnlineTestItem(
+                            userTest.getTitle(),
+                            userTest.getUserName(),
+                            userTest.getUserId(),
+                            userTest.getPassword(),
+                            "fd",
+                            13,
+                            userTest.getDescription(),
+                            userTest.getStartTime(),
+                            userTest.getEndTime(),
+                            String.valueOf(userTest.getOption()),
+                            3,
+                            userTest.getType())
+                    );
+                    adapter.notifyItemInserted(adapter.getItemCount()-1);
+                }
+
 
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildChanged(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
 
             }
 
             @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+            public void onChildRemoved(@NonNull @NotNull DataSnapshot snapshot) {
 
             }
 
             @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildMoved(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
 
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
             }
         });
+
     }
 
 }

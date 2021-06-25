@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="450dp">
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이름"
+        app:layout_constraintBottom_toBottomOf="@+id/et_online_test_name"
+        app:layout_constraintEnd_toStartOf="@+id/et_online_test_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/et_online_test_name" />
+
+    <EditText
+        android:id="@+id/et_online_test_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView27"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <TextView
         android:id="@+id/textView11"
@@ -12,81 +32,166 @@
         android:layout_height="wrap_content"
         android:text="단어시험"
         android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView10"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="단어개수"
-        app:layout_constraintBottom_toTopOf="@+id/textView9"
-        app:layout_constraintEnd_toStartOf="@+id/tv_test_max_count"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-    <TextView
-        android:id="@+id/tv_prograss_count"
+        android:id="@+id/textView26"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
-        app:layout_constraintBottom_toTopOf="@+id/tv_test_limit_time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tv_test_max_count"
-        app:layout_constraintTop_toBottomOf="@+id/tv_test_max_count" />
+        android:text="설명"
+        app:layout_constraintBottom_toBottomOf="@+id/et_online_test_description"
+        app:layout_constraintEnd_toStartOf="@+id/et_online_test_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/et_online_test_description" />
 
-    <SeekBar
-        android:id="@+id/tv_test_max_count"
+    <EditText
+        android:id="@+id/et_online_test_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/tv_prograss_count"
+        android:lines="1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.306"
+        app:layout_constraintStart_toEndOf="@+id/textView26"
+        app:layout_constraintTop_toBottomOf="@+id/et_online_test_name" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="단어장"
+        app:layout_constraintBottom_toBottomOf="@+id/word_spinner"
+        app:layout_constraintEnd_toStartOf="@+id/word_spinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/word_spinner" />
+
+    <Spinner
+        android:id="@+id/word_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintTop_toBottomOf="@+id/et_online_test_description" />
 
     <TextView
         android:id="@+id/textView9"
-        android:layout_width="0dp"
-        android:layout_height="16dp"
-        android:layout_marginTop="29dp"
-        android:text="시간"
-        app:layout_constraintEnd_toStartOf="@+id/tv_test_limit_time"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
-
-    <EditText
-        android:id="@+id/tv_test_limit_time"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
-        android:hint="time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.517"
+        android:text="인원수"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_user_minus"
+        app:layout_constraintTop_toTopOf="@+id/btn_user_minus"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_user_plus"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:text="+"
+        app:layout_constraintBottom_toBottomOf="@+id/et_user_count"
+        app:layout_constraintStart_toEndOf="@+id/et_user_count"
+        app:layout_constraintTop_toTopOf="@+id/et_user_count"
+        app:layout_goneMarginStart="8dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_user_minus"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:text="-"
+        app:layout_constraintBottom_toBottomOf="@+id/et_user_count"
         app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/tv_prograss_count" />
+        app:layout_constraintTop_toTopOf="@+id/et_user_count" />
 
     <TextView
-        android:id="@+id/tv_test_type"
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="시작시간"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_setting_start_time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_setting_start_time"
+        app:layout_constraintVertical_bias="0.575" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_setting_start_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="시작시간 설정"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView22"
+        app:layout_constraintTop_toBottomOf="@+id/et_user_count" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_setting_end_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="종료시간 설정"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView23"
+        app:layout_constraintTop_toBottomOf="@+id/btn_setting_start_time" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="종료시간"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_setting_end_time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_setting_end_time" />
+
+    <TextView
+        android:id="@+id/textView24"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:text="문제 출제 방식"
-        app:layout_constraintBottom_toTopOf="@+id/rg_test_type"
+        android:text="공개여부"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_test_limit_time" />
+        app:layout_constraintTop_toBottomOf="@+id/rg_test_type" />
+
+    <RadioGroup
+        android:id="@+id/rg_test_private_public"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView15">
+
+        <RadioButton
+            android:id="@+id/r_btn_public"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="공개" />
+
+        <RadioButton
+            android:id="@+id/r_btn_private"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비공개" />
+
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/et_user_count"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:text="1"
+        app:layout_constraintEnd_toStartOf="@+id/btn_user_plus"
+        app:layout_constraintStart_toEndOf="@+id/btn_user_minus"
+        app:layout_constraintTop_toBottomOf="@+id/word_spinner" />
 
     <RadioGroup
         android:id="@+id/rg_test_type"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/textView15"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_test_type">
+        app:layout_constraintTop_toBottomOf="@+id/textView25">
+
 
         <RadioButton
             android:id="@+id/kor2eng"
@@ -104,21 +209,22 @@
             android:id="@+id/random"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="랜덤(준비중)" />
+            android:text="랜덤" />
+
     </RadioGroup>
 
     <RadioGroup
         android:id="@+id/rg_test_test_option"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/test_start_btn"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15">
+        app:layout_constraintTop_toBottomOf="@+id/textView24">
 
         <RadioButton
             android:id="@+id/test_option_linear"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="순서대로" />
 
@@ -126,7 +232,7 @@
             android:id="@+id/test_option_random"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="무작위로(준비중)" />
+            android:text="무작위로" />
 
 
     </RadioGroup>
@@ -136,20 +242,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="문제 출제 순서"
-        app:layout_constraintBottom_toTopOf="@+id/rg_test_test_option"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rg_test_type" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_setting_end_time" />
 
-    <Button
-        android:id="@+id/test_start_btn"
+    <TextView
+        android:id="@+id/textView25"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="시작"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="문제 유형"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rg_test_private_public" />
+
+    <Button
+        android:id="@+id/btn_test_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="생성"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rg_test_test_option" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="45dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

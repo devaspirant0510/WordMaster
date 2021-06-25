@@ -19,11 +19,13 @@ public class OnlineTestItem {
     String description;
     String startTime;
     String endTime;
+    String option;
+    int maxUser;
     int viewType;
 
     public OnlineTestItem(String title, String host, String hostId, String password,
                           String hashTag, int maxCount, String description, String startTime,
-                          String endTime, int viewType) {
+                          String endTime, String option,int maxUser,int viewType) {
         this.title = title;
         this.host = host;
         this.hostId = hostId;
@@ -33,6 +35,8 @@ public class OnlineTestItem {
         this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.option = option;
+        this.maxUser = maxUser;
         this.viewType = viewType;
     }
 
@@ -106,6 +110,22 @@ public class OnlineTestItem {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public String getOption() {
+        return option;
+    }
+
+    public void setOption(String option) {
+        this.option = option;
+    }
+
+    public int getMaxUser() {
+        return maxUser;
+    }
+
+    public void setMaxUser(int maxUser) {
+        this.maxUser = maxUser;
     }
 
     public int getViewType() {

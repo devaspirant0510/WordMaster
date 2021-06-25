@@ -1,38 +1,72 @@
 package com.example.wordmaster.dialog.bottomsheet;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.RadioGroup;
-import android.widget.SeekBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.wordmaster.R;
-import com.example.wordmaster.databinding.DialogBottomSheetSetWordTestBinding;
 import com.example.wordmaster.Define.Const;
+import com.example.wordmaster.Define.SharedManger;
+import com.example.wordmaster.Define.Util;
+import com.example.wordmaster.R;
+import com.example.wordmaster.adapter.CustomSpinnerAdapter;
+import com.example.wordmaster.databinding.DialogBottomSheetSetWordTestBinding;
+import com.example.wordmaster.dialog.custom.DateTimeSettingDialog;
+import com.example.wordmaster.model.etc.SpinnerItem;
+import com.example.wordmaster.model.firebase.UserDictionary;
+import com.example.wordmaster.model.firebase.UserTest;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
-public class WordTestSettingDialog extends BottomSheetDialogFragment {
+import org.jetbrains.annotations.NotNull;
+
+public class WordTestSettingDialog extends BottomSheetDialogFragment implements DateTimeSettingDialog.DateTimeCallBack{
+    private static final String TAG = "WordTestSettingDialog";
+    private static final int TEST_ORDER_BY_LINEAR = 1;
+    private static final int TEST_ORDER_BY_RANDOM = 2;
+    private static final int TEST_TYPE_ENG2KOR = 1;
+    private static final int TEST_TYPE_KOR2ENG = 2;
+    private static final int TEST_TYPE_RANDOM = 3;
+    private static final int TEST_PRIVATE = 1;
+    private static final int TEST_PUBLIC = 2;
     private DialogBottomSheetSetWordTestBinding mb;
     private TestBottomSheetCallBack listener;
     private int dictMaxCount;
-    private int rgTestType = 0,rgTestOption=0;
 
-    public interface TestBottomSheetCallBack{
-        void setOnClickListener(int maxCount,String limitTime,int rgTestType,int rgTestTimeOption);
+
+    private int rgTestOrderBy = 0,rgTestType = 0, rgTestOption = 0;
+
+    @Override
+    public void startTimeCallback(String date) {
+        mb.btnSettingStartTime.setText(date);
 
     }
-    public void setListener(TestBottomSheetCallBack listener){
+
+    @Override
+    public void endTimeCallback(String date) {
+        mb.btnSettingEndTime.setText(date);
+    }
+
+    public interface TestBottomSheetCallBack {
+        void setOnClickListener(int maxCount, String limitTime, int rgTestType, int rgTestTimeOption);
+
+    }
+
+    public void setListener(TestBottomSheetCallBack listener) {
         this.listener = listener;
     }
 
-    public WordTestSettingDialog(int dictMaxCount) {
-        this.dictMaxCount = dictMaxCount;
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,66 +78,164 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         init();
-        mb.tvTestMaxCount.setMax(dictMaxCount);//Integer.parseInt(mb.tvTestMaxCount.getText().toString());
-        Log.e("asdf","sdf"+mb.tvTestMaxCount.getProgress());
         return mb.getRoot();
     }
 
-    private void init() {
-
-        mb.rgTestType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+    /**
+     * 스피너에 추가할 내 단어장 모두 불러옴
+     */
+    private void loadSpinnerWordList(ArrayAdapter<SpinnerItem> adapter){
+        String userId = SharedManger.loadData(Const.SHARED_USER_ID,"");
+        Util.myRefWord.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    if (checkedId==R.id.kor2eng){
-                        rgTestType = Const.KOR2ENG;
-                    }
-                    else if (checkedId == R.id.eng2kor){
-                        rgTestType = Const.ENG2KOR;
-                    }
-                    else{
-                        rgTestType = Const.RANDOM2RANDOM;
-                    }
-                Log.e("sd", "onCheckedChanged: "+rgTestType );
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                for(DataSnapshot item:snapshot.getChildren()){
+                    UserDictionary getInfo=  item.getValue(UserDictionary.class);
+                    Log.e(TAG, "onDataChange: "+getInfo.getTitle() );
+                    adapter.add(new SpinnerItem(
+                            getInfo.getTitle(),
+                            String.valueOf(getInfo.getMaxCount()),
+                            getInfo.getDescription(),
+                            getInfo.getRoomKey()
+                    ));
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
             }
         });
+        adapter.notifyDataSetChanged();
+
+    }
+    @SuppressLint("NonConstantResourceId")
+    private void init() {
+        CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(getContext(),R.layout.spinner_custom_item);
+        loadSpinnerWordList(adapter);
+        mb.wordSpinner.setAdapter(adapter);
+
         mb.rgTestTestOption.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId==R.id.test_option_linear){
-                    rgTestOption = Const.LINEAR;
+                switch (checkedId){
+                    case R.id.test_option_linear:
+                        rgTestOrderBy = TEST_ORDER_BY_LINEAR;
+                        break;
+                    case R.id.test_option_random:
+                        rgTestOrderBy = TEST_ORDER_BY_RANDOM;
+                        break;
+                    default:
+                        break;
                 }
-                else{
-                    rgTestOption = Const.RANDOM;
-                }
+                Log.e(TAG, "onCheckedChanged: "+rgTestOrderBy );
+
             }
         });
-        mb.testStartBtn.setOnClickListener(new View.OnClickListener() {
+        mb.rgTestType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.kor2eng:
+                        rgTestType = TEST_TYPE_KOR2ENG;
+                        break;
+                    case R.id.eng2kor:
+                        rgTestType = TEST_TYPE_ENG2KOR;
+                        break;
+                    case R.id.random:
+                        rgTestType = TEST_TYPE_RANDOM;
+                        break;
+                    default:
+                        break;
+                }
+                Log.e(TAG, "onCheckedChanged: "+rgTestType );
+            }
+        });
+        mb.rgTestPrivatePublic.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.r_btn_private:
+                        rgTestOption = TEST_PRIVATE;
+                        break;
+                    case R.id.r_btn_public:
+                        rgTestOption = TEST_PUBLIC;
+                        break;
+                    default:
+                        break;
+                }
+                Log.e(TAG, "onCheckedChanged: "+rgTestOption );
+
+            }
+        });
+
+        DateTimeSettingDialog dialog = new DateTimeSettingDialog(getContext());
+        dialog.setDateTimeCallback(this);
+        mb.btnSettingStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int testMaxCount = mb.tvTestMaxCount.getProgress();
-                String testLimitTime = mb.tvTestLimitTime.getText().toString();
+                dialog.setMode(DateTimeSettingDialog.START_TIME);
+                dialog.show();
+            }
+        });
+        mb.btnSettingEndTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.setMode(DateTimeSettingDialog.END_TIME);
+                dialog.show();
+            }
+        });
+        mb.btnUserPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int getUserCount = Integer.parseInt(mb.etUserCount.getText().toString());
+                getUserCount+=1;
+                mb.etUserCount.setText(String.valueOf(getUserCount));
+            }
+        });
+        mb.btnUserMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int getUserCount = Integer.parseInt(mb.etUserCount.getText().toString());
+                if (getUserCount==1){
+                    Toast.makeText(getContext(),"최소 1명 이상이여야 됩니다.",Toast.LENGTH_SHORT).show();
+                }else{
+                    getUserCount-=1;
+                    mb.etUserCount.setText(String.valueOf(getUserCount));
+                }
+            }
+        });
+
+        mb.btnTestStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference pushRef = Util.myRefTest.push();
+                String roomKey=  pushRef.getKey();
+                // 현재 스피너에서 선택된 아이템 가져옴
+                SpinnerItem item = (SpinnerItem)mb.wordSpinner.getItemAtPosition(mb.wordSpinner.getSelectedItemPosition());
+                UserTest userTest = new UserTest(
+                        mb.etOnlineTestName.getText().toString(),
+                        SharedManger.loadData(Const.SHARED_USER_ID,""),
+                        SharedManger.loadData(Const.SHARED_USER_NAME,""),
+                        item.getRoomKey(),
+                        mb.btnSettingStartTime.getText().toString(),
+                        mb.btnSettingEndTime.getText().toString(),
+                        "",
+                        mb.etOnlineTestDescription.getText().toString(),
+                        rgTestOption,
+                        rgTestOrderBy,
+                        rgTestType
+                );
+                pushRef.setValue(userTest);
+
+                Log.e(TAG, "onClick: "+item.getDescription() );
                 dismiss();
 
-                listener.setOnClickListener(testMaxCount,testLimitTime,rgTestType,rgTestOption);
             }
         });
-        mb.tvTestMaxCount.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mb.tvPrograssCount.setText(String.valueOf(seekBar.getProgress()));
-            }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                mb.tvPrograssCount.setText(String.valueOf(seekBar.getProgress()));
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                mb.tvPrograssCount.setText(String.valueOf(seekBar.getProgress()));
-
-            }
-        });
     }
 }
