@@ -18,6 +18,8 @@ public class Const {
     public static final int TEST_MY_FRAGMENT = 8;
     public static final int SEARCH_INFO_FRAGMENT = 9;
     public static final int OTHER_DICT2DICTIONARY_INFO = 10;
+    public static final int TEST_WAITING_ROOM = 11;
+    public static final int TEST_WAITING_INFO = 12;
 
     // 단어장 공개여부
     public static final int PUBLIC = 1;
