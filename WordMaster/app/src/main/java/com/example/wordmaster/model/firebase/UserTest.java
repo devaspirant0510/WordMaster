@@ -21,12 +21,14 @@ public class UserTest {
     private int option;
     private int orderBy;
     private int type;
+    private int userCount;
     public UserTest(){
 
     }
 
     public UserTest(String title, String userId, String userName, String roomKey, String startTime,
-                    String endTime,String password, String description,int option, int orderBy, int type) {
+                    String endTime,String password, String description,int option, int orderBy,
+                    int userCount,int type) {
         this.title = title;
         this.userId = userId;
         this.userName = userName;
@@ -37,6 +39,7 @@ public class UserTest {
         this.description = description;
         this.option = option;
         this.orderBy = orderBy;
+        this.userCount = userCount;
         this.type = type;
     }
 
@@ -118,6 +121,14 @@ public class UserTest {
 
     public void setOrderBy(int orderBy) {
         this.orderBy = orderBy;
+    }
+
+    public int getUserCount() {
+        return userCount;
+    }
+
+    public void setUserCount(int userCount) {
+        this.userCount = userCount;
     }
 
     public int getType() {

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.example.wordmaster.model.recycler.DictionaryListItem;
 import com.example.wordmaster.model.recycler.DictionaryWordItem;
+import com.example.wordmaster.model.recycler.OnlineTestItem;
 
 import java.util.ArrayList;
 
@@ -19,4 +20,8 @@ public interface SendDataToActivity {
     void sendSearchInfoData(Bundle bundle);
 
     void otherDict2Info(String title,String option,int maxCount,String roomKey,String userId,String userName);
+
+    void onlineTest2testJoin(OnlineTestItem item);
+
+    void onlineTest2testInfo(OnlineTestItem item);
 }

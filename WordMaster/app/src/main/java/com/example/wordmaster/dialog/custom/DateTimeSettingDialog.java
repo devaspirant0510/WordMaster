@@ -56,46 +56,70 @@ public class DateTimeSettingDialog extends Dialog {
         setContentView(mb.getRoot());
         DatePicker datePicker = mb.dpTimeSettingDatePicker;
         TimePicker timePicker = mb.tpTimeSettingTimePicker;
+        if(mode.equals(START_TIME)){
+            mb.btnTimeNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mb.tpTimeSettingTimePicker.getVisibility()==View.VISIBLE){
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("y/MM/dd hh:mm");
+                        Calendar calendar =Calendar.getInstance();
+                        calendar.set(datePicker.getYear(),datePicker.getMonth(),datePicker.getDayOfMonth(),
+                                timePicker.getHour(),timePicker.getMinute());
+                        String getDate = dateFormat.format(calendar.getTime());
+                        Toast.makeText(getContext(),getDate,Toast.LENGTH_SHORT).show();
+                        if (mode.equals(START_TIME)){
+                            callBack.startTimeCallback(getDate);
+                        }else{
+                            callBack.endTimeCallback(getDate);
+                        }
+                        mb.dpTimeSettingDatePicker.setVisibility(View.VISIBLE);
+                        mb.tpTimeSettingTimePicker.setVisibility(View.GONE);
 
-        mb.btnTimeNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mb.tpTimeSettingTimePicker.getVisibility()==View.VISIBLE){
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("y/MM/dd hh:mm");
-                    Calendar calendar =Calendar.getInstance();
-                    calendar.set(datePicker.getYear(),datePicker.getMonth(),datePicker.getDayOfMonth(),
-                            timePicker.getHour(),timePicker.getMinute());
-                    String getDate = dateFormat.format(calendar.getTime());
-                    Toast.makeText(getContext(),getDate,Toast.LENGTH_SHORT).show();
-                    if (mode.equals(START_TIME)){
-                        callBack.startTimeCallback(getDate);
+                        dismiss();
+
                     }else{
-                        callBack.endTimeCallback(getDate);
+                        mb.dpTimeSettingDatePicker.setVisibility(View.GONE);
+                        mb.tpTimeSettingTimePicker.setVisibility(View.VISIBLE);
                     }
-                    mb.dpTimeSettingDatePicker.setVisibility(View.VISIBLE);
-                    mb.tpTimeSettingTimePicker.setVisibility(View.GONE);
 
+                }
+            });
+            mb.btnTimePrevious.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mb.dpTimeSettingDatePicker.getVisibility()==View.VISIBLE){
+                        dismiss();
+                    }
+                    else{
+                        mb.dpTimeSettingDatePicker.setVisibility(View.VISIBLE);
+                        mb.tpTimeSettingTimePicker.setVisibility(View.GONE);
+                    }
+                }
+            });
+
+
+        }else{
+            mb.tpTimeSettingTimePicker.setIs24HourView(true);
+
+            mb.dpTimeSettingDatePicker.setVisibility(View.GONE);
+            mb.tpTimeSettingTimePicker.setVisibility(View.VISIBLE);
+            mb.btnTimeNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String date = mb.tpTimeSettingTimePicker.getHour()+":"+mb.tpTimeSettingTimePicker.getMinute();
+                    callBack.endTimeCallback(date);
                     dismiss();
 
-                }else{
-                    mb.dpTimeSettingDatePicker.setVisibility(View.GONE);
-                    mb.tpTimeSettingTimePicker.setVisibility(View.VISIBLE);
                 }
-
-            }
-        });
-        mb.btnTimePrevious.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mb.dpTimeSettingDatePicker.getVisibility()==View.VISIBLE){
+            });
+            mb.btnTimePrevious.setText("취소");
+            mb.btnTimePrevious.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     dismiss();
                 }
-                else{
-                    mb.dpTimeSettingDatePicker.setVisibility(View.VISIBLE);
-                    mb.tpTimeSettingTimePicker.setVisibility(View.GONE);
-                }
-            }
-        });
+            });
+        }
 
     }
 }

@@ -98,12 +98,8 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
                             getInfo.getDescription(),
                             getInfo.getRoomKey()
                     ));
-
-
                 }
-
             }
-
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
@@ -172,11 +168,11 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
             }
         });
 
-        DateTimeSettingDialog dialog = new DateTimeSettingDialog(getContext());
-        dialog.setDateTimeCallback(this);
         mb.btnSettingStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DateTimeSettingDialog dialog = new DateTimeSettingDialog(getContext());
+                dialog.setDateTimeCallback(WordTestSettingDialog.this);
                 dialog.setMode(DateTimeSettingDialog.START_TIME);
                 dialog.show();
             }
@@ -184,6 +180,8 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
         mb.btnSettingEndTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DateTimeSettingDialog dialog = new DateTimeSettingDialog(getContext());
+                dialog.setDateTimeCallback(WordTestSettingDialog.this);
                 dialog.setMode(DateTimeSettingDialog.END_TIME);
                 dialog.show();
             }
@@ -227,7 +225,9 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
                         mb.etOnlineTestDescription.getText().toString(),
                         rgTestOption,
                         rgTestOrderBy,
+                        Integer.parseInt(mb.etUserCount.getText().toString()),
                         rgTestType
+
                 );
                 pushRef.setValue(userTest);
 

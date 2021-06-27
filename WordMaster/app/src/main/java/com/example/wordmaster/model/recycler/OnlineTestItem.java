@@ -1,5 +1,7 @@
 package com.example.wordmaster.model.recycler;
 
+import java.io.Serializable;
+
 /**
  * @author seungho
  * @since 2021-06-20
@@ -9,10 +11,11 @@ package com.example.wordmaster.model.recycler;
  * email seungho020510@gmail.com
  * description 온라인 테스트 리사이클러뷰 아이템
  **/
-public class OnlineTestItem {
+public class OnlineTestItem implements Serializable {
     String title;
     String host;
     String hostId;
+    String roomKey;
     String password;
     String hashTag;
     int maxCount;
@@ -23,12 +26,13 @@ public class OnlineTestItem {
     int maxUser;
     int viewType;
 
-    public OnlineTestItem(String title, String host, String hostId, String password,
+    public OnlineTestItem(String title, String host, String hostId, String roomKey, String password,
                           String hashTag, int maxCount, String description, String startTime,
                           String endTime, String option,int maxUser,int viewType) {
         this.title = title;
         this.host = host;
         this.hostId = hostId;
+        this.roomKey = roomKey;
         this.password = password;
         this.hashTag = hashTag;
         this.maxCount = maxCount;
@@ -62,6 +66,14 @@ public class OnlineTestItem {
 
     public void setHostId(String hostId) {
         this.hostId = hostId;
+    }
+
+    public String getRoomKey() {
+        return roomKey;
+    }
+
+    public void setRoomKey(String roomKey) {
+        this.roomKey = roomKey;
     }
 
     public String getPassword() {
@@ -135,4 +147,5 @@ public class OnlineTestItem {
     public void setViewType(int viewType) {
         this.viewType = viewType;
     }
+
 }
