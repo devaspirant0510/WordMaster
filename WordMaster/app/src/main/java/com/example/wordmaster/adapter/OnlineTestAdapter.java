@@ -63,6 +63,10 @@ public class OnlineTestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return list.size();
     }
 
+    public OnlineTestItem getItem(int pos){
+        return list.get(pos);
+    }
+
     public void addItem(OnlineTestItem item){
         list.add(item);
     }
@@ -81,16 +85,17 @@ public class OnlineTestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             tvOption = itemView.findViewById(R.id.tv_online_test_option);
             tvMaxUser = itemView.findViewById(R.id.tv_max_user);
 
-            int position = getBindingAdapterPosition();
             btnJoin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    int position = getBindingAdapterPosition();
                     onClickListener.onClickJoin(position);
                 }
             });
             btnMoreInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    int position = getBindingAdapterPosition();
                     onClickListener.onClickViewMore(position);
 
                 }
