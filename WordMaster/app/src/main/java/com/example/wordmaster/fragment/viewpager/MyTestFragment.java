@@ -1,7 +1,6 @@
 package com.example.wordmaster.fragment.viewpager;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.wordmaster.Define.Const;
+import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.Define.Util;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.OnlineTestAdapter;
@@ -38,10 +39,10 @@ public class MyTestFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         activity = (MainActivity) getActivity();
-        SharedPreferences sharedPreferences = activity.getSharedPreferences("LoginInformation", Context.MODE_PRIVATE);
-        spUserId = sharedPreferences.getString("userId","");
-        spUserEmail = sharedPreferences.getString("userEmail","");
-        spUserName = sharedPreferences.getString("userNickName","");
+        spUserId = SharedManger.loadData(Const.SHARED_USER_ID,"");
+        spUserEmail = SharedManger.loadData(Const.SHARED_USER_EMAIL,"");
+        spUserName = SharedManger.loadData(Const.SHARED_USER_NAME,"");
+
         Log.e(TAG, "onAttach: e"+spUserId );
     }
 
@@ -72,13 +73,19 @@ public class MyTestFragment extends Fragment {
         adapter.setOnClickListener(new OnlineTestAdapter.onClickListener() {
             @Override
             public void onClickViewMore(int pos) {
+                OnlineTestItem item = adapter.getItem(pos);
+                listener.onlineTest2testInfo(item);
+                activity.changeFragment(Const.TEST_WAITING_INFO);
 
-                Log.e(TAG, "onClickViewMore: " );
             }
 
             @Override
             public void onClickJoin(int pos) {
-                Log.e(TAG, "onClickJoin: " );
+                Log.e(TAG, "onClickJoin: "+pos );
+                OnlineTestItem item = adapter.getItem(pos);
+                listener.onlineTest2testJoin(item);
+                activity.changeFragment(Const.TEST_WAITING_ROOM);
+
 
             }
         });
@@ -99,11 +106,13 @@ public class MyTestFragment extends Fragment {
             @Override
             public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
                 UserTest userTest= snapshot.getValue(UserTest.class);
+
                 if (userTest!=null){
                     adapter.addItem(new OnlineTestItem(
                             userTest.getTitle(),
                             userTest.getUserName(),
                             userTest.getUserId(),
+                            userTest.getRoomKey(),
                             userTest.getPassword(),
                             "fd",
                             13,
@@ -111,7 +120,7 @@ public class MyTestFragment extends Fragment {
                             userTest.getStartTime(),
                             userTest.getEndTime(),
                             String.valueOf(userTest.getOption()),
-                            3,
+                            userTest.getUserCount(),
                             userTest.getType())
                     );
                     adapter.notifyItemInserted(adapter.getItemCount()-1);
