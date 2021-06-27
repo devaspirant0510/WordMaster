@@ -29,12 +29,15 @@ import com.example.wordmaster.fragment.SearchFragment;
 import com.example.wordmaster.fragment.SearchInfoFragment;
 import com.example.wordmaster.fragment.TestFragment;
 import com.example.wordmaster.fragment.TestResultFragment;
+import com.example.wordmaster.fragment.TestWaitingInfoFragment;
+import com.example.wordmaster.fragment.TestWaitingRoomFragment;
 import com.example.wordmaster.fragment.viewpager.MyDictionaryFragment;
 import com.example.wordmaster.fragment.viewpager.MyTestFragment;
 import com.example.wordmaster.fragment.viewpager.OtherDictionaryFragment;
 import com.example.wordmaster.model.firebase.UserDictionary;
 import com.example.wordmaster.model.recycler.DictionaryListItem;
 import com.example.wordmaster.model.recycler.DictionaryWordItem;
+import com.example.wordmaster.model.recycler.OnlineTestItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
     private BottomSheetCallBack bottomSheetCallBack;
     private DictionaryFragmentCallBack dictionaryListCallBack;
     private InfoFragmentDialogCallback infoFragmentDialogCallback;
+    private OnlineTestItem onlineTest2Join,onlineTest2Info;
     // 단어장에서 단어장 세부로 이동할때 넘길 객체
     private DictionaryListItem Dict2InfoItem;
     private static final String TAG = "MainActivity";
@@ -238,13 +242,30 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
                 dictionaryInfoFragment.setArguments(otherDict2Info);
                 viewState = showFragment();
                 break;
-
+            case Const.TEST_WAITING_ROOM:
+                TestWaitingRoomFragment testWaitingRoomFragment  = new TestWaitingRoomFragment();
+                Bundle args = new Bundle();
+                fr = testWaitingRoomFragment;
+                args.putSerializable("item",onlineTest2Join);
+                testWaitingRoomFragment.setArguments(args);
+                viewState = showFragment();
+                break;
+            case Const.TEST_WAITING_INFO:
+                TestWaitingInfoFragment testWaitingInfoFragment  = new TestWaitingInfoFragment();
+                testWaitingInfoFragment.setListener(this);
+                Bundle test2info = new Bundle();
+                test2info.putSerializable("item",onlineTest2Info);
+                testWaitingInfoFragment.setArguments(test2info);
+                fr = testWaitingInfoFragment;
+                viewState = showFragment();
+                break;
 
             default:
                 break;
         }
         if (viewState == Const.SHOW_FRAGMENT){
             ft.replace(R.id.frame,fr);
+            ft.addToBackStack(null);
             ft.commit();
         }
     }
@@ -318,5 +339,16 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
         otherDict2Info.putString("userName",userName);
 
 
+    }
+
+    @Override
+    public void onlineTest2testJoin(OnlineTestItem item) {
+        this.onlineTest2Join = item;
+        Log.e(TAG, "onlineTest2testJoin: "+item.getDescription());
+    }
+
+    @Override
+    public void onlineTest2testInfo(OnlineTestItem item) {
+        this.onlineTest2Info = item;
     }
 }
