@@ -1,11 +1,14 @@
 package com.example.wordmaster.fragment.viewpager;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -57,14 +60,40 @@ public class MyTestFragment extends Fragment {
 
     }
 
+    @Override
+    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        init();
+        readDB();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        init();
-        readDB();
         return mb.getRoot();
 
 
+    }
+    private void joinDialog(OnlineTestItem item){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+        dialog.setTitle("참여하시겠습니까?");
+        dialog.setPositiveButton("참여", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                listener.onlineTest2testJoin(item);
+                activity.changeFragment(Const.TEST_WAITING_ROOM);
+                Toast.makeText(getContext(),"테스트에 참가하였습니다.", Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
+        dialog.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
 
@@ -74,6 +103,7 @@ public class MyTestFragment extends Fragment {
             @Override
             public void onClickViewMore(int pos) {
                 OnlineTestItem item = adapter.getItem(pos);
+                Log.e(TAG, "onClickViewMore: "+item.getTestRoomKey() );
                 listener.onlineTest2testInfo(item);
                 activity.changeFragment(Const.TEST_WAITING_INFO);
 
@@ -83,8 +113,7 @@ public class MyTestFragment extends Fragment {
             public void onClickJoin(int pos) {
                 Log.e(TAG, "onClickJoin: "+pos );
                 OnlineTestItem item = adapter.getItem(pos);
-                listener.onlineTest2testJoin(item);
-                activity.changeFragment(Const.TEST_WAITING_ROOM);
+                joinDialog(item);
 
 
             }
@@ -106,8 +135,8 @@ public class MyTestFragment extends Fragment {
             @Override
             public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
                 UserTest userTest= snapshot.getValue(UserTest.class);
-
                 if (userTest!=null){
+                    Log.e(TAG, "onChildAdded: "+userTest.getTestRoomKey() );
                     adapter.addItem(new OnlineTestItem(
                             userTest.getTitle(),
                             userTest.getUserName(),
@@ -121,8 +150,10 @@ public class MyTestFragment extends Fragment {
                             userTest.getEndTime(),
                             String.valueOf(userTest.getOption()),
                             userTest.getUserCount(),
+                            userTest.getTestRoomKey(),
                             userTest.getType())
                     );
+                    Log.e(TAG,""+adapter.getItem(0).getTestRoomKey());
                     adapter.notifyItemInserted(adapter.getItemCount()-1);
                 }
 
