@@ -23,6 +23,7 @@ import com.example.wordmaster.dialog.custom.DateTimeSettingDialog;
 import com.example.wordmaster.model.etc.SpinnerItem;
 import com.example.wordmaster.model.firebase.UserDictionary;
 import com.example.wordmaster.model.firebase.UserTest;
+import com.example.wordmaster.model.recycler.OnlineTestMemberItem;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,6 +31,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
 
 public class WordTestSettingDialog extends BottomSheetDialogFragment implements DateTimeSettingDialog.DateTimeCallBack{
     private static final String TAG = "WordTestSettingDialog";
@@ -214,6 +217,14 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
                 String roomKey=  pushRef.getKey();
                 // 현재 스피너에서 선택된 아이템 가져옴
                 SpinnerItem item = (SpinnerItem)mb.wordSpinner.getItemAtPosition(mb.wordSpinner.getSelectedItemPosition());
+                // 단어테스트 멤버 초기값으로 자기 자신을 추가
+                ArrayList<OnlineTestMemberItem> list = new ArrayList<>();
+                list.add(new OnlineTestMemberItem(
+                        SharedManger.loadData(Const.SHARED_USER_ID,""),
+                        SharedManger.loadData(Const.SHARED_USER_NAME,""),
+                        SharedManger.loadData(Const.SHARED_USER_PROFILE_URI,""),
+                        "1등 할고야"
+                ));
                 UserTest userTest = new UserTest(
                         mb.etOnlineTestName.getText().toString(),
                         SharedManger.loadData(Const.SHARED_USER_ID,""),
@@ -226,8 +237,9 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
                         rgTestOption,
                         rgTestOrderBy,
                         Integer.parseInt(mb.etUserCount.getText().toString()),
-                        rgTestType
-
+                        rgTestType,
+                        list,
+                        roomKey
                 );
                 pushRef.setValue(userTest);
 
