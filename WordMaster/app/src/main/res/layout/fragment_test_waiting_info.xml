@@ -90,8 +90,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_test_info_member_list"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

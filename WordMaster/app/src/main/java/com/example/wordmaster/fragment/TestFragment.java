@@ -71,6 +71,7 @@ public class TestFragment extends Fragment {
             limitTime = getArgs.getString("testLimitTime", "");
             rgDictType = getArgs.getInt("rgTestType", -1);
             rgOption = getArgs.getInt("rgTestTimeOption", -1);
+
             myTestUserid = getArgs.getString("userId", "");
             myTestRoomKey = getArgs.getString("roomKey", "");
             myTestRgTestType = getArgs.getInt("testOption", 0);
@@ -182,11 +183,11 @@ public class TestFragment extends Fragment {
     }
 
     public void readDBListItem() {
-        Log.e(TAG, "readDBListItem: "+rgOption+"" );
         Util.myRefWord.child(myTestUserid).child(myTestRoomKey).child("list").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 for (DataSnapshot data:snapshot.getChildren()) {
+                    Log.e(TAG, "onDataChange: "+data );
                     DictionaryWordItem item = data.getValue(DictionaryWordItem.class);
                     if (item!=null){
                         if(myTestRgTestType == Const.KOR2ENG){

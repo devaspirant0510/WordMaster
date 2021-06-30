@@ -12,11 +12,17 @@ import androidx.fragment.app.Fragment;
 
 import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.Define.SharedManger;
-import com.example.wordmaster.R;
+import com.example.wordmaster.Define.Util;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.RankingAdapter;
 import com.example.wordmaster.databinding.FragmentHomeBinding;
+import com.example.wordmaster.model.firebase.UserAccount;
 import com.example.wordmaster.model.recycler.RankingItem;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
 
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding mb;
@@ -44,18 +50,48 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mb = FragmentHomeBinding.inflate(getLayoutInflater());
-        toolbarSetting();
-        init();
         return mb.getRoot();
     }
 
+    @Override
+    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        toolbarSetting();
+        init();
+
+    }
+
+    private void readDB(RankingAdapter adapter){
+        Util.myRefUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                for (DataSnapshot item:snapshot.getChildren()) {
+                    UserAccount account = item.getValue(UserAccount.class);
+                    adapter.addItem(new RankingItem(
+                            account.getUserName(),
+                            adapter.getItemCount(),
+                            "",
+                            "1등한다.",
+                            account.getUserProfileUri()
+                    ));
+                    adapter.notifyItemInserted(adapter.getItemCount()-1);
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+    }
     private void init() {
         mb.tvWelcomeMessage.setText(SharedManger.loadData(Const.SHARED_USER_NAME,"") +"님 환영합니다.");
         RankingAdapter adapter = new RankingAdapter(getContext());
-        adapter.addItem(new RankingItem("3.14썬",1,"lsh0510","강력하다",R.drawable.ic_launcher_foreground));
-        adapter.addItem(new RankingItem("유클립트",2,"xkuq1234","유클립트 TV 구독과 좋아요",R.drawable.ic_launcher_foreground));
-        adapter.addItem(new RankingItem("황홀한 러닝커브",3,"seungho020510","딥러닝 잘해지고 싶어요",R.drawable.ic_launcher_foreground));
         mb.rankingRecyclerView.setAdapter(adapter);
-
+        readDB(adapter);
     }
 }

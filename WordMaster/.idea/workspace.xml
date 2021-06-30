@@ -40,15 +40,10 @@
   <component name="ChangeListManager">
     <list default="true" id="0b7062bc-63f3-4bc1-8be4-f7c10fa19572" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/viewpager/MyTestFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/viewpager/MyTestFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/viewpager/OnlineTestFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/viewpager/OnlineTestFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/model/firebase/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/model/firebase/UserTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/model/recycler/OnlineTestItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/model/recycler/OnlineTestItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/btn_shape.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/btn_shape.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_bottom_sheet_set_word_test.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_bottom_sheet_set_word_test.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_time_setting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_time_setting.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_test_waiting_room.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_test_waiting_room.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/activities/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/activities/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/adapter/RankingAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/adapter/RankingAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/callback/SendDataToActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/callback/SendDataToActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/bottomsheet/WordTestSettingDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/bottomsheet/WordTestSettingDialog.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,8 +96,8 @@
         <option value="Interface" />
         <option value="valueResourceFile" />
         <option value="resourceFile" />
-        <option value="layoutResourceFile" />
         <option value="Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -303,10 +298,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1264" y="401" key="#com.intellij.codeInsight.template.impl.EditVariableDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1623580527094" />
-    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1624773976683">
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1625038638579">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1624773976683" />
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1625038638579" />
     <state x="724" y="374" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1622382727609">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -315,10 +310,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="506" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1622095041783" />
-    <state x="530" y="402" key="AndroidCreateResourceFileDialog" timestamp="1624762015066">
+    <state x="530" y="402" key="AndroidCreateResourceFileDialog" timestamp="1625033996710">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="530" y="402" key="AndroidCreateResourceFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1624762015066" />
+    <state x="530" y="402" key="AndroidCreateResourceFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1625033996710" />
     <state x="805" y="292" key="AndroidCreateXmlResourceDialog" timestamp="1623745050667">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -327,26 +322,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1623721074780" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1624541894232">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1624777962113">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1624541894232" />
-    <state width="1877" height="-55" key="GridCell.Tab.0.bottom" timestamp="1624776613889">
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1624777962113" />
+    <state width="1877" height="275" key="GridCell.Tab.0.bottom" timestamp="1625041986061">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="-55" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1624776613889" />
-    <state width="1877" height="-55" key="GridCell.Tab.0.center" timestamp="1624776613889">
+    <state width="1877" height="275" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1625041986061" />
+    <state width="1877" height="275" key="GridCell.Tab.0.center" timestamp="1625041986060">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="-55" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1624776613889" />
-    <state width="1877" height="-55" key="GridCell.Tab.0.left" timestamp="1624776613889">
+    <state width="1877" height="275" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1625041986060" />
+    <state width="1877" height="275" key="GridCell.Tab.0.left" timestamp="1625041986060">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="-55" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1624776613889" />
-    <state width="1877" height="-55" key="GridCell.Tab.0.right" timestamp="1624776613889">
+    <state width="1877" height="275" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1625041986060" />
+    <state width="1877" height="275" key="GridCell.Tab.0.right" timestamp="1625041986060">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="-55" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1624776613889" />
+    <state width="1877" height="275" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1625041986060" />
     <state x="750" y="168" key="SettingsEditor" timestamp="1624620642792">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -5,9 +5,9 @@ public class RankingItem {
     int ranking;
     String id;
     String message;
-    int imageView;
+    String imageView;
 
-    public RankingItem(String user, int ranking, String id, String message, int imageView) {
+    public RankingItem(String user, int ranking, String id, String message, String imageView) {
         this.user = user;
         this.ranking = ranking;
         this.id = id;
@@ -47,11 +47,11 @@ public class RankingItem {
         this.message = message;
     }
 
-    public int getImageView() {
+    public String getImageView() {
         return imageView;
     }
 
-    public void setImageView(int imageView) {
+    public void setImageView(String imageView) {
         this.imageView = imageView;
     }
 }
