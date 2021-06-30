@@ -100,7 +100,9 @@ public class DateTimeSettingDialog extends Dialog {
 
         }else{
             mb.tpTimeSettingTimePicker.setIs24HourView(true);
-
+            mb.tpTimeSettingTimePicker.setHour(0);
+            mb.tpTimeSettingTimePicker.setMinute(0);
+            mb.tvTimeTitle.setText("시험시간 설정");
             mb.dpTimeSettingDatePicker.setVisibility(View.GONE);
             mb.tpTimeSettingTimePicker.setVisibility(View.VISIBLE);
             mb.btnTimeNext.setOnClickListener(new View.OnClickListener() {
