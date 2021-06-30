@@ -1,5 +1,9 @@
 package com.example.wordmaster.model.firebase;
 
+import com.example.wordmaster.model.recycler.OnlineTestMemberItem;
+
+import java.util.ArrayList;
+
 /**
  * @author seungho
  * @since 2021-06-23
@@ -22,13 +26,15 @@ public class UserTest {
     private int orderBy;
     private int type;
     private int userCount;
+    private ArrayList<OnlineTestMemberItem> memberList;
+    private String testRoomKey;
     public UserTest(){
 
     }
 
     public UserTest(String title, String userId, String userName, String roomKey, String startTime,
                     String endTime,String password, String description,int option, int orderBy,
-                    int userCount,int type) {
+                    int userCount,int type,ArrayList<OnlineTestMemberItem> memberList,String testRoomKey) {
         this.title = title;
         this.userId = userId;
         this.userName = userName;
@@ -41,6 +47,8 @@ public class UserTest {
         this.orderBy = orderBy;
         this.userCount = userCount;
         this.type = type;
+        this.memberList = memberList;
+        this.testRoomKey = testRoomKey;
     }
 
     public String getTitle() {
@@ -139,4 +147,19 @@ public class UserTest {
         this.type = type;
     }
 
+    public ArrayList<OnlineTestMemberItem> getMemberList() {
+        return memberList;
+    }
+
+    public void setMemberList(ArrayList<OnlineTestMemberItem> memberList) {
+        this.memberList = memberList;
+    }
+
+    public String getTestRoomKey() {
+        return testRoomKey;
+    }
+
+    public void setTestRoomKey(String testRoomKey) {
+        this.testRoomKey = testRoomKey;
+    }
 }

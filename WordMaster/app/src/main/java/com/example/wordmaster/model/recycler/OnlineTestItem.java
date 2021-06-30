@@ -24,11 +24,12 @@ public class OnlineTestItem implements Serializable {
     String endTime;
     String option;
     int maxUser;
+    String testRoomKey;
     int viewType;
 
     public OnlineTestItem(String title, String host, String hostId, String roomKey, String password,
                           String hashTag, int maxCount, String description, String startTime,
-                          String endTime, String option,int maxUser,int viewType) {
+                          String endTime, String option,int maxUser,String testRoomKey,int viewType) {
         this.title = title;
         this.host = host;
         this.hostId = hostId;
@@ -41,6 +42,7 @@ public class OnlineTestItem implements Serializable {
         this.endTime = endTime;
         this.option = option;
         this.maxUser = maxUser;
+        this.testRoomKey = testRoomKey;
         this.viewType = viewType;
     }
 
@@ -138,6 +140,14 @@ public class OnlineTestItem implements Serializable {
 
     public void setMaxUser(int maxUser) {
         this.maxUser = maxUser;
+    }
+
+    public String getTestRoomKey() {
+        return testRoomKey;
+    }
+
+    public void setTestRoomKey(String testRoomKey) {
+        this.testRoomKey = testRoomKey;
     }
 
     public int getViewType() {
