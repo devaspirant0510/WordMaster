@@ -244,6 +244,7 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
                 break;
             case Const.TEST_WAITING_ROOM:
                 TestWaitingRoomFragment testWaitingRoomFragment  = new TestWaitingRoomFragment();
+                testWaitingRoomFragment.setOnWaitingRoomListener(this);
                 Bundle args = new Bundle();
                 fr = testWaitingRoomFragment;
                 args.putSerializable("item",onlineTest2Join);
@@ -284,16 +285,6 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
         this.Dict2InfoItem = item;
     }
 
-    @Override
-    public void sendTestingData(int pos, int maxCount, String limitTime, int rgTestType, int rgTestTimeOption, String host, String title) {
-
-        this.testingLimitTime = limitTime;
-        this.testingMaxCount = maxCount;
-        this.testingRgOption = rgTestTimeOption;
-        this.testingRgType = rgTestType;
-        this.testingTitle = title;
-        this.testingHost = host;
-    }
 
     private String myTestUserid,myTestRoomKey,myTestHost,myTestTitle;
     private int myTestMaxCount,myTestRgTestType;
