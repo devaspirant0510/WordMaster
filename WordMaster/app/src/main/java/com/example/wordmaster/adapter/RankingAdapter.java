@@ -1,6 +1,8 @@
 package com.example.wordmaster.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.wordmaster.R;
 import com.example.wordmaster.model.recycler.RankingItem;
 
@@ -61,6 +64,9 @@ public class RankingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             id = itemView.findViewById(R.id.tv_user_id);
             message = itemView.findViewById(R.id.tv_user_message);
             imageView = itemView.findViewById(R.id.iv_profile);
+            imageView.setBackground(new ShapeDrawable(new OvalShape()));
+            imageView.setClipToOutline(true);
+
         }
         public void setItem(int position){
             RankingItem item = list.get(position);
@@ -68,7 +74,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             ranking.setText(String.valueOf(item.getRanking()));
             id.setText(item.getId());
             message.setText(item.getMessage());
-            imageView.setImageResource(item.getImageView());
+            Glide.with(itemView.getContext()).load(item.getImageView()).into(imageView);
 
 
         }
