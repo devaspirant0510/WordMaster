@@ -13,13 +13,14 @@ public class UserAccount  {
     String userBirth;
     private String userProfileUri;
     private ArrayList<String> userDownloadDict;
+    String joinDate;
 
     public UserAccount(){
 
     }
 
     public UserAccount(String userName, String userEmail, String userGender, String userAge,
-                       String userBirth, String userProfileUri,ArrayList<String> userDownloadDict) {
+                       String userBirth, String userProfileUri,ArrayList<String> userDownloadDict,String joinDate) {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userGender = userGender;
@@ -27,6 +28,7 @@ public class UserAccount  {
         this.userBirth = userBirth;
         this.userProfileUri = userProfileUri;
         this.userDownloadDict = userDownloadDict;
+        this.joinDate = joinDate;
     }
 
     public String getUserName() {
@@ -75,5 +77,21 @@ public class UserAccount  {
 
     public void setUserProfileUri(String userProfileUri) {
         this.userProfileUri = userProfileUri;
+    }
+
+    public ArrayList<String> getUserDownloadDict() {
+        return userDownloadDict;
+    }
+
+    public void setUserDownloadDict(ArrayList<String> userDownloadDict) {
+        this.userDownloadDict = userDownloadDict;
+    }
+
+    public String getJoinDate() {
+        return joinDate;
+    }
+
+    public void setJoinDate(String joinDate) {
+        this.joinDate = joinDate;
     }
 }
