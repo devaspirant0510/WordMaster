@@ -34,7 +34,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class WordTestSettingDialog extends BottomSheetDialogFragment implements DateTimeSettingDialog.DateTimeCallBack{
+public class WordTestSettingDialog extends BottomSheetDialogFragment implements DateTimeSettingDialog.DateTimeCallBack {
     private static final String TAG = "WordTestSettingDialog";
     private static final int TEST_ORDER_BY_LINEAR = 1;
     private static final int TEST_ORDER_BY_RANDOM = 2;
@@ -48,7 +48,7 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
     private int dictMaxCount;
 
 
-    private int rgTestOrderBy = 0,rgTestType = 0, rgTestOption = 0;
+    private int rgTestOrderBy = 0, rgTestType = 0, rgTestOption = 0;
 
     @Override
     public void startTimeCallback(String date) {
@@ -87,22 +87,24 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
     /**
      * 스피너에 추가할 내 단어장 모두 불러옴
      */
-    private void loadSpinnerWordList(ArrayAdapter<SpinnerItem> adapter){
-        String userId = SharedManger.loadData(Const.SHARED_USER_ID,"");
+    private void loadSpinnerWordList(ArrayAdapter<SpinnerItem> adapter) {
+        String userId = SharedManger.loadData(Const.SHARED_USER_ID, "");
         Util.myRefWord.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                for(DataSnapshot item:snapshot.getChildren()){
-                    UserDictionary getInfo=  item.getValue(UserDictionary.class);
-                    Log.e(TAG, "onDataChange: "+getInfo.getTitle() );
+                for (DataSnapshot item : snapshot.getChildren()) {
+                    UserDictionary getInfo = item.getValue(UserDictionary.class);
+                    Log.e(TAG, "onDataChange: " + getInfo.getTitle());
                     adapter.add(new SpinnerItem(
                             getInfo.getTitle(),
+                            String.valueOf(getInfo.getCurrentCount()),
                             String.valueOf(getInfo.getMaxCount()),
                             getInfo.getDescription(),
                             getInfo.getRoomKey()
                     ));
                 }
             }
+
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
@@ -111,16 +113,17 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
         adapter.notifyDataSetChanged();
 
     }
+
     @SuppressLint("NonConstantResourceId")
     private void init() {
-        CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(getContext(),R.layout.spinner_custom_item);
+        CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(getContext(), R.layout.spinner_custom_item);
         loadSpinnerWordList(adapter);
         mb.wordSpinner.setAdapter(adapter);
 
         mb.rgTestTestOption.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
+                switch (checkedId) {
                     case R.id.test_option_linear:
                         rgTestOrderBy = TEST_ORDER_BY_LINEAR;
                         break;
@@ -130,14 +133,14 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
                     default:
                         break;
                 }
-                Log.e(TAG, "onCheckedChanged: "+rgTestOrderBy );
+                Log.e(TAG, "onCheckedChanged: " + rgTestOrderBy);
 
             }
         });
         mb.rgTestType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
+                switch (checkedId) {
                     case R.id.kor2eng:
                         rgTestType = TEST_TYPE_KOR2ENG;
                         break;
@@ -150,13 +153,13 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
                     default:
                         break;
                 }
-                Log.e(TAG, "onCheckedChanged: "+rgTestType );
+                Log.e(TAG, "onCheckedChanged: " + rgTestType);
             }
         });
         mb.rgTestPrivatePublic.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
+                switch (checkedId) {
                     case R.id.r_btn_private:
                         rgTestOption = TEST_PRIVATE;
                         break;
@@ -166,7 +169,7 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
                     default:
                         break;
                 }
-                Log.e(TAG, "onCheckedChanged: "+rgTestOption );
+                Log.e(TAG, "onCheckedChanged: " + rgTestOption);
 
             }
         });
@@ -193,7 +196,7 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
             @Override
             public void onClick(View v) {
                 int getUserCount = Integer.parseInt(mb.etUserCount.getText().toString());
-                getUserCount+=1;
+                getUserCount += 1;
                 mb.etUserCount.setText(String.valueOf(getUserCount));
             }
         });
@@ -201,10 +204,10 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
             @Override
             public void onClick(View v) {
                 int getUserCount = Integer.parseInt(mb.etUserCount.getText().toString());
-                if (getUserCount==1){
-                    Toast.makeText(getContext(),"최소 1명 이상이여야 됩니다.",Toast.LENGTH_SHORT).show();
-                }else{
-                    getUserCount-=1;
+                if (getUserCount == 1) {
+                    Toast.makeText(getContext(), "최소 1명 이상이여야 됩니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    getUserCount -= 1;
                     mb.etUserCount.setText(String.valueOf(getUserCount));
                 }
             }
@@ -214,21 +217,21 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
             @Override
             public void onClick(View v) {
                 DatabaseReference pushRef = Util.myRefTest.push();
-                String roomKey=  pushRef.getKey();
+                String roomKey = pushRef.getKey();
                 // 현재 스피너에서 선택된 아이템 가져옴
-                SpinnerItem item = (SpinnerItem)mb.wordSpinner.getItemAtPosition(mb.wordSpinner.getSelectedItemPosition());
+                SpinnerItem item = (SpinnerItem) mb.wordSpinner.getItemAtPosition(mb.wordSpinner.getSelectedItemPosition());
                 // 단어테스트 멤버 초기값으로 자기 자신을 추가
                 ArrayList<OnlineTestMemberItem> list = new ArrayList<>();
                 list.add(new OnlineTestMemberItem(
-                        SharedManger.loadData(Const.SHARED_USER_ID,""),
-                        SharedManger.loadData(Const.SHARED_USER_NAME,""),
-                        SharedManger.loadData(Const.SHARED_USER_PROFILE_URI,""),
+                        SharedManger.loadData(Const.SHARED_USER_ID, ""),
+                        SharedManger.loadData(Const.SHARED_USER_NAME, ""),
+                        SharedManger.loadData(Const.SHARED_USER_PROFILE_URI, ""),
                         "1등 할고야"
                 ));
                 UserTest userTest = new UserTest(
                         mb.etOnlineTestName.getText().toString(),
-                        SharedManger.loadData(Const.SHARED_USER_ID,""),
-                        SharedManger.loadData(Const.SHARED_USER_NAME,""),
+                        SharedManger.loadData(Const.SHARED_USER_ID, ""),
+                        SharedManger.loadData(Const.SHARED_USER_NAME, ""),
                         item.getRoomKey(),
                         mb.btnSettingStartTime.getText().toString(),
                         mb.btnSettingEndTime.getText().toString(),
@@ -242,9 +245,15 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
                         roomKey
                 );
                 pushRef.setValue(userTest);
+                SpinnerItem spinnerItem = (SpinnerItem) mb.wordSpinner.getSelectedItem();
+                Log.e(TAG, "onClick: " + spinnerItem.getCurrentCount() + " " + spinnerItem.getMaxCount());
+                Log.e(TAG, "onClick: " + item.getDescription());
+                if (spinnerItem.getCurrentCount() == spinnerItem.getMaxCount()) {
+                    dismiss();
+                } else {
+                    Toast.makeText(getContext(), "현재 단어장을 전부 채워주세요", Toast.LENGTH_SHORT).show();
 
-                Log.e(TAG, "onClick: "+item.getDescription() );
-                dismiss();
+                }
 
             }
         });
