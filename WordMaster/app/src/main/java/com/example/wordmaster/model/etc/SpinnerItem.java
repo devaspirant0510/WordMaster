@@ -11,12 +11,14 @@ package com.example.wordmaster.model.etc;
  **/
 public class SpinnerItem {
     private String title;
+    private String currentCount;
     private String maxCount;
     private String description;
     private String roomKey;
 
-    public SpinnerItem(String title, String maxCount, String description,String roomKey) {
+    public SpinnerItem(String title, String currentCount,String maxCount, String description,String roomKey) {
         this.title = title;
+        this.currentCount = currentCount;
         this.maxCount = maxCount;
         this.description = description;
         this.roomKey = roomKey;
@@ -28,6 +30,14 @@ public class SpinnerItem {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getCurrentCount() {
+        return currentCount;
+    }
+
+    public void setCurrentCount(String currentCount) {
+        this.currentCount = currentCount;
     }
 
     public String getMaxCount() {

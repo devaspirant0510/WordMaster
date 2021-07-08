@@ -35,6 +35,7 @@ import com.example.wordmaster.dialog.bottomsheet.MyTestOptionBottomSheetDialog;
 import com.example.wordmaster.dialog.custom.CreateWordDialog;
 import com.example.wordmaster.dialog.custom.DictionaryUpdateDialog;
 import com.example.wordmaster.model.recycler.DictionaryWordItem;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -207,12 +208,12 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
 
 
                     }
-
+                    // 삭제 버튼을 눌렀을때
                     @Override
                     public void setOnClickDeleteButton() {
                         setMode = "delete";
                         deleteFireBaseData(pos);
-
+                        Util.myRefWord.child(spUserId).child(roomKey).child("currentCount").setValue(adapter.getItemCount());
                         mb.progressState.setText(adapter.getItemCount() + "/" + dictCount);
 
                     }
@@ -239,10 +240,18 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
                             public void onSubmitClick(String eng, String kor, int mod) {
                                 DatabaseReference pushRef = Util.myRefWord.child(spUserId).child(roomKey).child(Const.FIREBASE_REFERENCE_WORD_LIST)
                                         .push();
-                                String roomKey = pushRef.getKey();
+                                String wordRoomKey = pushRef.getKey();
                                 DictionaryWordItem item = new DictionaryWordItem(kor, eng);
-                                item.setRoomKey(roomKey);
-                                pushRef.setValue(item);
+                                item.setRoomKey(wordRoomKey);
+                                pushRef.setValue(item).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.e(TAG, "onSuccess: "+kor+" "+eng );
+                                        if(roomKey!=null){
+                                            Util.myRefWord.child(spUserId).child(roomKey).child("currentCount").setValue(adapter.getItemCount());
+                                        }
+                                    }
+                                });
                             }
                         });
                         dialog.show();
