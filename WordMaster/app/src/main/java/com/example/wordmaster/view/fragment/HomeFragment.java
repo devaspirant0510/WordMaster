@@ -16,8 +16,6 @@ import com.example.wordmaster.Define.Util;
 import com.example.wordmaster.activities.MainActivity;
 import com.example.wordmaster.adapter.RankingAdapter;
 import com.example.wordmaster.databinding.FragmentHomeBinding;
-import com.example.wordmaster.model.firebase.UserAccount;
-import com.example.wordmaster.model.recycler.RankingItem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -66,15 +64,15 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 for (DataSnapshot item:snapshot.getChildren()) {
-                    UserAccount account = item.getValue(UserAccount.class);
-                    adapter.addItem(new RankingItem(
-                            account.getUserName(),
-                            adapter.getItemCount(),
-                            "",
-                            "1등한다.",
-                            account.getUserProfileUri()
-                    ));
-                    adapter.notifyItemInserted(adapter.getItemCount()-1);
+//                    UserAccount account = item.getValue(UserAccount.class);
+//                    adapter.addItem(new RankingItem(
+//                            account.getUserName(),
+//                            adapter.getItemCount(),
+//                            "",
+//                            "1등한다.",
+//                            account.getUserProfileUri()
+//                    ));
+//                    adapter.notifyItemInserted(adapter.getItemCount()-1);
 
 
                 }
