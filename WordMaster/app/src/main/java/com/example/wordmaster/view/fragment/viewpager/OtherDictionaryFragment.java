@@ -1,4 +1,4 @@
-package com.example.wordmaster.fragment.viewpager;
+package com.example.wordmaster.view.fragment.viewpager;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.Define.Util;
-import com.example.wordmaster.activities.MainActivity;
+import com.example.wordmaster.view.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryListAdapter;
 import com.example.wordmaster.callback.DictionaryListCallBack;
 import com.example.wordmaster.callback.SendDataToActivity;

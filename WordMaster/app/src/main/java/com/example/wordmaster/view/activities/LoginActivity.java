@@ -1,4 +1,4 @@
-package com.example.wordmaster.activities;
+package com.example.wordmaster.view.activities;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -19,7 +19,7 @@ import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.Define.Util;
 import com.example.wordmaster.R;
 import com.example.wordmaster.databinding.ActivityLoginBinding;
-import com.example.wordmaster.dialog.bottomsheet.LoginSuccessSheetDialog;
+import com.example.wordmaster.view.dialog.bottomsheet.LoginSuccessSheetDialog;
 import com.example.wordmaster.model.firebase.UserAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;

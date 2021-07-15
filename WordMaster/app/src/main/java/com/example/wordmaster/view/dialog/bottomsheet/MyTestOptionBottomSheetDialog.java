@@ -1,4 +1,4 @@
-package com.example.wordmaster.dialog.bottomsheet;
+package com.example.wordmaster.view.dialog.bottomsheet;
 
 import android.content.Context;
 import android.os.Bundle;

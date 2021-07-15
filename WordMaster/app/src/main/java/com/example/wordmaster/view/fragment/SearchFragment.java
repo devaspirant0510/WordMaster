@@ -1,4 +1,4 @@
-package com.example.wordmaster.fragment;
+package com.example.wordmaster.view.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.Define.Util;
-import com.example.wordmaster.activities.MainActivity;
+import com.example.wordmaster.view.activities.MainActivity;
 import com.example.wordmaster.adapter.SearchAdapter;
 import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.databinding.FragmentSearchBinding;

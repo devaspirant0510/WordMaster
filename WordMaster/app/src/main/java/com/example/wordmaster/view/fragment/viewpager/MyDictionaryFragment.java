@@ -1,4 +1,4 @@
-package com.example.wordmaster.fragment.viewpager;
+package com.example.wordmaster.view.fragment.viewpager;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,15 +17,15 @@ import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.Define.Util;
 import com.example.wordmaster.R;
-import com.example.wordmaster.activities.MainActivity;
+import com.example.wordmaster.view.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryListAdapter;
 import com.example.wordmaster.callback.BottomSheetCallBack;
 import com.example.wordmaster.callback.DialogUpdateCallback;
 import com.example.wordmaster.callback.DictionaryListCallBack;
 import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.databinding.FragmentDictionaryBinding;
-import com.example.wordmaster.dialog.bottomsheet.CreateDictionarySheetDialog;
-import com.example.wordmaster.dialog.custom.DictionaryUpdateDialog;
+import com.example.wordmaster.view.dialog.bottomsheet.CreateDictionarySheetDialog;
+import com.example.wordmaster.view.dialog.custom.DictionaryUpdateDialog;
 import com.example.wordmaster.model.firebase.UserDictionary;
 import com.example.wordmaster.model.recycler.DictionaryListItem;
 import com.google.firebase.database.ChildEventListener;

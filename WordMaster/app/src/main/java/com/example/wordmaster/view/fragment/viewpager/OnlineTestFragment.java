@@ -1,4 +1,4 @@
-package com.example.wordmaster.fragment.viewpager;
+package com.example.wordmaster.view.fragment.viewpager;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

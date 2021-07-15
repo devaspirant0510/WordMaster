@@ -1,4 +1,4 @@
-package com.example.wordmaster.fragment;
+package com.example.wordmaster.view.fragment;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -24,16 +24,16 @@ import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.Define.Util;
 import com.example.wordmaster.R;
-import com.example.wordmaster.activities.MainActivity;
+import com.example.wordmaster.view.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryInfoAdapter;
 import com.example.wordmaster.callback.DialogUpdateCallback;
 import com.example.wordmaster.callback.DictionaryFragmentCallBack;
 import com.example.wordmaster.callback.DictionaryListCallBack;
 import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.databinding.FragmentDictionaryInfoBinding;
-import com.example.wordmaster.dialog.bottomsheet.MyTestOptionBottomSheetDialog;
-import com.example.wordmaster.dialog.custom.CreateWordDialog;
-import com.example.wordmaster.dialog.custom.DictionaryUpdateDialog;
+import com.example.wordmaster.view.dialog.bottomsheet.MyTestOptionBottomSheetDialog;
+import com.example.wordmaster.view.dialog.custom.CreateWordDialog;
+import com.example.wordmaster.view.dialog.custom.DictionaryUpdateDialog;
 import com.example.wordmaster.model.recycler.DictionaryWordItem;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;

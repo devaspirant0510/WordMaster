@@ -1,4 +1,4 @@
-package com.example.wordmaster.fragment.viewpager;
+package com.example.wordmaster.view.fragment.viewpager;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,11 +17,11 @@ import androidx.fragment.app.Fragment;
 import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.Define.Util;
-import com.example.wordmaster.activities.MainActivity;
+import com.example.wordmaster.view.activities.MainActivity;
 import com.example.wordmaster.adapter.OnlineTestAdapter;
 import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.databinding.FragmentMyTestBinding;
-import com.example.wordmaster.dialog.bottomsheet.WordTestSettingDialog;
+import com.example.wordmaster.view.dialog.bottomsheet.WordTestSettingDialog;
 import com.example.wordmaster.model.firebase.UserTest;
 import com.example.wordmaster.model.recycler.OnlineTestItem;
 import com.google.firebase.database.ChildEventListener;

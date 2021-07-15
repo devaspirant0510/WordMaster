@@ -1,4 +1,4 @@
-package com.example.wordmaster.fragment;
+package com.example.wordmaster.view.fragment;
 
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
@@ -19,7 +19,7 @@ import com.example.wordmaster.Define.GlideChip;
 import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.Define.Util;
 import com.example.wordmaster.databinding.FragmentSearchInfoBinding;
-import com.example.wordmaster.dialog.bottomsheet.PreviewWordListDialog;
+import com.example.wordmaster.view.dialog.bottomsheet.PreviewWordListDialog;
 import com.example.wordmaster.model.firebase.UserAccount;
 import com.google.android.material.chip.Chip;
 import com.google.firebase.database.DataSnapshot;

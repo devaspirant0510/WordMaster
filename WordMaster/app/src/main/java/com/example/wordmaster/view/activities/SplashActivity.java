@@ -1,4 +1,4 @@
-package com.example.wordmaster.activities;
+package com.example.wordmaster.view.activities;
 
 import android.content.Intent;
 import android.os.Bundle;

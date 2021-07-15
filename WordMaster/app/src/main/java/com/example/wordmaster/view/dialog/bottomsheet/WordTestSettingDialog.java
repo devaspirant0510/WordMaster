@@ -1,4 +1,4 @@
-package com.example.wordmaster.dialog.bottomsheet;
+package com.example.wordmaster.view.dialog.bottomsheet;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ import com.example.wordmaster.Define.Util;
 import com.example.wordmaster.R;
 import com.example.wordmaster.adapter.CustomSpinnerAdapter;
 import com.example.wordmaster.databinding.DialogBottomSheetSetWordTestBinding;
-import com.example.wordmaster.dialog.custom.DateTimeSettingDialog;
+import com.example.wordmaster.view.dialog.custom.DateTimeSettingDialog;
 import com.example.wordmaster.model.etc.SpinnerItem;
 import com.example.wordmaster.model.firebase.UserDictionary;
 import com.example.wordmaster.model.firebase.UserTest;

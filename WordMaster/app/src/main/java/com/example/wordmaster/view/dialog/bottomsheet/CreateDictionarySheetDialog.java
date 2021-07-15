@@ -1,4 +1,4 @@
-package com.example.wordmaster.dialog.bottomsheet;
+package com.example.wordmaster.view.dialog.bottomsheet;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.R;
-import com.example.wordmaster.activities.MainActivity;
+import com.example.wordmaster.view.activities.MainActivity;
 import com.example.wordmaster.databinding.DialogBottomSheetCreateDictBinding;
 import com.example.wordmaster.model.firebase.UserDictionary;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;

@@ -1,4 +1,4 @@
-package com.example.wordmaster.dialog.custom;
+package com.example.wordmaster.view.dialog.custom;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -8,10 +8,10 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
-import com.example.wordmaster.activities.MainActivity;
+import com.example.wordmaster.view.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryInfoAdapter;
 import com.example.wordmaster.databinding.DialogCreateWordDialogBinding;
-import com.example.wordmaster.fragment.DictionaryInfoFragment;
+import com.example.wordmaster.view.fragment.DictionaryInfoFragment;
 import com.example.wordmaster.model.recycler.DictionaryWordItem;
 
 import java.util.ArrayList;

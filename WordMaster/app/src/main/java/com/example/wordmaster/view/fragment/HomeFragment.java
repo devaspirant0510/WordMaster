@@ -1,4 +1,4 @@
-package com.example.wordmaster.fragment;
+package com.example.wordmaster.view.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.Define.Util;
-import com.example.wordmaster.activities.MainActivity;
+import com.example.wordmaster.view.activities.MainActivity;
 import com.example.wordmaster.adapter.RankingAdapter;
 import com.example.wordmaster.databinding.FragmentHomeBinding;
 import com.google.firebase.database.DataSnapshot;

@@ -1,4 +1,4 @@
-package com.example.wordmaster.dialog.custom;
+package com.example.wordmaster.view.dialog.custom;
 
 import android.app.Dialog;
 import android.content.Context;
