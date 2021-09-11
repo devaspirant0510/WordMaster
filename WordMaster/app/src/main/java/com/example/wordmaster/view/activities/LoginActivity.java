@@ -178,10 +178,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 UserAccount userAccount = snapshot.getValue(UserAccount.class);
                 if (userAccount != null) {
-                    SharedManger.savData(Const.SHARED_USER_NAME, userAccount.getUserName());
-                    SharedManger.savData(Const.SHARED_USER_ID, id);
-                    SharedManger.savData(Const.SHARED_USER_EMAIL, userAccount.getUserEmail());
-                    SharedManger.savData(Const.SHARED_USER_PROFILE_URI, userAccount.getUserProfileUri());
+                    SharedManger.saveData(Const.SHARED_USER_NAME, userAccount.getUserName());
+                    SharedManger.saveData(Const.SHARED_USER_ID, id);
+                    SharedManger.saveData(Const.SHARED_USER_EMAIL, userAccount.getUserEmail());
+                    SharedManger.saveData(Const.SHARED_USER_PROFILE_URI, userAccount.getUserProfileUri());
+                    SharedManger.saveData(Const.SHARED_USER_JOIN_DATE,userAccount.getJoinDate());
                 }
                 changeLogin2Main();
             }
@@ -266,10 +267,11 @@ public class LoginActivity extends AppCompatActivity {
                                 )
                         );
                         // 셰어드 프리퍼런스에 계정 정보 저장
-                        SharedManger.savData(Const.SHARED_USER_ID, id);
-                        SharedManger.savData(Const.SHARED_USER_NAME, name);
-                        SharedManger.savData(Const.SHARED_USER_PROFILE_URI, profileURL);
-                        SharedManger.savData(Const.SHARED_USER_EMAIL, email);
+                        SharedManger.saveData(Const.SHARED_USER_ID, id);
+                        SharedManger.saveData(Const.SHARED_USER_NAME, name);
+                        SharedManger.saveData(Const.SHARED_USER_PROFILE_URI, profileURL);
+                        SharedManger.saveData(Const.SHARED_USER_EMAIL, email);
+                        SharedManger.saveData(Const.SHARED_USER_JOIN_DATE,date);
                         changeLogin2Main();
                     }
                 });
@@ -331,10 +333,10 @@ public class LoginActivity extends AppCompatActivity {
                                 date
                         ));
                         // 셰어드 프리퍼런스에 계정 정보 저장
-                        SharedManger.savData(Const.SHARED_USER_ID, id);
-                        SharedManger.savData(Const.SHARED_USER_NAME, name);
-                        SharedManger.savData(Const.SHARED_USER_PROFILE_URI, user.getKakaoAccount().getProfile().getProfileImageUrl());
-                        SharedManger.savData(Const.SHARED_USER_EMAIL, user.getKakaoAccount().getEmail());
+                        SharedManger.saveData(Const.SHARED_USER_ID, id);
+                        SharedManger.saveData(Const.SHARED_USER_NAME, name);
+                        SharedManger.saveData(Const.SHARED_USER_PROFILE_URI, user.getKakaoAccount().getProfile().getProfileImageUrl());
+                        SharedManger.saveData(Const.SHARED_USER_EMAIL, user.getKakaoAccount().getEmail());
                         changeLogin2Main();
                     }
                 });
