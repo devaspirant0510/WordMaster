@@ -25,7 +25,7 @@ public class SharedManger {
         editor.apply();
     }
     // String 형 변수 저장
-    public static void savData(String key,String value){
+    public static void saveData(String key, String value){
         SharedPreferences.Editor editor = mSharePre.edit();
         editor.putString(key,value);
         editor.apply();
