@@ -3,6 +3,7 @@ package com.example.wordmaster.model.firebase;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @IgnoreExtraProperties
 public class UserAccount  {
@@ -14,6 +15,7 @@ public class UserAccount  {
     private String userProfileUri;
     private ArrayList<String> userDownloadDict;
     String joinDate;
+    HashMap<String,HashMap<String,HashMap<String,Integer>>> activityHistory ;
 
     public UserAccount(){
 
@@ -93,5 +95,13 @@ public class UserAccount  {
 
     public void setJoinDate(String joinDate) {
         this.joinDate = joinDate;
+    }
+
+    public HashMap<String, HashMap<String, HashMap<String, Integer>>> getActivityHistory() {
+        return activityHistory;
+    }
+
+    public void setActivityHistory(HashMap<String, HashMap<String, HashMap<String, Integer>>> activityHistory) {
+        this.activityHistory = activityHistory;
     }
 }
