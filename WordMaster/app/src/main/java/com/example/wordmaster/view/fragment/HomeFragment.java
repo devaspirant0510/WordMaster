@@ -1,6 +1,7 @@
 package com.example.wordmaster.view.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,11 @@ import androidx.fragment.app.Fragment;
 import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.Define.Util;
-import com.example.wordmaster.view.activities.MainActivity;
 import com.example.wordmaster.adapter.RankingAdapter;
 import com.example.wordmaster.databinding.FragmentHomeBinding;
+import com.example.wordmaster.model.firebase.UserAccount;
+import com.example.wordmaster.model.recycler.RankingItem;
+import com.example.wordmaster.view.activities.MainActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -23,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 public class HomeFragment extends Fragment {
+    private final String TAG = "HomeFragment";
     private FragmentHomeBinding mb;
     private String spUserName,spUserId,spUserEmail;
     private MainActivity activity;
@@ -64,19 +68,20 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 for (DataSnapshot item:snapshot.getChildren()) {
-//                    UserAccount account = item.getValue(UserAccount.class);
-//                    adapter.addItem(new RankingItem(
-//                            account.getUserName(),
-//                            adapter.getItemCount(),
-//                            "",
-//                            "1등한다.",
-//                            account.getUserProfileUri()
-//                    ));
-//                    adapter.notifyItemInserted(adapter.getItemCount()-1);
-
-
+                    Log.e(TAG, "onDataChange: "+item);
+                    UserAccount account = item.getValue(UserAccount.class);
+                    if (account!=null){
+                        Log.e(TAG, "onDataChange: "+account.getActivityHistory());
+                        adapter.addItem(new RankingItem(
+                                account.getUserName(),
+                                adapter.getItemCount(),
+                                "",
+                                "1등한다.",
+                                account.getUserProfileUri()
+                        ));
+                        adapter.notifyItemInserted(adapter.getItemCount()-1);
+                    }
                 }
-
             }
 
             @Override
