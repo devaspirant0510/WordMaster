@@ -39,9 +39,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b7062bc-63f3-4bc1-8be4-f7c10fa19572" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_2_0_4_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_2_0_4_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_2_0_4_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_solver_2_0_4.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" afterDir="false" />
@@ -55,38 +57,20 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_1_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_1_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/activities/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/activities/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/activities/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/activities/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/activities/SplashActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/activities/SplashActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/bottomsheet/CreateDictionarySheetDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/dialog/bottomsheet/CreateDictionarySheetDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/bottomsheet/LoginBottomSheetDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/dialog/bottomsheet/LoginBottomSheetDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/bottomsheet/LoginSuccessSheetDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/dialog/bottomsheet/LoginSuccessSheetDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/bottomsheet/MyTestOptionBottomSheetDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/dialog/bottomsheet/MyTestOptionBottomSheetDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/bottomsheet/PreviewWordListDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/dialog/bottomsheet/PreviewWordListDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/bottomsheet/WordTestSettingDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/dialog/bottomsheet/WordTestSettingDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/custom/CreateWordDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/dialog/custom/CreateWordDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/custom/DateTimeSettingDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/dialog/custom/DateTimeSettingDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/dialog/custom/DictionaryUpdateDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/dialog/custom/DictionaryUpdateDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/DictionaryInfoFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/DictionaryInfoFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/HomeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/HomeFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/MyInfoFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/MyInfoFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/ProfileFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/SearchFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/SearchFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/SearchInfoFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/SearchInfoFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/TestFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/TestFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/TestResultFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/TestResultFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/TestWaitingInfoFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/TestWaitingInfoFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/TestWaitingRoomFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/TestWaitingRoomFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/viewpager/MyDictionaryFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/viewpager/MyDictionaryFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/viewpager/MyTestFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/viewpager/MyTestFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/viewpager/OnlineTestFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/viewpager/OnlineTestFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/fragment/viewpager/OtherDictionaryFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/viewpager/OtherDictionaryFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/Define/Const.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/Define/Const.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/Define/SharedManger.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/Define/SharedManger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/model/firebase/UserAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/model/firebase/UserAccount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/activities/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/activities/LoginActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/HomeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/HomeFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/ProfileFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +80,7 @@
   <component name="CodeInsightWorkspaceSettings">
     <option name="optimizeImportsOnTheFly" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[SerialNumber@9333e0d1]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[R3CN60A9BCE]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -159,10 +143,15 @@
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="multi-representation-previewC:/Users/volum/AppData/Local/Android/Sdk/sources/android-30/android/view/View.java_selected" value="Custom views" />
-    <property name="project.structure.last.edited" value="Dependencies" />
+    <property name="project.structure.last.edited" value="SDK Location" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
+  </component>
+  <component name="PsdUISettings">
+    <option name="MODULE_TAB" value="Signing Configs" />
+    <option name="LAST_EDITED_SIGNING_CONFIG" value="debug" />
+    <option name="LAST_EDITED_BUILD_TYPE" value="release" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -259,7 +248,9 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
     <configuration name="WordMaster [sourceSets]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -278,7 +269,9 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
     <recent_temporary>
@@ -325,83 +318,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="552" y="160" key="#Plugins" timestamp="1624433825553">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="552" y="160" key="#Plugins/0.0.1920.1040@0.0.1920.1040" timestamp="1624433825553" />
-    <state x="1264" y="401" key="#com.intellij.codeInsight.template.impl.EditVariableDialog" timestamp="1623580527094">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="1264" y="401" key="#com.intellij.codeInsight.template.impl.EditVariableDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1623580527094" />
-    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1625747576816">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1625747576816" />
-    <state x="459" y="435" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1626336168833">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="459" y="435" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1626336168833" />
-    <state x="724" y="374" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1622382727609">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="724" y="374" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1040@0.0.1920.1040" timestamp="1622382727609" />
-    <state x="506" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1622095041783">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="506" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1622095041783" />
-    <state x="530" y="402" key="AndroidCreateResourceFileDialog" timestamp="1625732349748">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="530" y="402" key="AndroidCreateResourceFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1625732349748" />
-    <state x="805" y="292" key="AndroidCreateXmlResourceDialog" timestamp="1623745050667">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="805" y="292" key="AndroidCreateXmlResourceDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1623745050667" />
-    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1626327182448">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1626327182448" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1626260368434">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1626260368434" />
-    <state width="1877" height="249" key="GridCell.Tab.0.bottom" timestamp="1626246586839">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="249" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1626246586839" />
-    <state width="1877" height="249" key="GridCell.Tab.0.center" timestamp="1626246586839">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="249" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1626246586839" />
-    <state width="1877" height="249" key="GridCell.Tab.0.left" timestamp="1626246586794">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="249" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1626246586794" />
-    <state width="1877" height="249" key="GridCell.Tab.0.right" timestamp="1626246586839">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="249" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1626246586839" />
-    <state x="750" y="168" key="SettingsEditor" timestamp="1624620642792">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="750" y="168" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1624620642792" />
-    <state x="669" y="236" width="582" height="568" key="find.popup" timestamp="1626099564184">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="669" y="236" width="582" height="568" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1626099564184" />
-    <state x="618" y="390" key="refactoring.ChangeSignatureDialog" timestamp="1621390825614">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="618" y="390" key="refactoring.ChangeSignatureDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1621390825614" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1623563591602">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1623563591602" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1625748554477">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1625748554477" />
   </component>
 </project>
