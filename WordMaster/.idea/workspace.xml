@@ -39,18 +39,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b7062bc-63f3-4bc1-8be4-f7c10fa19572" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/adapter/ActivityBoardAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/adapter/ActivityBoardAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/model/firebase/UserAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/model/firebase/UserAccount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/model/firebase/UserDictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/model/firebase/UserDictionary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/dialog/bottomsheet/CreateDictionarySheetDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/dialog/bottomsheet/CreateDictionarySheetDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/HomeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/HomeFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/ProfileFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/TestResultFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/TestResultFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/viewpager/OtherDictionaryFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wordmaster/view/fragment/viewpager/OtherDictionaryFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_test_result.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_test_result.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_bottom_sheet_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_bottom_sheet_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_item_dictionary_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_item_dictionary_list.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
