@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/seungho/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/dialog_activity_history.xml" value="0.33" />
         <entry key="..\:/seungho/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/fragment_profile.xml" value="0.253125" />
+        <entry key="..\:/seungho/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/fragment_test_result.xml" value="0.15625" />
       </map>
     </option>
   </component>

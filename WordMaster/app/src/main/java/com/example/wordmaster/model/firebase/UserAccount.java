@@ -13,16 +13,17 @@ public class UserAccount  {
     String userAge;
     String userBirth;
     private String userProfileUri;
-    private ArrayList<String> userDownloadDict;
     String joinDate;
     HashMap<String,HashMap<String,HashMap<String,Integer>>> activityHistory ;
+    HashMap<String,ArrayList<String>> userDownloadDict;
 
     public UserAccount(){
 
     }
 
     public UserAccount(String userName, String userEmail, String userGender, String userAge,
-                       String userBirth, String userProfileUri,ArrayList<String> userDownloadDict,String joinDate) {
+                       String userBirth, String userProfileUri,
+                       HashMap<String, ArrayList<String>> userDownloadDict, String joinDate) {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userGender = userGender;
@@ -81,11 +82,11 @@ public class UserAccount  {
         this.userProfileUri = userProfileUri;
     }
 
-    public ArrayList<String> getUserDownloadDict() {
+    public HashMap<String, ArrayList<String>> getUserDownloadDict() {
         return userDownloadDict;
     }
 
-    public void setUserDownloadDict(ArrayList<String> userDownloadDict) {
+    public void setUserDownloadDict(HashMap<String, ArrayList<String>> userDownloadDict) {
         this.userDownloadDict = userDownloadDict;
     }
 

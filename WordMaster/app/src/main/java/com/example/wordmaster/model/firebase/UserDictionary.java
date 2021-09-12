@@ -4,21 +4,22 @@ import com.example.wordmaster.model.recycler.DictionaryWordItem;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @IgnoreExtraProperties
 public class UserDictionary {
-    String option;
-    String title;
-    int maxCount;
-    int currentCount;
-    String description;
-    ArrayList<String> hashTag;
-    DictionaryWordItem wordItem;
-    String host;
-    ArrayList<String> contributor;
-    String password;
-    String roomKey;
-    String hostId;
+    String option; /* option : 공개, 비공개, 나만보기 여부*/
+    String title; /* title : 단어장 제목*/
+    int maxCount; /* maxCount : 단어장의 단어 최대 개수*/
+    int currentCount; /*currentCount : 현재 단어장에 채워진 단어 개수 */
+    String description; /* description : 단어장에대한 설명 */
+    ArrayList<String> hashTag; /* hashtag : 단어장에대한 해시 태그 */
+    DictionaryWordItem wordItem;/* wordItem 단어장 리스트 */
+    String host; /* host : 단어장을 게시한 사람의 닉네임 */
+    HashMap<String,String> contributor;/*contributor : 단어장에 기여한 사람*/
+    String password;/* password : (비공개일때만) 비밀번호 */
+    String roomKey;/*roomKey :  해당 단어장의 키*/
+    String hostId;/*단어장 개시자의 아이디*/
     public UserDictionary(){
 
     }
@@ -40,7 +41,7 @@ public class UserDictionary {
      */
     public void init(String option, String title, int maxCount, int currentCount,
                      String description, ArrayList<String> hashTag, DictionaryWordItem wordItem,
-                     String host, ArrayList<String> contributor, String password,
+                     String host, HashMap<String,String> contributor, String password,
                      String roomKey, String hostId) {
         this.option = option;
         this.title = title;
@@ -127,11 +128,11 @@ public class UserDictionary {
         this.host = host;
     }
 
-    public ArrayList<String> getContributor() {
+    public HashMap<String, String> getContributor() {
         return contributor;
     }
 
-    public void setContributor(ArrayList<String> contributor) {
+    public void setContributor(HashMap<String, String> contributor) {
         this.contributor = contributor;
     }
 

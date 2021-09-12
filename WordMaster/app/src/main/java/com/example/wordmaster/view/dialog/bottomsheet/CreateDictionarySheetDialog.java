@@ -22,6 +22,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CreateDictionarySheetDialog extends BottomSheetDialogFragment {
     private DialogBottomSheetCreateDictBinding mb;
@@ -93,9 +94,11 @@ public class CreateDictionarySheetDialog extends BottomSheetDialogFragment {
                     Chip chip = (Chip)mb.cgHashTag.getChildAt(i);
                     list.add(chip.getText().toString());
                 }
+                HashMap<String,String> contributor = new HashMap<>();
+                contributor.put(SharedManger.loadData(Const.SHARED_USER_ID,""),"root");
                 item.init(DictOption,createDictTitle,createDictCount,
                         0,createDictDescription,list,null,
-                        SharedManger.loadData(Const.SHARED_USER_NAME,""),null,
+                        SharedManger.loadData(Const.SHARED_USER_NAME,""),contributor,
                         createDictPassword,"",SharedManger.loadData(Const.SHARED_USER_ID,""));
                 activity.sendCreateDictDialog(item);
                 dismiss();

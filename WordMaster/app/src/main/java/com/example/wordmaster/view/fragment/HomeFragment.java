@@ -71,7 +71,7 @@ public class HomeFragment extends Fragment {
                     Log.e(TAG, "onDataChange: "+item);
                     UserAccount account = item.getValue(UserAccount.class);
                     if (account!=null){
-                        Log.e(TAG, "onDataChange: "+account.getActivityHistory());
+                        Log.e(TAG, "onDataChange: "+account.getUserDownloadDict());
                         adapter.addItem(new RankingItem(
                                 account.getUserName(),
                                 adapter.getItemCount(),
