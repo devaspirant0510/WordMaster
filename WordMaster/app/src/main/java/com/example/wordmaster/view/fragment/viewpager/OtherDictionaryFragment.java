@@ -72,12 +72,13 @@ public class OtherDictionaryFragment extends Fragment {
                 DictionaryListItem item = adapter.getItem(pos);
 
 
-                callback.otherDict2Info(item.getDictionaryTitle(),
-                        item.getDictOption(),
-                        Integer.parseInt(item.getDictionaryMaxCount()),
-                        item.getDictRoomKey(),
-                        item.getUserId(),
-                        item.getDictionaryHost());
+                callback.sendDictData(item);
+//                callback.otherDict2Info(item.getDictionaryTitle(),
+//                        item.getDictOption(),
+//                        Integer.parseInt(item.getDictionaryMaxCount()),
+//                        item.getDictRoomKey(),
+//                        item.getUserId(),
+//                        item.getDictionaryHost());
                 activity.changeFragment(Const.OTHER_DICT2DICTIONARY_INFO);
 
                 Log.e(TAG, "onClick:" + pos);

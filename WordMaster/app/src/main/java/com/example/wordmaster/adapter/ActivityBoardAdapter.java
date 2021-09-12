@@ -41,9 +41,11 @@ public class ActivityBoardAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
 
     }
-    public void adapterClear(){
+
+    public void adapterClear() {
         list.clear();
     }
+
     @Override
     public int getItemCount() {
         return list.size();
@@ -53,16 +55,13 @@ public class ActivityBoardAdapter extends RecyclerView.Adapter<RecyclerView.View
         list.add(item);
     }
 
-    private static class MyActivityAmount extends RecyclerView.ViewHolder {
-        View btnNone;
-        View btnBest;
-        View btnGood;
-        View btnNormal;
-        View btnBad;
-        View btnWorst;
-        View btnEmpty;
-        private final ArrayList<View> viewList = new ArrayList<>();
+    public void updateItem(int idx,int item){
+        list.set(idx,item);
+    }
 
+    private static class MyActivityAmount extends RecyclerView.ViewHolder {
+        View btnNone, btnBest, btnGood, btnNormal, btnBad, btnWorst, btnEmpty;
+        private final ArrayList<View> viewList = new ArrayList<>();
 
 
         public MyActivityAmount(@NonNull @NotNull View itemView) {
@@ -76,19 +75,19 @@ public class ActivityBoardAdapter extends RecyclerView.Adapter<RecyclerView.View
             btnEmpty = itemView.findViewById(R.id.v_activity_empty);
 
         }
-        private void checkItemType(int pos){
+
+        private void checkItemType(int pos) {
             for (int i = 0; i < viewList.size(); i++) {
-                if (i==pos){
+                if (i == pos) {
                     viewList.get(i).setVisibility(View.VISIBLE);
-                }
-                else{
+                } else {
                     viewList.get(i).setVisibility(View.GONE);
                 }
 
             }
         }
 
-        private void setItem(int point){
+        private void setItem(int point) {
             viewList.add(btnNone);
             viewList.add(btnBest);
             viewList.add(btnGood);
@@ -96,7 +95,7 @@ public class ActivityBoardAdapter extends RecyclerView.Adapter<RecyclerView.View
             viewList.add(btnBad);
             viewList.add(btnWorst);
             viewList.add(btnEmpty);
-            switch (point){
+            switch (point) {
                 case 0:
                     checkItemType(0);
                     break;
