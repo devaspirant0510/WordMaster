@@ -10,13 +10,14 @@
         android:id="@+id/f_btn_add_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.918"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/my_test_list"
         app:layout_constraintVertical_bias="0.946"
-        android:contentDescription="add" />
+        android:contentDescription="@string/add" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_test_list"

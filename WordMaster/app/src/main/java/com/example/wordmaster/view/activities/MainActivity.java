@@ -177,6 +177,7 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
             case Const.DICTIONARY_INFO_FRAGMENT:
                 DictionaryInfoFragment infoFragment = new DictionaryInfoFragment();
                 infoFragment.setSendDataToActivity(this);
+                Log.e(TAG, "changeFragment: DICTIONARY_INFO_FRAGMENT" );
                 fr = infoFragment;
                 fm.popBackStack();
                 viewState = showFragment();
@@ -239,7 +240,13 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
                 DictionaryInfoFragment dictionaryInfoFragment = new DictionaryInfoFragment(true);
                 fm.popBackStack();
                 fr = dictionaryInfoFragment;
-                dictionaryInfoFragment.setArguments(otherDict2Info);
+                Bundle dict2info = new Bundle();
+                dict2info.putString("userId",this.Dict2InfoItem.getUserId());
+                dict2info.putString("title",this.Dict2InfoItem.getDictionaryTitle());
+                dict2info.putString("option",this.Dict2InfoItem.getDictOption());
+                dict2info.putString("roomKey",this.Dict2InfoItem.getDictRoomKey());
+                dict2info.putInt("maxCount",Integer.parseInt(this.Dict2InfoItem.getDictionaryMaxCount()));
+                dictionaryInfoFragment.setArguments(dict2info);
                 viewState = showFragment();
                 break;
             case Const.TEST_WAITING_ROOM:
@@ -322,6 +329,7 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
     @Override
     public void otherDict2Info(String title, String option, int maxCount, String roomKey, String userId, String userName) {
         otherDict2Info = new Bundle();
+        Log.e(TAG, "otherDict2Info: "+title+" "+userId );
         otherDict2Info.putString("title",title);
         otherDict2Info.putString("option",option);
         otherDict2Info.putInt("maxCount",maxCount);

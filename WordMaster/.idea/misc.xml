@@ -3,6 +3,30 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/drawable/cd_round_btn.xml" value="0.15885416666666666" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/dialog_bottom_my_test_option.xml" value="0.14270833333333333" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/dialog_bottom_sheet_login.xml" value="0.15208333333333332" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/dialog_bottom_sheet_login_success.xml" value="0.15208333333333332" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/dialog_bottom_sheet_set_word_test.xml" value="0.1734375" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/dialog_image_selection.xml" value="0.15208333333333332" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/fragment_dictionary_info.xml" value="0.5" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/fragment_my_test.xml" value="0.14270833333333333" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/fragment_other_dictionary.xml" value="0.14270833333333333" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/fragment_profile.xml" value="0.22" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/fragment_search.xml" value="0.14270833333333333" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/fragment_test.xml" value="0.14270833333333333" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/fragment_test_waiting_info.xml" value="0.14270833333333333" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/fragment_test_waiting_room.xml" value="0.14270833333333333" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/grid_layout_activity_board_item.xml" value="0.14270833333333333" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/layout_item_dictionary_word.xml" value="0.25" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/layout_item_online_test_private.xml" value="0.25" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/layout_item_online_test_public.xml" value="0.1" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/layout_item_ranking.xml" value="0.33" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/layout_item_search_private.xml" value="0.1" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/layout_item_search_public.xml" value="0.5" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/layout_item_test_result.xml" value="0.1" />
+        <entry key="..\:/seungho/Android/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/spinner_custom_item.xml" value="0.1" />
         <entry key="..\:/seungho/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/activity_login.xml" value="0.184375" />
         <entry key="..\:/seungho/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/activity_main.xml" value="0.184375" />
         <entry key="..\:/seungho/application/android_app/WordMaster/WordMaster/app/src/main/res/layout/activity_splash.xml" value="0.184375" />

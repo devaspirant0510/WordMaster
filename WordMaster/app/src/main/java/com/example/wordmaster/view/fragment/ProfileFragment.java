@@ -65,16 +65,14 @@ public class ProfileFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        mb.tvProfileNickname.setText(SharedManger.loadData(Const.SHARED_USER_NAME, ""));
+        mb.etProfileNickname.setText(SharedManger.loadData(Const.SHARED_USER_NAME, ""));
+        mb.etProfileEmail.setText(SharedManger.loadData(Const.SHARED_USER_EMAIL,""));
         return mb.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mb.ivProfile.setBackground(new ShapeDrawable(new OvalShape()));
-        mb.ivProfile.setClipToOutline(true);
-        Glide.with(getContext()).load(profileURI).into(mb.ivProfile);
         init();
         event();
     }
@@ -84,14 +82,8 @@ public class ProfileFragment extends Fragment {
         calendar.clear();
         // 해당월의 첫째날을 구하기 위해 1로 설정
         calendar.set(currentYear, currentMonth, 1);
-
-        Log.e(TAG, "initDateSetting: " + calendar.get(Calendar.YEAR));
-        Log.e(TAG, "initDateSetting: " + calendar.get(Calendar.MONTH));
-        Log.e(TAG, "initDateSetting: " + calendar.get(Calendar.DAY_OF_MONTH));
         int startDay = calendar.get(Calendar.DAY_OF_WEEK);
         int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        Log.e(TAG, "initDateSetting: maxDay" + maxDay);
-        Log.e(TAG, "initDateSetting: startDay " + startDay);
         adapterUpdate(startDay, maxDay);
         loadActivityHistoryData(startDay, currentYear, currentMonth);
 
@@ -118,6 +110,12 @@ public class ProfileFragment extends Fragment {
         GridLayoutManager gm = new GridLayoutManager(getContext(), 7, RecyclerView.VERTICAL, false);
         mb.gridRvActivityBoard.setLayoutManager(gm);
         adapter = new ActivityBoardAdapter();
+        // 이미지뷰 둥글게 처리
+        mb.ivProfile.setBackground(new ShapeDrawable(new OvalShape()));
+        mb.ivProfile.setClipToOutline(true);
+        if(getContext()!=null){
+            Glide.with(getContext()).load(profileURI).into(mb.ivProfile);
+        }
         // 현재 날짜 설정
         initDateSetting();
         updateDateText(currentYear, currentMonth);
@@ -220,10 +218,16 @@ public class ProfileFragment extends Fragment {
                         Log.e(TAG, "onDataChange: " + snapshot.getValue());
                         for (DataSnapshot value : snapshot.getChildren()) {
                             Log.e(TAG, "onDataChange: " + value);
-                            adapter.updateItem(Integer.parseInt(value.getKey()) + startDay, Integer.parseInt(String.valueOf(value.getValue())));
-                            adapter.notifyDataSetChanged();
+                            Log.e(TAG, "onDataChange: day"+value.getKey());
+                            Log.e(TAG, "onDataChange: start day"+startDay );
+                            adapter.updateItem(
+                                    Integer.parseInt(value.getKey())-1 + startDay-1,
+                                    Integer.parseInt(String.valueOf(value.getValue()))
+                            );
+                            adapter.notifyItemChanged(Integer.parseInt(value.getKey())-1+startDay-1);
 
                         }
+
 
                     }
 

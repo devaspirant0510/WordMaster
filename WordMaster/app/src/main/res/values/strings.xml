@@ -28,4 +28,5 @@
     <string name="left"><![CDATA[<=]]></string>
     <string name="right"><![CDATA[=>]]></string>
     <string name="google_web_client_id">1035033464779-np2p63o3bgin2tqt334mbi4hj31usm0v.apps.googleusercontent.com</string>
+    <string name="add">add</string>
 </resources>

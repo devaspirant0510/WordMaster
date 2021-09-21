@@ -15,51 +15,57 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/dict_info_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/title"
-            android:textSize="25sp"
+        <ImageView
+            android:id="@+id/dict_info_profile_url"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/dict_info_option"
+            app:layout_constraintEnd_toStartOf="@+id/dict_info_host"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/dict_info_option"
-            android:layout_width="wrap_content"
+            android:id="@+id/dict_info_host"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="1dp"
-            android:text="@string/openoption"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_dict_info_contributor"
+            app:layout_constraintStart_toEndOf="@+id/dict_info_profile_url"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_dict_info_contributor"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/ic_contributor"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/progressBar"
-            app:layout_constraintStart_toEndOf="@+id/dict_info_title"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toEndOf="@+id/dict_info_host"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/progress_state"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/dict_info_option"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toEndOf="@+id/btn_dict_info_contributor"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/progress_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:text="1/25"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/dict_info_option"
+            app:layout_constraintEnd_toEndOf="@+id/progressBar"
+            app:layout_constraintStart_toStartOf="@+id/progressBar"
             app:layout_constraintTop_toBottomOf="@+id/progressBar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
