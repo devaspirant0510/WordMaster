@@ -43,6 +43,7 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
     private static final int TEST_TYPE_RANDOM = 3;
     private static final int TEST_PRIVATE = 1;
     private static final int TEST_PUBLIC = 2;
+    private int maxCountDict;
     private DialogBottomSheetSetWordTestBinding mb;
     private TestBottomSheetCallBack listener;
     private int dictMaxCount;
@@ -102,6 +103,7 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
                             getInfo.getDescription(),
                             getInfo.getRoomKey()
                     ));
+
                 }
             }
 
@@ -228,10 +230,11 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
                         SharedManger.loadData(Const.SHARED_USER_PROFILE_URI, ""),
                         "1등 할고야"
                 ));
+                mb.wordSpinner.getItemAtPosition(mb.wordSpinner.getSelectedItemPosition());
                 UserTest userTest = new UserTest(
                         mb.etOnlineTestName.getText().toString(),
-                        SharedManger.loadData(Const.SHARED_USER_ID, ""),
-                        SharedManger.loadData(Const.SHARED_USER_NAME, ""),
+                        SharedManger.loadData(Const.SHARED_USER_ID,""),
+                        SharedManger.loadData(Const.SHARED_USER_NAME,""),
                         item.getRoomKey(),
                         mb.btnSettingStartTime.getText().toString(),
                         mb.btnSettingEndTime.getText().toString(),
@@ -241,9 +244,10 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
                         rgTestOrderBy,
                         Integer.parseInt(mb.etUserCount.getText().toString()),
                         rgTestType,
+                        Integer.parseInt(item.getMaxCount()),
                         list,
-                        roomKey
-                );
+                        roomKey);
+
                 pushRef.setValue(userTest);
                 SpinnerItem spinnerItem = (SpinnerItem) mb.wordSpinner.getSelectedItem();
                 Log.e(TAG, "onClick: " + spinnerItem.getCurrentCount() + " " + spinnerItem.getMaxCount());

@@ -26,6 +26,7 @@ public class UserTest {
     private int orderBy;
     private int type;
     private int userCount;
+    private int maxCount;
     private ArrayList<OnlineTestMemberItem> memberList;
     private String testRoomKey;
     public UserTest(){
@@ -34,7 +35,8 @@ public class UserTest {
 
     public UserTest(String title, String userId, String userName, String roomKey, String startTime,
                     String endTime,String password, String description,int option, int orderBy,
-                    int userCount,int type,ArrayList<OnlineTestMemberItem> memberList,String testRoomKey) {
+                    int userCount,int type,int maxCount,ArrayList<OnlineTestMemberItem> memberList,
+                    String testRoomKey) {
         this.title = title;
         this.userId = userId;
         this.userName = userName;
@@ -47,6 +49,7 @@ public class UserTest {
         this.orderBy = orderBy;
         this.userCount = userCount;
         this.type = type;
+        this.maxCount = maxCount;
         this.memberList = memberList;
         this.testRoomKey = testRoomKey;
     }
@@ -137,6 +140,14 @@ public class UserTest {
 
     public void setUserCount(int userCount) {
         this.userCount = userCount;
+    }
+
+    public int getMaxCount() {
+        return maxCount;
+    }
+
+    public void setMaxCount(int maxCount) {
+        this.maxCount = maxCount;
     }
 
     public int getType() {

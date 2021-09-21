@@ -12,20 +12,20 @@ import java.io.Serializable;
  * description 온라인 테스트 리사이클러뷰 아이템
  **/
 public class OnlineTestItem implements Serializable {
-    String title;
-    String host;
-    String hostId;
-    String roomKey;
-    String password;
-    String hashTag;
-    int maxCount;
-    String description;
-    String startTime;
-    String endTime;
-    String option;
-    int maxUser;
-    String testRoomKey;
-    int viewType;
+    private String title;
+    private String host;
+    private String hostId;
+    private String roomKey;
+    private String password;
+    private String hashTag;
+    private int maxCount;
+    private String description;
+    private String startTime;
+    private String endTime;
+    private String option;
+    private int maxUser;
+    private String testRoomKey;
+    private int viewType;
 
     public OnlineTestItem(String title, String host, String hostId, String roomKey, String password,
                           String hashTag, int maxCount, String description, String startTime,

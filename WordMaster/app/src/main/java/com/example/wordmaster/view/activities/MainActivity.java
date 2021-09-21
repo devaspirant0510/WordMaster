@@ -32,7 +32,7 @@ import com.example.wordmaster.view.fragment.TestResultFragment;
 import com.example.wordmaster.view.fragment.TestWaitingInfoFragment;
 import com.example.wordmaster.view.fragment.TestWaitingRoomFragment;
 import com.example.wordmaster.view.fragment.viewpager.MyDictionaryFragment;
-import com.example.wordmaster.view.fragment.viewpager.MyTestFragment;
+import com.example.wordmaster.view.fragment.MyTestFragment;
 import com.example.wordmaster.view.fragment.viewpager.OtherDictionaryFragment;
 import com.example.wordmaster.model.firebase.UserDictionary;
 import com.example.wordmaster.model.recycler.DictionaryListItem;
