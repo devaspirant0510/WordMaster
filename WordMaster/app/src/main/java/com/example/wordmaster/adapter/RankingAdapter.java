@@ -61,7 +61,6 @@ public class RankingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(itemView);
             user = itemView.findViewById(R.id.tv_user_name);
             ranking = itemView.findViewById(R.id.tv_ranking);
-            id = itemView.findViewById(R.id.tv_user_id);
             message = itemView.findViewById(R.id.tv_user_message);
             imageView = itemView.findViewById(R.id.iv_profile);
             imageView.setBackground(new ShapeDrawable(new OvalShape()));
@@ -72,7 +71,6 @@ public class RankingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             RankingItem item = list.get(position);
             user.setText(item.getUser());
             ranking.setText(String.valueOf(item.getRanking()));
-            id.setText(item.getId());
             message.setText(item.getMessage());
             Glide.with(itemView.getContext()).load(item.getImageView()).into(imageView);
 

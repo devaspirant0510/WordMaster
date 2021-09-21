@@ -67,6 +67,7 @@ public class TestWaitingRoomFragment extends Fragment {
 
 
     }
+    
 
     private void readDB() {
         Util.myRefWord.child(userId).child(roomKey).child("list").addListenerForSingleValueEvent(new ValueEventListener() {

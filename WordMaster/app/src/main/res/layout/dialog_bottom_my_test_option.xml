@@ -22,6 +22,7 @@
         android:layout_width="0dp"
         android:layout_height="120dp"
         android:layout_margin="8dp"
+        android:background="@drawable/cd_round_btn"
         android:text="영어 -> 한글"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/test_option_kor2eng"
@@ -33,6 +34,7 @@
         android:layout_width="0dp"
         android:layout_height="120dp"
         android:layout_margin="8dp"
+        android:background="@drawable/cd_round_btn"
         android:text="한글 -> 영어"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/test_option_random"
@@ -46,6 +48,7 @@
         android:layout_margin="8dp"
         android:text="랜덤"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/cd_round_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/test_option_kor2eng"
         app:layout_constraintTop_toBottomOf="@+id/textView19" />

@@ -1,6 +1,8 @@
 package com.example.wordmaster.view.dialog.bottomsheet;
 
 import android.content.Context;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.example.wordmaster.databinding.DialogBottomSheetLoginSuccessBinding;
+import com.example.wordmaster.view.dialog.custom.ImageSelectDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class LoginSuccessSheetDialog extends BottomSheetDialogFragment {
@@ -49,11 +52,22 @@ public class LoginSuccessSheetDialog extends BottomSheetDialogFragment {
 
     private void init() {
         Glide.with(this).load(profile_uri).into(mb.ivProfileImage);
+        mb.ivProfileImage.setBackground(new ShapeDrawable(new OvalShape()));
+        mb.ivProfileImage.setClipToOutline(true);
+
         mb.etUserName.setText(user_name);
         mb.btnLoginSuccessSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bottomSheetSetOnClick.clickSubmit(mb.etUserName.getText().toString());
+
+            }
+        });
+        mb.btnChangeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageSelectDialog dialog = new ImageSelectDialog(getContext());
+                dialog.show();
 
             }
         });

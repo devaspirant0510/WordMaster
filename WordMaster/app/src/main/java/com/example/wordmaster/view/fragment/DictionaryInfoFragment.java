@@ -3,6 +3,8 @@ package com.example.wordmaster.view.fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -20,21 +22,22 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.Define.Util;
 import com.example.wordmaster.R;
-import com.example.wordmaster.view.activities.MainActivity;
 import com.example.wordmaster.adapter.DictionaryInfoAdapter;
 import com.example.wordmaster.callback.DialogUpdateCallback;
 import com.example.wordmaster.callback.DictionaryFragmentCallBack;
 import com.example.wordmaster.callback.DictionaryListCallBack;
 import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.databinding.FragmentDictionaryInfoBinding;
+import com.example.wordmaster.model.recycler.DictionaryWordItem;
+import com.example.wordmaster.view.activities.MainActivity;
 import com.example.wordmaster.view.dialog.bottomsheet.MyTestOptionBottomSheetDialog;
 import com.example.wordmaster.view.dialog.custom.CreateWordDialog;
 import com.example.wordmaster.view.dialog.custom.DictionaryUpdateDialog;
-import com.example.wordmaster.model.recycler.DictionaryWordItem;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -83,10 +86,12 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
         mb = FragmentDictionaryInfoBinding.inflate(getLayoutInflater());
 
         activity = (MainActivity) getActivity();
+        Log.e(TAG, "onCreate: "+otherDict );
         if(otherDict){
             Bundle bundle = getArguments();
             if(bundle!=null){
                 spUserId = bundle.getString("userId");
+                Log.e(TAG, "onCreate: "+spUserId );
                 dictInfoTitle = bundle.getString("title");
                 dictCount = bundle.getInt("maxCount");
                 dictInfoOption = bundle.getString("option");
@@ -173,8 +178,10 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
 
         mb.progressBar.setMax(dictCount);
         mb.progressState.setText(adapter.getItemCount() + "/" + dictCount);
-        mb.dictInfoTitle.setText(dictInfoTitle);
-        mb.dictInfoOption.setText(dictInfoOption);
+        mb.dictInfoProfileUrl.setBackground(new ShapeDrawable(new OvalShape()));
+        Glide.with(getContext()).load(SharedManger.loadData(Const.SHARED_USER_PROFILE_URI,"")).into(mb.dictInfoProfileUrl);
+        mb.dictInfoProfileUrl.setClipToOutline(true);
+        mb.dictInfoHost.setText(SharedManger.loadData(Const.SHARED_USER_NAME,""));
         // 어댑터의 아이템 단어 를 클릭했을때
         adapter.setDictionaryListCallBack(new DictionaryListCallBack() {
             @Override
@@ -364,7 +371,6 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
 
     @Override
     public void sendInfoData(String title, String option, int count) {
-        mb.dictInfoTitle.setText(title);
-        mb.dictInfoOption.setText(option);
+        mb.dictInfoHost.setText(title);
     }
 }
