@@ -263,7 +263,9 @@ public class LoginActivity extends AppCompatActivity {
                                         null,
                                         profileURL,
                                         null,
-                                        date
+                                        date,
+                                        "",
+                                        null
                                 )
                         );
                         // 셰어드 프리퍼런스에 계정 정보 저장
@@ -330,7 +332,9 @@ public class LoginActivity extends AppCompatActivity {
                                 user.getKakaoAccount().getBirthday(),
                                 user.getKakaoAccount().getProfile().getProfileImageUrl(),
                                 null,
-                                date
+                                date,
+                                "",
+                                null
                         ));
                         // 셰어드 프리퍼런스에 계정 정보 저장
                         SharedManger.saveData(Const.SHARED_USER_ID, id);

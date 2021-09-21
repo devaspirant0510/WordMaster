@@ -53,6 +53,7 @@ public class TestWaitingRoomFragment extends Fragment {
     private boolean testAvaliable = false;
     private long leftTime = 0;
     private LeftTimeThread thread;
+    private OnlineTestItem getItem;
 
     public void setOnWaitingRoomListener(SendDataToActivity listener) {
         this.listener = listener;
@@ -165,7 +166,8 @@ public class TestWaitingRoomFragment extends Fragment {
         mb.btnWaitingRoomViewMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                listener.onlineTest2testInfo(item);
+                activity.changeFragment(Const.TEST_WAITING_INFO);
 
             }
         });

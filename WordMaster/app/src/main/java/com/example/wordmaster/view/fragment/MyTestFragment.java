@@ -1,4 +1,4 @@
-package com.example.wordmaster.view.fragment.viewpager;
+package com.example.wordmaster.view.fragment;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,13 +17,13 @@ import androidx.fragment.app.Fragment;
 import com.example.wordmaster.Define.Const;
 import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.Define.Util;
-import com.example.wordmaster.view.activities.MainActivity;
 import com.example.wordmaster.adapter.OnlineTestAdapter;
 import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.databinding.FragmentMyTestBinding;
-import com.example.wordmaster.view.dialog.bottomsheet.WordTestSettingDialog;
 import com.example.wordmaster.model.firebase.UserTest;
 import com.example.wordmaster.model.recycler.OnlineTestItem;
+import com.example.wordmaster.view.activities.MainActivity;
+import com.example.wordmaster.view.dialog.bottomsheet.WordTestSettingDialog;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -64,6 +64,34 @@ public class MyTestFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         init();
+/*
+        Util.myRefUser.child(spUserId).child("userJoinTestId").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.e(TAG, "onDataChange: dddd "+snapshot );
+                String testRoomKey = String.valueOf(snapshot.getValue());
+                Log.e(TAG, "onDataChange: test"+testRoomKey );
+                for (int i = 0; i < adapter.getItemCount(); i++) {
+                    OnlineTestItem item = adapter.getItem(i);
+                    if(item.getTestRoomKey().equals(testRoomKey)){
+                        Log.e(TAG, "onDataChange: e"+testRoomKey );
+                        listener.onlineTest2testJoin(item);
+                        activity.changeFragment(Const.TEST_WAITING_ROOM);
+
+                    }
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+*/
         readDB();
     }
 
@@ -82,6 +110,7 @@ public class MyTestFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 listener.onlineTest2testJoin(item);
                 activity.changeFragment(Const.TEST_WAITING_ROOM);
+                Util.myRefUser.child(spUserId).child("userJoinTestId").setValue(item.getTestRoomKey());
                 Toast.makeText(getContext(),"테스트에 참가하였습니다.", Toast.LENGTH_SHORT).show();
 
 
@@ -144,7 +173,7 @@ public class MyTestFragment extends Fragment {
                             userTest.getRoomKey(),
                             userTest.getPassword(),
                             "fd",
-                            13,
+                            userTest.getMaxCount(),
                             userTest.getDescription(),
                             userTest.getStartTime(),
                             userTest.getEndTime(),
@@ -183,4 +212,9 @@ public class MyTestFragment extends Fragment {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mb = null;
+    }
 }

@@ -180,6 +180,7 @@ public class DictionaryInfoFragment extends Fragment implements DictionaryFragme
         mb.progressState.setText(adapter.getItemCount() + "/" + dictCount);
         mb.dictInfoProfileUrl.setBackground(new ShapeDrawable(new OvalShape()));
         Glide.with(getContext()).load(SharedManger.loadData(Const.SHARED_USER_PROFILE_URI,"")).into(mb.dictInfoProfileUrl);
+
         mb.dictInfoProfileUrl.setClipToOutline(true);
         mb.dictInfoHost.setText(SharedManger.loadData(Const.SHARED_USER_NAME,""));
         // 어댑터의 아이템 단어 를 클릭했을때

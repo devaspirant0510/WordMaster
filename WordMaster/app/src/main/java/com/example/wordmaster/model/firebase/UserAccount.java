@@ -7,15 +7,17 @@ import java.util.HashMap;
 
 @IgnoreExtraProperties
 public class UserAccount  {
-    String userName;
-    String userEmail;
-    String userGender;
-    String userAge;
-    String userBirth;
+    private String userName;
+    private String userEmail;
+    private String userGender;
+    private String userAge;
+    private String userBirth;
     private String userProfileUri;
-    String joinDate;
-    HashMap<String,HashMap<String,HashMap<String,Integer>>> activityHistory ;
-    HashMap<String,ArrayList<String>> userDownloadDict;
+    private String joinDate;
+    private String userComment;
+    private String userJoinTestId;
+    private HashMap<String,HashMap<String,HashMap<String,Integer>>> activityHistory ;
+    private HashMap<String,ArrayList<String>> userDownloadDict;
 
     public UserAccount(){
 
@@ -23,7 +25,8 @@ public class UserAccount  {
 
     public UserAccount(String userName, String userEmail, String userGender, String userAge,
                        String userBirth, String userProfileUri,
-                       HashMap<String, ArrayList<String>> userDownloadDict, String joinDate) {
+                       HashMap<String, ArrayList<String>> userDownloadDict, String joinDate,
+                       String userComment,String userJoinTestId) {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userGender = userGender;
@@ -32,6 +35,8 @@ public class UserAccount  {
         this.userProfileUri = userProfileUri;
         this.userDownloadDict = userDownloadDict;
         this.joinDate = joinDate;
+        this.userComment = userComment;
+        this.userJoinTestId = userJoinTestId;
     }
 
     public String getUserName() {
@@ -104,5 +109,13 @@ public class UserAccount  {
 
     public void setActivityHistory(HashMap<String, HashMap<String, HashMap<String, Integer>>> activityHistory) {
         this.activityHistory = activityHistory;
+    }
+
+    public String getUserComment() {
+        return userComment;
+    }
+
+    public void setUserComment(String userComment) {
+        this.userComment = userComment;
     }
 }
