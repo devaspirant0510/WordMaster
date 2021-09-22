@@ -22,11 +22,13 @@ import com.example.wordmaster.callback.SendDataToActivity;
 import com.example.wordmaster.databinding.FragmentMyTestBinding;
 import com.example.wordmaster.model.firebase.UserTest;
 import com.example.wordmaster.model.recycler.OnlineTestItem;
+import com.example.wordmaster.model.recycler.OnlineTestMemberItem;
 import com.example.wordmaster.view.activities.MainActivity;
 import com.example.wordmaster.view.dialog.bottomsheet.WordTestSettingDialog;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -102,6 +104,31 @@ public class MyTestFragment extends Fragment {
 
 
     }
+    private void addTestMember(OnlineTestItem item){
+        Util.myRefUser.child(spUserId).child("userJoinTestId").setValue(item.getTestRoomKey());
+        Util.myRefTest.child(item.getTestRoomKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                UserTest userTest = snapshot.getValue(UserTest.class);
+                if(userTest!=null){
+                    Util.myRefTest.child(item.getTestRoomKey()).child("memberList")
+                            .child(SharedManger.loadData(Const.SHARED_USER_ID,""))
+                            .setValue(new OnlineTestMemberItem(
+                                    SharedManger.loadData(Const.SHARED_USER_NAME,""),
+                                    SharedManger.loadData(Const.SHARED_USER_ID,""),
+                                    SharedManger.loadData(Const.SHARED_USER_PROFILE_URI,""),
+                                    " comment "));
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
     private void joinDialog(OnlineTestItem item){
         AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
         dialog.setTitle("참여하시겠습니까?");
@@ -110,7 +137,7 @@ public class MyTestFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 listener.onlineTest2testJoin(item);
                 activity.changeFragment(Const.TEST_WAITING_ROOM);
-                Util.myRefUser.child(spUserId).child("userJoinTestId").setValue(item.getTestRoomKey());
+                addTestMember(item);
                 Toast.makeText(getContext(),"테스트에 참가하였습니다.", Toast.LENGTH_SHORT).show();
 
 
