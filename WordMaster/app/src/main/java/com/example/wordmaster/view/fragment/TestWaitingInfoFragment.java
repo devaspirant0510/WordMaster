@@ -1,5 +1,7 @@
 package com.example.wordmaster.view.fragment;
 
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.example.wordmaster.Define.Const;
+import com.example.wordmaster.Define.SharedManger;
 import com.example.wordmaster.Define.Util;
 import com.example.wordmaster.adapter.OnlineTestMemberAdapter;
 import com.example.wordmaster.callback.SendDataToActivity;
@@ -62,7 +67,12 @@ public class TestWaitingInfoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         adapter = new OnlineTestMemberAdapter();
         mb.rvTestInfoMemberList.setAdapter(adapter);
+        mb.testInfoHostProfileUrl.setBackground(new ShapeDrawable(new OvalShape()));
+        mb.testInfoHostProfileUrl.setClipToOutline(true);
+        // TODO : 방장 프로필 사진으로  불러오기
+        Glide.with(getContext()).load(SharedManger.loadData(Const.SHARED_USER_PROFILE_URI,"")).into(mb.testInfoHostProfileUrl);
         readDB();
+
 
 
     }
@@ -72,9 +82,10 @@ public class TestWaitingInfoFragment extends Fragment {
             @Override
             public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
                 Log.e(TAG, "onChildAdded: "+snapshot );
-                OnlineTestMemberItem item = snapshot.getValue(OnlineTestMemberItem.class);
-                adapter.addItem(item);
+                OnlineTestMemberItem item1 = snapshot.getValue(OnlineTestMemberItem.class);
+                adapter.addItem(item1);
                 adapter.notifyItemInserted(adapter.getItemCount()-1);
+                mb.tvJoinUserStatus.setText(adapter.getItemCount()+"/"+item.getMaxCount()+"명");
 
             }
 

@@ -23,6 +23,7 @@
         android:id="@+id/my_test_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        tools:listitem="@layout/layout_item_online_test_private"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"

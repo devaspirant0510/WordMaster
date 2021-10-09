@@ -117,6 +117,7 @@ public class TestFragment extends Fragment {
                 Log.e(TAG, "onClick: "+answerArr.length+""+myArr.length );
                 Log.e(TAG, "onClick: "+testList.get(0).getEng() );
                 sendDataToActivity.sendTestResult(myTestMaxCount, myScore, myArr, answerArr, testList);
+
                 activity.changeFragment(Const.TEST_RESULT_FRAGMENT);
             }
         });

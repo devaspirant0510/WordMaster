@@ -61,4 +61,11 @@ dependencies {
     implementation 'com.kakao.sdk:usermgmt:1.27.0'
     // 글라이드
     implementation 'com.github.bumptech.glide:glide:4.12.0'
+    // room orm
+    def room_version ="2.3.0"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    testImplementation "androidx.room:room-testing:$room_version"
+
 }

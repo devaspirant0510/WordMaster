@@ -2,7 +2,7 @@ package com.example.wordmaster.model.firebase;
 
 import com.example.wordmaster.model.recycler.OnlineTestMemberItem;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * @author seungho
@@ -27,15 +27,16 @@ public class UserTest {
     private int type;
     private int userCount;
     private int maxCount;
-    private ArrayList<OnlineTestMemberItem> memberList;
+    private HashMap<String,OnlineTestMemberItem> memberList;
     private String testRoomKey;
+    private HashMap<String,UserTestRanking> userRanking;
     public UserTest(){
 
     }
 
     public UserTest(String title, String userId, String userName, String roomKey, String startTime,
                     String endTime,String password, String description,int option, int orderBy,
-                    int userCount,int type,int maxCount,ArrayList<OnlineTestMemberItem> memberList,
+                    int userCount,int type,int maxCount,HashMap<String,OnlineTestMemberItem> memberList,
                     String testRoomKey) {
         this.title = title;
         this.userId = userId;
@@ -158,11 +159,11 @@ public class UserTest {
         this.type = type;
     }
 
-    public ArrayList<OnlineTestMemberItem> getMemberList() {
+    public HashMap<String, OnlineTestMemberItem> getMemberList() {
         return memberList;
     }
 
-    public void setMemberList(ArrayList<OnlineTestMemberItem> memberList) {
+    public void setMemberList(HashMap<String, OnlineTestMemberItem> memberList) {
         this.memberList = memberList;
     }
 
@@ -172,5 +173,13 @@ public class UserTest {
 
     public void setTestRoomKey(String testRoomKey) {
         this.testRoomKey = testRoomKey;
+    }
+
+    public HashMap<String, UserTestRanking> getUserRanking() {
+        return userRanking;
+    }
+
+    public void setUserRanking(HashMap<String, UserTestRanking> userRanking) {
+        this.userRanking = userRanking;
     }
 }

@@ -33,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class WordTestSettingDialog extends BottomSheetDialogFragment implements DateTimeSettingDialog.DateTimeCallBack {
     private static final String TAG = "WordTestSettingDialog";
@@ -224,12 +225,14 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
                 SpinnerItem item = (SpinnerItem) mb.wordSpinner.getItemAtPosition(mb.wordSpinner.getSelectedItemPosition());
                 // 단어테스트 멤버 초기값으로 자기 자신을 추가
                 ArrayList<OnlineTestMemberItem> list = new ArrayList<>();
-                list.add(new OnlineTestMemberItem(
-                        SharedManger.loadData(Const.SHARED_USER_ID, ""),
+                HashMap<String,OnlineTestMemberItem> hashMap = new HashMap<>();
+                hashMap.put(SharedManger.loadData(Const.SHARED_USER_ID,""),new OnlineTestMemberItem(
                         SharedManger.loadData(Const.SHARED_USER_NAME, ""),
+                        SharedManger.loadData(Const.SHARED_USER_ID, ""),
                         SharedManger.loadData(Const.SHARED_USER_PROFILE_URI, ""),
                         "1등 할고야"
                 ));
+
                 mb.wordSpinner.getItemAtPosition(mb.wordSpinner.getSelectedItemPosition());
                 UserTest userTest = new UserTest(
                         mb.etOnlineTestName.getText().toString(),
@@ -245,7 +248,7 @@ public class WordTestSettingDialog extends BottomSheetDialogFragment implements 
                         Integer.parseInt(mb.etUserCount.getText().toString()),
                         rgTestType,
                         Integer.parseInt(item.getMaxCount()),
-                        list,
+                        hashMap,
                         roomKey);
 
                 pushRef.setValue(userTest);

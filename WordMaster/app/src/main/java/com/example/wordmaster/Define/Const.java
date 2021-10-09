@@ -63,6 +63,7 @@ public class Const {
     public static final String SHARED_USER_PROFILE_URI = "UserProfileUri";
     public static final String SHARED_USER_EMAIL = "UserEmail";
     public static final String SHARED_USER_JOIN_DATE = "UserJoinDate";
+    public static final String SHARED_USER_JOIN_TEST = "UserJoinTest";
 
     // ProfileFragment 활동기록
     public static final int ACTIVITY_GRID_NONE = 0;
