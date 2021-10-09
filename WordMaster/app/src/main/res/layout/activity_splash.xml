@@ -9,7 +9,7 @@
         android:id="@+id/tv_app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/korta_bold"
+        android:fontFamily="@font/font"
         android:text="Word Master"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
