@@ -1,5 +1,6 @@
 package com.example.wordmaster.model.entity;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -15,4 +16,9 @@ import androidx.room.PrimaryKey;
 public class UserJoinTest {
     @PrimaryKey
     private String userId;
+
+    @ColumnInfo
+    private String roomKey;
+
+
 }

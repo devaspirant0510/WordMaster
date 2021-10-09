@@ -29,6 +29,7 @@ public class UserTest {
     private int maxCount;
     private HashMap<String,OnlineTestMemberItem> memberList;
     private String testRoomKey;
+    private HashMap<String,UserTestRanking> userRanking;
     public UserTest(){
 
     }
@@ -172,5 +173,13 @@ public class UserTest {
 
     public void setTestRoomKey(String testRoomKey) {
         this.testRoomKey = testRoomKey;
+    }
+
+    public HashMap<String, UserTestRanking> getUserRanking() {
+        return userRanking;
+    }
+
+    public void setUserRanking(HashMap<String, UserTestRanking> userRanking) {
+        this.userRanking = userRanking;
     }
 }

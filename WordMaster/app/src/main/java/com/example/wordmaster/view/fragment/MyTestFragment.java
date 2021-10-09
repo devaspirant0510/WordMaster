@@ -65,7 +65,58 @@ public class MyTestFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        // 유저가 이미 테스트에 참가했을떄
+        String userTestRoomKey = SharedManger.loadData(Const.SHARED_USER_JOIN_TEST, "");
+        Log.e(TAG, "onViewCreated: ssssss"+userTestRoomKey);
+/*
+        if(!userTestRoomKey.equals("")){
+            Log.e(TAG, "onViewCreated: sdasadfh3947");
+            Util.myRefTest.child(userTestRoomKey).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Log.e(TAG, "onDataChange: ddd "+snapshot);
+                    UserTest userTest = snapshot.getValue(UserTest.class);
+                    if(userTest!=null){
+                        OnlineTestItem item = new OnlineTestItem(
+                                userTest.getTitle(),
+                                userTest.getUserName(),
+                                userTest.getUserId(),
+                                userTest.getRoomKey(),
+                                userTest.getPassword(),
+                                "fd",
+                                userTest.getMaxCount(),
+                                userTest.getDescription(),
+                                userTest.getStartTime(),
+                                userTest.getEndTime(),
+                                String.valueOf(userTest.getOption()),
+                                userTest.getUserCount(),
+                                userTest.getTestRoomKey(),
+                                userTest.getType());
+
+                        listener.onlineTest2testJoin(item);
+                        
+                        SharedManger.saveData(Const.SHARED_USER_JOIN_TEST,item.getTestRoomKey());
+
+                        activity.changeFragment(Const.TEST_WAITING_ROOM);
+                        Toast.makeText(getContext(),"테스트에 참가하였습니다.", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }else{
+            init();
+            readDB();
+        }
+*/
         init();
+        readDB();
 /*
         Util.myRefUser.child(spUserId).child("userJoinTestId").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -94,7 +145,6 @@ public class MyTestFragment extends Fragment {
             }
         });
 */
-        readDB();
     }
 
     @Nullable
@@ -102,8 +152,14 @@ public class MyTestFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return mb.getRoot();
 
-
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.e(TAG, "onDestroyView: ");
+    }
+
     private void addTestMember(OnlineTestItem item){
         Util.myRefUser.child(spUserId).child("userJoinTestId").setValue(item.getTestRoomKey());
         Util.myRefTest.child(item.getTestRoomKey()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -136,6 +192,8 @@ public class MyTestFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 listener.onlineTest2testJoin(item);
+                SharedManger.saveData(Const.SHARED_USER_JOIN_TEST,item.getTestRoomKey());
+
                 activity.changeFragment(Const.TEST_WAITING_ROOM);
                 addTestMember(item);
                 Toast.makeText(getContext(),"테스트에 참가하였습니다.", Toast.LENGTH_SHORT).show();
