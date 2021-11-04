@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">WordMaster</string>
+    <string name="home">홈</string>
+    <string name="dictionary">단어장</string>
+    <string name="profile">프로필</string>
+    <string name="test">시험</string>
+    <string name="search">찾기</string>
+    <string name="com_kakao_profile_nickname">nickname</string>
+    <string name="submit">제출</string>
 </resources>
