@@ -5,10 +5,10 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import dev.seh.wordmaster.R
-import dev.seh.wordmaster.UserRankingAdapter
 import dev.seh.wordmaster.base.BaseFragment
 import dev.seh.wordmaster.databinding.FragmentHomeBinding
 import dev.seh.wordmaster.repository.Repository
+import dev.seh.wordmaster.ui.recyclerview.adpater.UserRankingAdapter
 import dev.seh.wordmaster.viewmodel.HomeFragmentViewModel
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
