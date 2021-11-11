@@ -1,18 +1,30 @@
 package dev.seh.wordmaster.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import dev.seh.wordmaster.R
+import dev.seh.wordmaster.base.BaseActivity
 import dev.seh.wordmaster.databinding.ActivityLoginBinding
 
-class LoginActivity : AppCompatActivity() {
-    private lateinit var binding:ActivityLoginBinding
+class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         event();
     }
-    private fun event(){
+
+    private fun event() {
+        mBinding.btnKakaoLogin.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+
+        }
+        mBinding.btnGoogleLogin.setOnClickListener {
+
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
     }
 }

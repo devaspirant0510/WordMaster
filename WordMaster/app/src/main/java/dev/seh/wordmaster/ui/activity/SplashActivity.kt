@@ -4,16 +4,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import android.view.animation.AnimationUtils
 import dev.seh.wordmaster.R
+import dev.seh.wordmaster.base.BaseActivity
 import dev.seh.wordmaster.databinding.ActivitySplashBinding
 
-class SplashActivity : AppCompatActivity() {
-    private lateinit var binding:ActivitySplashBinding
+class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
+
+        val anim = AnimationUtils.loadAnimation(this,R.anim.splash_anim)
+        mBinding.tvAppName.animation = anim
+
         Handler(Looper.getMainLooper()).postDelayed(Runnable {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
