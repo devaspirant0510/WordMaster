@@ -1,0 +1,93 @@
+{
+  "project_info": {
+    "project_number": "1035033464779",
+    "firebase_url": "https://wordmaster-e68ea-default-rtdb.firebaseio.com",
+    "project_id": "wordmaster-e68ea",
+    "storage_bucket": "wordmaster-e68ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1035033464779:android:0979a5cb450e5c7fcc304e",
+        "android_client_info": {
+          "package_name": "com.example.wordmaster"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1035033464779-jh6cofm7qiqut6gnoin0tf1t2744l5c1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wordmaster",
+            "certificate_hash": "1ebb90f652b1d0fd8c723ee766204c4b01824d0a"
+          }
+        },
+        {
+          "client_id": "1035033464779-np2p63o3bgin2tqt334mbi4hj31usm0v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wordmaster",
+            "certificate_hash": "d2ea13ea8473b6dbf89b2c6227211bd0125f4498"
+          }
+        },
+        {
+          "client_id": "1035033464779-vmd9pm2fm04oathrl3u4hm4duc7k0rec.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wordmaster",
+            "certificate_hash": "33bac3fb870586a48df9d783e4468a3f0b6bca79"
+          }
+        },
+        {
+          "client_id": "1035033464779-cgl05d0o2u4deprh5b7mgi82gfvjkjfd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABx2qYMjZNP15lNSwAANp0ZhhHckTCaI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1035033464779-cgl05d0o2u4deprh5b7mgi82gfvjkjfd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1035033464779:android:b28ce760f92ec20fcc304e",
+        "android_client_info": {
+          "package_name": "dev.seh.wordmaster"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1035033464779-cgl05d0o2u4deprh5b7mgi82gfvjkjfd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABx2qYMjZNP15lNSwAANp0ZhhHckTCaI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1035033464779-cgl05d0o2u4deprh5b7mgi82gfvjkjfd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
