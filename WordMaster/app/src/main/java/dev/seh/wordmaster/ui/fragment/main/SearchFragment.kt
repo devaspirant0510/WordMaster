@@ -1,18 +1,13 @@
 package dev.seh.wordmaster.ui.fragment.main
 
-import androidx.fragment.app.Fragment
+import android.os.Bundle
+import android.view.View
+import dev.seh.wordmaster.R
+import dev.seh.wordmaster.base.BaseFragment
+import dev.seh.wordmaster.databinding.FragmentSearchBinding
 
-class SearchFragment :Fragment(){
-/*
-    private val mBinding by lazy {
-        FragmentSearchBinding.inflate(layoutInflater)
+class SearchFragment :BaseFragment<FragmentSearchBinding>(R.layout.fragment_search){
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return mBinding.root
-    }
-*/
 }

@@ -1,18 +1,9 @@
 package dev.seh.wordmaster.ui.fragment.main
 
-import androidx.fragment.app.Fragment
+import dev.seh.wordmaster.R
+import dev.seh.wordmaster.base.BaseFragment
+import dev.seh.wordmaster.databinding.FragmentDictionaryBinding
 
-class DictionaryFragment : Fragment(){
-/*
-    private val mBinding by lazy {
-        FragmentDictionaryBinding.inflate(layoutInflater)
-    }
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return mBinding.root
-    }
-*/
+class DictionaryFragment : BaseFragment<FragmentDictionaryBinding>(R.layout.fragment_dictionary){
+
 }
