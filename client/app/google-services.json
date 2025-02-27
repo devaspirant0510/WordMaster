@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1064469948000",
+    "project_id": "wordmasterv2",
+    "storage_bucket": "wordmasterv2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1064469948000:android:e7c9eccb8382812d74c505",
+        "android_client_info": {
+          "package_name": "ngod.project.wordmaster"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1064469948000-9tbsj21escsd623k5k94o1tinkgj8a0e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ngod.project.wordmaster",
+            "certificate_hash": "c1310a52f4f5c5af5b989126f487b1427f097bea"
+          }
+        },
+        {
+          "client_id": "1064469948000-p7sh19jul4k51jma93ffog1o898ikvoo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4vR0fbC1Sg62Ur9ILQffLBDKyJ6uRgRw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1064469948000-p7sh19jul4k51jma93ffog1o898ikvoo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
