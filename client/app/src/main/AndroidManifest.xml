@@ -52,7 +52,7 @@
         </service>
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-7226127582079421~2427661283"/>
+            android:value="@string/admob_app_id"/>
     </application>
 
 </manifest>

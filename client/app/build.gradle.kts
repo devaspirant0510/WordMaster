@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     id("com.google.gms.google-services")
@@ -7,6 +9,7 @@ android {
     buildFeatures {
         dataBinding = true
         viewBinding = true
+        buildConfig = true
     }
     namespace = "ngod.project.wordmaster"
     compileSdk = 35
@@ -19,6 +22,20 @@ android {
         versionName = "0.0.1-beta"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        defaultConfig {
+            val localProperties = Properties()
+            val localPropertiesFile = rootProject.file("local.properties")
+            if (localPropertiesFile.exists()) {
+                localProperties.load(localPropertiesFile.inputStream())
+            }
+            val admobBannerId = localProperties.getProperty("ADMOB_BANNER_ID", "")
+            buildConfigField("String", "ADMOB_BANNER_ID", "\"$admobBannerId\"")
+            resValue("string","admob_banner_id",admobBannerId)
+            val admobAppId = localProperties.getProperty("ADMOB_APP_ID","")
+            buildConfigField("String", "ADMOB_APP_ID", "\"$admobAppId\"")
+            resValue("string","admob_app_id",admobAppId)
+
+        }
     }
 
     buildTypes {

@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 
+import ngod.project.wordmaster.BuildConfig;
 import ngod.project.wordmaster.Define.Const;
 import ngod.project.wordmaster.R;
 import ngod.project.wordmaster.adapter.DictionaryViewPageAdapter;
@@ -41,6 +42,7 @@ import ngod.project.wordmaster.view.fragment.viewpager.MyDictionaryFragment;
 import ngod.project.wordmaster.view.fragment.viewpager.OtherDictionaryFragment;
 
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.jetbrains.annotations.NotNull;
@@ -73,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements SendDataToActivit
         setSupportActionBar(mb.toolBar);
         AdRequest adRequest = new AdRequest.Builder().build();
         mb.adView.loadAd(adRequest);
-        // 화면켰을때 처음화면은 홈화면으로
         changeFragment(Const.HOME_FRAGMENT);
         init();
     }
