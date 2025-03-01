@@ -108,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnGoogleLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(LoginActivity.this, "로그인 시도중...", Toast.LENGTH_SHORT).show();
                 setLoginGoogle();
             }
         });
