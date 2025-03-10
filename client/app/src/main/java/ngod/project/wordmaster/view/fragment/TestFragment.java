@@ -105,7 +105,7 @@ public class TestFragment extends Fragment {
         mb.btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myArr[currentIdx] = mb.etWordAnswer.getText().toString();
+                myArr[currentIdx] = mb.etWordAnswer1.getText().toString();
                 answerArr = answerList.toArray(new String[0]);
                 for (int i = 0; i < answerArr.length; i++) {
                     Log.e("s", answerArr[i] + " " + myArr[i]);
@@ -149,7 +149,7 @@ public class TestFragment extends Fragment {
         mb.ibNextWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myArr[currentIdx] = mb.etWordAnswer.getText().toString();
+                myArr[currentIdx] = mb.etWordAnswer1.getText().toString();
 //                mylist.add(mb.etWordAnswer.getText().toString());
 //                Log.e(TAG, "onClick: "+mb.etWordAnswer.getText().toString() );
 //                Log.e(TAG, "onClick: "+mylist );
@@ -159,7 +159,7 @@ public class TestFragment extends Fragment {
                 Log.e(TAG, "onClick: " + currentIdx);
                 showWord(currentIdx);
 
-                mb.etWordAnswer.setText("");
+                mb.etWordAnswer1.setText("");
 
 
             }
@@ -169,14 +169,14 @@ public class TestFragment extends Fragment {
         mb.ibPreviousWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myArr[currentIdx] = mb.etWordAnswer.getText().toString();
+                myArr[currentIdx] = mb.etWordAnswer1.getText().toString();
                 currentIdx -= 1;
                 mb.tvWordTestProgressText.setText((currentIdx + 1) + "/" + myTestMaxCount);
                 mb.pgWordTestProgress.setProgress(currentIdx + 1);
                 Toast.makeText(getContext(), currentIdx + "", Toast.LENGTH_SHORT).show();
                 showWord(currentIdx);
                 Log.e(TAG, "onClick: " + mylist);
-                mb.etWordAnswer.setText(myArr[currentIdx]);
+                mb.etWordAnswer1.setText(myArr[currentIdx]);
             }
         });
 

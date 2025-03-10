@@ -18,7 +18,7 @@ android {
         applicationId = "ngod.project.wordmaster"
         minSdk = 24
         targetSdk = 35
-        versionCode = 5
+        versionCode = 7
         versionName = "0.0.1-beta"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
